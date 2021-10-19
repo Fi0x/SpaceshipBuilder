@@ -1,54 +1,111 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class DragandDrop : MonoBehaviour{
-    // Start is called before the first frame update
-    private Vector3 spawnPos;
-    private Vector3 size;
-    private bool Colide;
+public class DragandDrop : MonoBehaviour
+{
+    
+    public GameObject[] part;
+    public GameObject closestPart;
+    public GameObject spaceship;
+    public GameObject inventory;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private bool InInventory;
+    private Vector3 Inpos;
+
+   //bad practice need change on full inventory implementation
+   private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("enter");
-        Colide = false;
+        InInventory = true;
+        Inpos = transform.position;
     }
-
+    
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Exit");
-        Colide = true;
+        InInventory = false;
     }
-    
-
     private void OnMouseDown()
     {
-        spawnPos = transform.position;
+        this.tag = "Part";
+        inventory = GameObject.Find("Inventory");
+        this.transform.SetParent(inventory.transform);
+        spaceship = GameObject.Find("Spaceship");
     }
 
-    
     void OnMouseDrag()
     {
         transform.position = GetMousePos();
     }
-
-    private void OnMouseUpAsButton()
+    private void OnMouseUp()
     {
-        Debug.Log("END");
-        if (Colide)
+        if(!InInventory){
+        GameObject otherbody = GetClosestEnemy();
+        Vector3 temp = (transform.position - otherbody.transform.position).normalized;
+        if (Math.Abs(temp.x) <= Math.Abs(temp.y))
         {
-            transform.position = spawnPos;
+            Debug.Log(("Y"));
+            if (temp.y > 0)
+            {
+                Debug.Log(("Y-"));
+                this.transform.position = new Vector3(otherbody.transform.position.x,
+                    otherbody.transform.position.y + transform.localScale.y);
+            }
+            else
+            {
+                Debug.Log(("Y+"));
+                this.transform.position = new Vector3(otherbody.transform.position.x,
+                    otherbody.transform.position.y - transform.localScale.y);
+            }
+        }
+        else
+        {
+            Debug.Log("X");
+            if (temp.x > 0) 
+            {
+                Debug.Log(("X+"));
+                this.transform.position = new Vector3(otherbody.transform.position.x+ transform.localScale.x,
+                    otherbody.transform.position.y);
+            }
+            else
+            {
+                Debug.Log(("X-"));
+                this.transform.position = new Vector3(otherbody.transform.position.x- transform.localScale.x,
+                    otherbody.transform.position.y);
+            }
+        }
+
+        this.tag = "Ship";
+        this.transform.SetParent(spaceship.transform);
+        }
+        else
+        {
+            transform.position = Inpos;
         }
     }
-
-    // Update is called once per frame
+    
     Vector3 GetMousePos()
     {
         var mousPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousPos.z = 0;
         return mousPos;
     }
+
+    GameObject GetClosestEnemy()
+    {
+        part = GameObject.FindGameObjectsWithTag("Ship");
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (GameObject temp in part)
+        {
+            Vector3 directionToTarget = temp.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                closestPart = temp;
+            }
+        }
+
+        return closestPart;
+    }
 }
+ 
