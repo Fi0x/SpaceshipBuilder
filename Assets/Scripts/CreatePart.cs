@@ -12,7 +12,7 @@ public class CreatePart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventory = GameObject.Find("Inventory");
+        inventory = GameObject.Find("Building");
 
         for (int i = 0; i < 10; i++)
         {
