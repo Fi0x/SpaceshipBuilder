@@ -9,19 +9,21 @@ public class Spaceship : MonoBehaviour
     public int AccelerationPerSecond = 100;
     public int MaxSpeed = 100;
     public int MaxAngle = 45;
+    public int TurnSpeed = 100;
 
     private float speed;
     private float horizontalOffset;
+    private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.alive)
+        if (gameManager.alive)
         {
             //Rotate
 
@@ -31,11 +33,11 @@ public class Spaceship : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.A))
             {
-                zAngle++;
+                zAngle+= TurnSpeed/100;
             }
             if (Input.GetKey(KeyCode.D))
             {
-                zAngle--;
+                zAngle-= TurnSpeed/100;
             }
             Vector2Int threshold = calcAngleThreshold();
             zAngle = Mathf.Clamp(zAngle, threshold.x, threshold.y);
@@ -49,7 +51,7 @@ public class Spaceship : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.alive)
+        if (gameManager.alive)
         {
             //Accelerate & Decelerate
 
@@ -77,7 +79,7 @@ public class Spaceship : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameManager.Instance.GameOver();
+        gameManager.GameOver();
     }
 
     private Vector2Int calcAngleThreshold()

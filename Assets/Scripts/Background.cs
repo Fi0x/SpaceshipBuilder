@@ -8,6 +8,7 @@ public class Background : MonoBehaviour
     private Spaceship spaceshipScript;
     private GameObject lowerTile;
     private GameObject upperTile;
+    private GameManager gameManager;
 
     public GameObject Tile1;
     public GameObject Tile2;
@@ -17,33 +18,37 @@ public class Background : MonoBehaviour
     {
         spaceship = GameObject.Find("Spaceship");
         spaceshipScript = spaceship.GetComponent<Spaceship>();
+        gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Tile1.transform.position.y < Tile2.transform.position.y)
+        if (gameManager.alive)
         {
-            lowerTile = Tile1;
-            upperTile = Tile2;
-        }
-        else {
-            lowerTile = Tile2;
-            upperTile = Tile1;
-        }
+            if (Tile1.transform.position.y < Tile2.transform.position.y)
+            {
+                lowerTile = Tile1;
+                upperTile = Tile2;
+            }
+            else
+            {
+                lowerTile = Tile2;
+                upperTile = Tile1;
+            }
 
-        lowerTile.transform.position += spaceshipScript.getDirection() * spaceshipScript.getSpeed() * Time.deltaTime;
-        Vector3 pos = lowerTile.transform.position;
-        float diff = pos.y + 61.46f;
-        if (pos.y <= -61.46f)
-        {
-            GameObject buffer = lowerTile;
-            lowerTile = upperTile;
-            upperTile = buffer;
-        }
-        upperTile.transform.position = lowerTile.transform.position + Vector3.up * 81.92f;
+            lowerTile.transform.position += spaceshipScript.getDirection() * spaceshipScript.getSpeed() * Time.deltaTime;
+            Vector3 pos = lowerTile.transform.position;
+            float diff = pos.y + 61.46f;
+            if (pos.y <= -61.46f)
+            {
+                GameObject buffer = lowerTile;
+                lowerTile = upperTile;
+                upperTile = buffer;
+            }
+            upperTile.transform.position = lowerTile.transform.position + Vector3.up * 81.92f;
 
-        spaceshipScript.HorizontalOffset(pos.x);    
+            spaceshipScript.HorizontalOffset(pos.x);
+        }
     }
-
 }
