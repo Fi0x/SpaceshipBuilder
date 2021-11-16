@@ -36,10 +36,10 @@ public class AsteroidBehaviour : MonoBehaviour
          * Velocity
          * Rotation
          */
+        this.transform.position += vel * time;
         if (gameManager.alive)
         {
             this.transform.position += gameManager.getBackgroundMovement() * time;
-            this.transform.position += vel * time;
             if (this.transform.position.y < -30)
             {
                 return true;

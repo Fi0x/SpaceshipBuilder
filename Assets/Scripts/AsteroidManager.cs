@@ -35,7 +35,7 @@ public class AsteroidManager : MonoBehaviour
     {
         for (int i = 0; i < Asteroids; i++)
         {
-            if (asteroids[i].GetComponent<AsteroidBehaviour>().Move(Time.deltaTime))
+            if (asteroids[i]!= null && asteroids[i].GetComponent<AsteroidBehaviour>().Move(Time.deltaTime))
             {
                 Destroy(asteroids[i]);
                 int type = (int)Random.Range(0, NumberOfPresets);

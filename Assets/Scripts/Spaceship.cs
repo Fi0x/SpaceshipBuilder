@@ -42,6 +42,14 @@ public class Spaceship : MonoBehaviour
             Vector2Int threshold = calcAngleThreshold();
             zAngle = Mathf.Clamp(zAngle, threshold.x, threshold.y);
             this.transform.rotation = Quaternion.AngleAxis(zAngle, Vector3.forward);
+
+            //Shoot
+            /* Do for every Weapon */
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GameObject projectile = Instantiate(gameManager.PrefabProjectile, this.transform.position, this.transform.rotation);
+                projectile.AddComponent(typeof(Projectile));
+            }
             
             
             //Debug.Log("Rotation" + zAngle);
@@ -79,7 +87,10 @@ public class Spaceship : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        gameManager.GameOver();
+        if (!collision.gameObject.name.Contains("Projectile"))
+        {
+            gameManager.GameOver();
+        }
     }
 
     private Vector2Int calcAngleThreshold()

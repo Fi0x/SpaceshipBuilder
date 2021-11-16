@@ -21,10 +21,13 @@ public class GameManager : MonoBehaviour
 
     public bool alive = true;
 
+    public GameObject PrefabProjectile; 
+
     private void Awake()
     {
         _instance = this;
         ship = GameObject.Find("Spaceship").GetComponent<Spaceship>();
+        PrefabProjectile = GameObject.Find("Projectile");
     }
 
     public void GameOver()
