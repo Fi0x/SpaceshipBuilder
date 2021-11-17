@@ -26,9 +26,10 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject incoming = collision.gameObject;
-        if (incoming.name != "Spaceship")
+        if (incoming.tag != "Ship")
         {
-            Destroy(incoming);
+            AsteroidBehaviour asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>() as AsteroidBehaviour;
+            asteroid.Init();
             Destroy(this.gameObject);
             Destroy(this);
 

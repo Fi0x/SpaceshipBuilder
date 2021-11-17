@@ -56,9 +56,11 @@
     <Compile Include="Assets\Scripts\AsteroidBehaviour.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Spaceship.cs" />
+    <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\AsteroidManager.cs" />
     <Compile Include="Assets\Scripts\Background.cs" />
-    <Compile Include="Assets\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Weapon.cs" />
+    <Compile Include="Assets\Scripts\SpaceshipPart.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\2D Space Kit\Backgrounds\Background Tip.txt" />
