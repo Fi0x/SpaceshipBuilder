@@ -546,7 +546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0da62f8596455a743824e72062344470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inventory: {fileID: 377937381}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -726,7 +725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc126fc7c730d46b6ca39cbe2a5405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxPrefab: {fileID: 16563288110627836, guid: f4a21b404ffbcc04b8385e35e9e58278, type: 3}
+  boxPrefab: {fileID: 4201675981297996760, guid: 303a8b9a0c9e7ae4886d479a5fe1e554, type: 3}
 --- !u!1 &1154172911
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,7 +995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc126fc7c730d46b6ca39cbe2a5405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxPrefab: {fileID: 16563288110627836, guid: f4a21b404ffbcc04b8385e35e9e58278, type: 3}
+  boxPrefab: {fileID: 8365831555668978806, guid: 5f9bb0543f8983840933b36c0afa2688, type: 3}
 --- !u!61 &1968274563
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1192,7 +1191,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1117032321
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.7169812, g: 0.043965846, b: 0.043965846, a: 1}
