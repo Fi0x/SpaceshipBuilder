@@ -4,31 +4,31 @@ using UnityEngine;
 public class DragandDrop : MonoBehaviour
 {
     
-    private GameObject[] _part;
-    private GameObject _closestPart;
-    private GameObject _spaceship;
-    private GameObject _inventory;
+    public GameObject[] part;
+    public GameObject closestPart;
+    public GameObject spaceship;
+    public GameObject inventory;
 
-    private bool _inInventory;
-    private Vector3 _inPos;
+    private bool InInventory;
+    private Vector3 Inpos;
 
    //bad practice need change on full inventory implementation
    private void OnTriggerStay2D(Collider2D other)
     {
-        _inInventory = true;
-        _inPos = transform.position;
+        InInventory = true;
+        Inpos = transform.position;
     }
     
     private void OnTriggerExit2D(Collider2D other)
     {
-        _inInventory = false;
+        InInventory = false;
     }
     private void OnMouseDown()
     {
         this.tag = "Part";
-        _inventory = GameObject.Find("Building");
-        this.transform.SetParent(_inventory.transform);
-        _spaceship = GameObject.Find("Spaceship");
+        inventory = GameObject.Find("Inventory");
+        this.transform.SetParent(inventory.transform);
+        spaceship = GameObject.Find("Spaceship");
     }
 
     void OnMouseDrag()
@@ -37,7 +37,7 @@ public class DragandDrop : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        if(!_inInventory){
+        if(!InInventory){
         GameObject otherbody = GetClosestEnemy();
         Vector3 temp = (transform.position - otherbody.transform.position).normalized;
         if (Math.Abs(temp.x) <= Math.Abs(temp.y))
@@ -74,11 +74,11 @@ public class DragandDrop : MonoBehaviour
         }
 
         this.tag = "Ship";
-        this.transform.SetParent(_spaceship.transform);
+        this.transform.SetParent(spaceship.transform);
         }
         else
         {
-            transform.position = _inPos;
+            transform.position = Inpos;
         }
     }
     
@@ -91,21 +91,21 @@ public class DragandDrop : MonoBehaviour
 
     GameObject GetClosestEnemy()
     {
-        _part = GameObject.FindGameObjectsWithTag("Ship");
+        part = GameObject.FindGameObjectsWithTag("Ship");
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
-        foreach (GameObject temp in _part)
+        foreach (GameObject temp in part)
         {
             Vector3 directionToTarget = temp.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr)
             {
                 closestDistanceSqr = dSqrToTarget;
-                _closestPart = temp;
+                closestPart = temp;
             }
         }
 
-        return _closestPart;
+        return closestPart;
     }
 }
  
