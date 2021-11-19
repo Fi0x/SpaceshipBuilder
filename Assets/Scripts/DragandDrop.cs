@@ -23,12 +23,16 @@ public class DragandDrop : MonoBehaviour
     {
         InInventory = false;
     }
+
+    private void Start()
+    {
+        spaceship = GameObject.Find("MainBody");
+        inventory = GameObject.Find("Inventory");
+    }
     private void OnMouseDown()
     {
         this.tag = "Part";
-        inventory = GameObject.Find("Inventory");
-        this.transform.SetParent(inventory.transform);
-        spaceship = GameObject.Find("Spaceship");
+        //this.transform.SetParent(inventory.transform);
     }
 
     void OnMouseDrag()

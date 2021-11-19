@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    GameManager gameManager;
-    private bool working = true;
+    private GameManager gameManager;
+    private bool working = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,5 +27,9 @@ public class Weapon : MonoBehaviour
     public void Disable()
     {
         working = false;
+    }
+    public void Enable()
+    {
+        working = true;
     }
 }

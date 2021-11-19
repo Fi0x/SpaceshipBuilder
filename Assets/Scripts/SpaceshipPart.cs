@@ -24,8 +24,9 @@ public class SpaceshipPart : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag != "Ship" && collision.gameObject.tag != "Projectile")
+        if (collision.gameObject.tag != "Ship" && collision.gameObject.tag != "Projectile" && gameManager.alive)
         {
+            Debug.Log((collision.gameObject.tag) + " " + (collision.gameObject.tag != "Projectile") + " " + gameManager.alive);
             this.drift = true;
             foreach(Weapon script in this.gameObject.GetComponentsInChildren<Weapon>())
             {

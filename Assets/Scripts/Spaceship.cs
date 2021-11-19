@@ -18,6 +18,7 @@ public class Spaceship : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.Instance;
+        gameManager.initShip();
     }
 
     // Update is called once per frame
@@ -79,6 +80,7 @@ public class Spaceship : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Collision!");
         if (!collision.gameObject.name.Contains("Projectile") && collision.gameObject.tag != "Ship")
         {
             gameManager.GameOver();

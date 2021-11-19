@@ -18,21 +18,34 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
-
-    public bool alive = true;
-
     public GameObject PrefabProjectile; 
+    //[HideInInspector]
+    public bool alive = false;
+
 
     private void Awake()
     {
         _instance = this;
         ship = GameObject.Find("Spaceship").GetComponent<Spaceship>();
-        PrefabProjectile = GameObject.Find("Projectile");
     }
 
     public void GameOver()
     {
-        alive = false;
+        if (alive)
+        {
+            Debug.Log("Game Over!");
+            alive = false;
+        }
+    }
+
+    public void startGame()
+    {
+        alive = true;
+        Debug.Log("Game Started");
+    }
+    public void initShip()
+    {
+        ship = GameObject.Find("Spaceship").GetComponent<Spaceship>();
     }
 
     public float getShipSpeed()
