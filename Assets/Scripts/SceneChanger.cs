@@ -18,6 +18,11 @@ public class SceneChanger : MonoBehaviour
         this.ChangeScene();
     }
 
+    public void QuitButtonClicked()
+    {
+        Application.Quit();
+    }
+
     public void ChangeScene()
     {
         var currentScene = SceneManager.GetActiveScene().name;
