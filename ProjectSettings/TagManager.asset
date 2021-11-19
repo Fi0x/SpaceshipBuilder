@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Part
   - Ship
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Foreground
+  - Background
   - 
   - 
   - 
@@ -45,6 +46,15 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 291715091
+    locked: 0
+  - name: Asteroids
+    uniqueID: 3615416047
+    locked: 0
+  - name: Projectiles
+    uniqueID: 3962058965
+    locked: 0
+  - name: Spaceship
+    uniqueID: 900917387
     locked: 0
   - name: Foreground
     uniqueID: 3177934975
