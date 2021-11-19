@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,11 +29,12 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (alive)
-        {
-            Debug.Log("Game Over!");
-            alive = false;
-        }
+        if (!this.alive)
+            return;
+        
+        Debug.Log("Game Over!");
+        this.alive = false;
+        SceneChanger.Instance.ChangeScene();
     }
 
     public void startGame()

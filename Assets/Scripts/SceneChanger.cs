@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,30 +5,40 @@ public class SceneChanger : MonoBehaviour
 {
     [SerializeField] private GameObject ship;
 
-    public static GameObject Ship;
-    public void StartButtonClicked()
+    private static SceneChanger _instance;
+    public static SceneChanger Instance => _instance;
+
+    private void Start()
     {
-        this.SaveShip();
-        this.ChangeScene();
+        _instance = this;
     }
 
-    public void SaveShip()
+    public void StartButtonClicked()
     {
-        Ship = this.ship;
+        this.ChangeScene();
     }
 
     public void ChangeScene()
     {
-        GameObject gameManager = GameObject.Find("GameManager");
-        GameManager gameManagerScript = gameManager.GetComponent<GameManager>();
+        var currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene.Equals("FlyingScene"))
+        {
+            Destroy(GameObject.Find("GameManager"));
+            Destroy(this.ship);
+            SceneManager.LoadScene("BuildingScene");
+            return;
+        }
+        
+        var gameManager = GameObject.Find("GameManager");
+        var gameManagerScript = gameManager.GetComponent<GameManager>();
         gameManagerScript.startGame();
         DontDestroyOnLoad(gameManager);
-        DontDestroyOnLoad(ship);
+        DontDestroyOnLoad(this.ship);
         // Activate Ship
-        ship.transform.position = new Vector3(0, -10, 0);
-        ship.AddComponent(typeof(Spaceship));
-        ship.transform.localScale = Vector3.one * 2;
-        foreach (Weapon script in ship.GetComponentsInChildren<Weapon>())
+        this.ship.transform.position = new Vector3(0, -10, 0);
+        this.ship.AddComponent(typeof(Spaceship));
+        this.ship.transform.localScale = Vector3.one * 2;
+        foreach (var script in this.ship.GetComponentsInChildren<Weapon>())
         {
             script.Enable();
             Debug.Log("Enabling Weapon");
