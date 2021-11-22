@@ -1,22 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AsteroidBehaviour : MonoBehaviour
 {
-    private GameManager gameManager;
-    private Vector3 vel;
-    // Start is called before the first frame update
-    void Start()
-    {
-        gameManager = GameManager.Instance;
+    [SerializeField] private float maxSpeed = 10;
 
-    }
+    private GameManager _gameManager;
+    private Vector3 _vel;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        this._gameManager = GameManager.Instance;
+        GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
     }
 
     public void Init()
@@ -25,9 +20,9 @@ public class AsteroidBehaviour : MonoBehaviour
          * Velocity
          * Rotation
          */
-        Vector3 newPos = new Vector3(Random.Range(-120,120), 50, 0);
+        var newPos = new Vector3(Random.Range(-120, 120), 50, 0);
         this.transform.position = newPos;
-        vel = new Vector3(Random.Range(-20,20), Random.Range(-20,0), 0);
+        this._vel = new Vector3(Random.Range(-this.maxSpeed, this.maxSpeed), Random.Range(-this.maxSpeed, 0), 0);
     }
 
     public bool Move(float time)
@@ -36,16 +31,17 @@ public class AsteroidBehaviour : MonoBehaviour
          * Velocity
          * Rotation
          */
-        this.transform.position += vel * time;
-        if (gameManager.alive)
-        {
-            this.transform.position += gameManager.getBackgroundMovement() * time;
-            if (this.transform.position.y < -30)
-            {
-                return true;
-            }
+        this.transform.position += this._vel * time;
+        if (!this._gameManager.Alive)
             return false;
-        }
-        return false;
+
+        this.transform.position += this._gameManager.GetBackgroundMovement() * time;
+
+        return this.transform.position.y < -30;
+    }
+
+    private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
+    {
+        this._gameManager = args.NewInstance;
     }
 }

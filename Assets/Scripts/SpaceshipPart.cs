@@ -1,44 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpaceshipPart : MonoBehaviour
 {
     [HideInInspector]
     public bool drift;
-    private GameManager gameManager;
-    // Start is called before the first frame update
-    void Start()
+    private GameManager _gameManager;
+    public void Start()
     {
-        gameManager = GameManager.Instance;
+        this._gameManager = GameManager.Instance;
+        GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        if (drift)
-        {
-            this.transform.position += gameManager.getBackgroundMovement() * Time.deltaTime;
-        }
+        if (this.drift)
+            this.transform.position += this._gameManager.GetBackgroundMovement() * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag != "Ship" && collision.gameObject.tag != "Projectile" && gameManager.alive)
+        switch (collision.gameObject.tag)
         {
-            Debug.Log((collision.gameObject.tag) + " " + (collision.gameObject.tag != "Projectile") + " " + gameManager.alive);
-            this.drift = true;
-            foreach(Weapon script in this.gameObject.GetComponentsInChildren<Weapon>())
-            {
-                script.Disable();
-            }
-            this.transform.parent = null;
-            AsteroidBehaviour asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>() as AsteroidBehaviour;
-            if (asteroid != null)
-            {
-                asteroid.Init();
-            }
+            case "Ship":
+            case "Projectile":
+                return;
         }
+        if(!this._gameManager.Alive)
+            return;
+        
+        this.drift = true;
+        foreach (var script in this.gameObject.GetComponentsInChildren<Weapon>())
+            script.Working = false;
+        
+        this.transform.parent = null;
+        var asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>();
+        if (asteroid != null)
+            asteroid.Init();
     }
 
+    private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
+    {
+        this._gameManager = args.NewInstance;
+    }
 }

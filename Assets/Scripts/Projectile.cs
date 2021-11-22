@@ -4,35 +4,40 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Vector3 dir;
-    GameManager gameManager;
-    // Start is called before the first frame update
-    void Start()
+    private Vector3 _dir;
+    private GameManager _gameManager;
+    private void Start()
     {
-        gameManager = GameManager.Instance;
-        dir = gameManager.getShipDirection();
+        this._gameManager = GameManager.Instance;
+        GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
+        if(this._gameManager != null)
+            this._dir = this._gameManager.ShipScript.GetDirection();
      
         Destroy(this.gameObject, 3f);
         Destroy(this, 3f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        this.transform.position += gameManager.getBackgroundMovement() * Time.deltaTime;
-        this.transform.position += dir* -1 * (gameManager.getShipSpeed()+100) * Time.deltaTime;
+        this.transform.position += this._gameManager.GetBackgroundMovement() * Time.deltaTime;
+        this.transform.position += this._dir* -1 * (this._gameManager.ShipScript.Speed+100) * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameObject incoming = collision.gameObject;
-        if (incoming.tag != "Ship")
-        {
-            AsteroidBehaviour asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>() as AsteroidBehaviour;
-            asteroid.Init();
-            Destroy(this.gameObject);
-            Destroy(this);
+        var incoming = collision.gameObject;
+        if(incoming.tag.Equals("Ship"))
+            return;
+        
+        var asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>();
+        asteroid.Init();
+        Destroy(this.gameObject);
+        Destroy(this);
+    }
 
-        }
+    private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
+    {
+        this._gameManager = args.NewInstance;
+        this._dir = this._gameManager.ShipScript.GetDirection();
     }
 }

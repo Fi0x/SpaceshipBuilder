@@ -8,35 +8,33 @@ public class CreatePart : MonoBehaviour
 {
     public GameObject boxPrefab;
 
-    private GameObject inventory;
-    // Start is called before the first frame update
-    void Start()
+    private GameObject _inventory;
+    private void Start()
     {
-        inventory = this.gameObject.transform.parent.gameObject;
+        this._inventory = this.gameObject.transform.parent.gameObject;
 
-        for (int i = 0; i < 10; i++)
+        for (var i = 0; i < 10; i++)
         {
-          CreateBox();
+          this.CreateBox();
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            CreateBox();
+            this.CreateBox();
         }
     }
 
     private void OnMouseDown()
     {
-        CreateBox();
+        this.CreateBox();
     }
 
     private void CreateBox()
     {
-        GameObject a = Instantiate(boxPrefab, inventory.transform, true) as GameObject;
-        a.transform.position = transform.position;
+        var a = Instantiate(this.boxPrefab, this._inventory.transform, true);
+        a.transform.position = this.transform.position;
     }
 }

@@ -1,10 +1,16 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject prefabProjectile;
+    public static event EventHandler<NewGameManagerEventArgs> GameManagerInstantiatedEvent;
+    
+    public GameObject Ship { get; set; }
+    public Spaceship ShipScript { get; set; }
+    public bool Alive { get; private set; }
     private static GameManager _instance;
-    private Spaceship ship;
     public static GameManager Instance
     {
         get
@@ -15,65 +21,59 @@ public class GameManager : MonoBehaviour
             }
             return _instance;
         }
+        private set
+        {
+            _instance = value;
+            var args = new NewGameManagerEventArgs { NewInstance = _instance};
+            GameManagerInstantiatedEvent?.Invoke(_instance, args);
+        }
     }
-    public GameObject PrefabProjectile; 
-    //[HideInInspector]
-    public bool alive = false;
-
 
     private void Awake()
     {
-        _instance = this;
-        ship = GameObject.Find("Spaceship").GetComponent<Spaceship>();
+        Debug.Log("Instance: " + this);
+        Instance = this;
     }
 
     public void GameOver()
     {
-        if (!this.alive)
+        if (!this.Alive)
             return;
         
         Debug.Log("Game Over!");
-        this.alive = false;
-        SceneChanger.Instance.ChangeScene();
+        this.Alive = false;
+        SceneChanger.Instance.LoadBuildingScene();
     }
 
-    public void startGame()
+    public void StartGame()
     {
-        alive = true;
+        this.Alive = true;
         Debug.Log("Game Started");
     }
-    public void initShip()
+    public void InitShip(GameObject ship)
     {
-        ship = GameObject.Find("Spaceship").GetComponent<Spaceship>();
+        this.Ship = ship;
+        this.ShipScript = ship.GetComponent<Spaceship>();
     }
 
-    public float getShipSpeed()
+    public Vector3 GetBackgroundMovement()
     {
-        return ship.getSpeed();
+        return this.ShipScript.Speed * this.ShipScript.GetDirection();
     }
 
-    public Vector3 getShipDirection()
+    private void Update()
     {
-        return ship.getDirection();
-    }
-
-    public Vector3 getBackgroundMovement()
-    {
-        return ship.getSpeed() * ship.getDirection();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
+        if(this.Alive)
+            return;
+        if (!Input.GetKeyDown(KeyCode.R))
+            return;
         
+        var scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 
-    // Update is called once per frame
-    void Update()
+    public class NewGameManagerEventArgs : EventArgs
     {
-        if(Input.GetKeyDown(KeyCode.R) && !alive){
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
-        }
+        public GameManager NewInstance;
     }
 }

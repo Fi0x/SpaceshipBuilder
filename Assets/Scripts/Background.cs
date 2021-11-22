@@ -1,54 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    private GameObject spaceship;
-    private Spaceship spaceshipScript;
-    private GameObject lowerTile;
-    private GameObject upperTile;
-    private GameManager gameManager;
+    private GameObject _spaceship;
+    private Spaceship _spaceshipScript;
+    private GameObject _lowerTile;
+    private GameObject _upperTile;
+    private GameManager _gameManager;
 
-    public GameObject Tile1;
-    public GameObject Tile2;
+    public GameObject tile1;
+    public GameObject tile2;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        spaceship = GameObject.Find("Spaceship");
-        spaceshipScript = spaceship.GetComponent<Spaceship>();
-        gameManager = GameManager.Instance;
+        this._spaceship = GameObject.Find("Spaceship(Clone)");
+        this._spaceshipScript = this._spaceship.GetComponent<Spaceship>();
+        this._gameManager = GameManager.Instance;
+        GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        if (gameManager.alive)
+        if (!this._gameManager.Alive)
+            return;
+        
+        if (this.tile1.transform.position.y < this.tile2.transform.position.y)
         {
-            if (Tile1.transform.position.y < Tile2.transform.position.y)
-            {
-                lowerTile = Tile1;
-                upperTile = Tile2;
-            }
-            else
-            {
-                lowerTile = Tile2;
-                upperTile = Tile1;
-            }
-
-            lowerTile.transform.position += spaceshipScript.getDirection() * spaceshipScript.getSpeed() * Time.deltaTime;
-            Vector3 pos = lowerTile.transform.position;
-            float diff = pos.y + 61.46f;
-            if (pos.y <= -61.46f)
-            {
-                GameObject buffer = lowerTile;
-                lowerTile = upperTile;
-                upperTile = buffer;
-            }
-            upperTile.transform.position = lowerTile.transform.position + Vector3.up * 81.92f;
-
-            spaceshipScript.HorizontalOffset(pos.x);
+            this._lowerTile = this.tile1;
+            this._upperTile = this.tile2;
         }
+        else
+        {
+            this._lowerTile = this.tile2;
+            this._upperTile = this.tile1;
+        }
+
+        this._lowerTile.transform.position += this._spaceshipScript.GetDirection() * this._spaceshipScript.Speed * Time.deltaTime;
+        var pos = this._lowerTile.transform.position;
+        if (pos.y <= -61.46f)
+        {
+            var buffer = this._lowerTile;
+            this._lowerTile = this._upperTile;
+            this._upperTile = buffer;
+        }
+        this._upperTile.transform.position = this._lowerTile.transform.position + Vector3.up * 81.92f;
+
+        this._spaceshipScript.HorizontalOffset(pos.x);
+    }
+
+    private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
+    {
+        this._gameManager = args.NewInstance;
     }
 }

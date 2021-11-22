@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\AsteroidManager.cs" />
      <Compile Include="Assets\Scripts\CreatePart.cs" />
      <Compile Include="Assets\Scripts\Background.cs" />
+     <Compile Include="Assets\Scripts\Startup.cs" />
      <None Include="Assets\2D Space Kit\Backgrounds\Background Tip.txt" />
      <None Include="Assets\2D Space Kit\Readme.txt" />
      <None Include="Assets\2D Space Kit\Background Elements\Planets\Planet Masks\Note.txt" />

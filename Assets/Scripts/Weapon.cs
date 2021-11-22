@@ -1,35 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    private GameManager gameManager;
-    private bool working = false;
-    // Start is called before the first frame update
-    void Start()
+    private GameManager _gameManager;
+    public bool Working { get; set; }
+    
+    private void Start()
     {
-        gameManager = GameManager.Instance;
+        this._gameManager = GameManager.Instance;
+        GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (!this.gameObject.GetComponent<SpaceshipPart>().drift && working) {
+        if(this.gameObject.GetComponent<SpaceshipPart>().drift)
+            return;
+        if (!this.Working)
+            return;
+        {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                GameObject projectile = Instantiate(gameManager.PrefabProjectile, this.transform.position, this.transform.rotation);
+                GameObject projectile = Instantiate(this._gameManager.prefabProjectile, this.transform.position, this.transform.rotation);
                 projectile.AddComponent(typeof(Projectile));
             }
         }
     }
 
-    public void Disable()
+    private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
     {
-        working = false;
-    }
-    public void Enable()
-    {
-        working = true;
+        this._gameManager = args.NewInstance;
     }
 }
