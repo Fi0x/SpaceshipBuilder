@@ -1,12 +1,11 @@
+using Unity.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class AsteroidBehaviour : MonoBehaviour
 {
-    [SerializeField] private float maxSpeed = 10;
-
     private GameManager _gameManager;
-    private Vector3 _vel;
+    [SerializeField, ReadOnly] private Vector3 vel;
 
     private void Start()
     {
@@ -16,13 +15,18 @@ public class AsteroidBehaviour : MonoBehaviour
 
     public void Init()
     {
+        this._gameManager = GameManager.Instance;
+        
         /* Position
          * Velocity
          * Rotation
          */
         var newPos = new Vector3(Random.Range(-120, 120), 50, 0);
         this.transform.position = newPos;
-        this._vel = new Vector3(Random.Range(-this.maxSpeed, this.maxSpeed), Random.Range(-this.maxSpeed, 0), 0);
+        this.vel = new Vector3(
+            Random.Range(-this._gameManager.asteroidMaxSpeed, this._gameManager.asteroidMaxSpeed),
+            Random.Range(-this._gameManager.asteroidMaxSpeed, 0),
+            0);
     }
 
     public bool Move(float time)
@@ -31,7 +35,7 @@ public class AsteroidBehaviour : MonoBehaviour
          * Velocity
          * Rotation
          */
-        this.transform.position += this._vel * time;
+        this.transform.position += this.vel * time;
         if (!this._gameManager.Alive)
             return false;
 

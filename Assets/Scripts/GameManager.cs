@@ -4,7 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public float asteroidMaxSpeed = 10;
     public GameObject prefabProjectile;
+    
     public static event EventHandler<NewGameManagerEventArgs> GameManagerInstantiatedEvent;
     
     public GameObject Ship { get; set; }
