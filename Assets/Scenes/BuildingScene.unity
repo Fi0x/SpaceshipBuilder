@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc126fc7c730d46b6ca39cbe2a5405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxPrefab: {fileID: 4201675981297996760, guid: 303a8b9a0c9e7ae4886d479a5fe1e554, type: 3}
+  boxPrefab: {fileID: 8365831555668978806, guid: 5fdee65fb15cf48468829f63b26f3635, type: 3}
 --- !u!61 &148360718
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -824,7 +824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937bf96f3e6643846ade9786d54f5d97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 0}
 --- !u!114 &1154172913
 MonoBehaviour:
   m_ObjectHideFlags: 0

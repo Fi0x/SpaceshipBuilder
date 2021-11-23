@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Instance: " + this);
         Instance = this;
     }
 
@@ -44,7 +43,7 @@ public class GameManager : MonoBehaviour
         
         Debug.Log("Game Over!");
         this.Alive = false;
-        SceneChanger.Instance.LoadBuildingScene();
+        SceneChanger.LoadBuildingScene();
     }
 
     public void StartGame()

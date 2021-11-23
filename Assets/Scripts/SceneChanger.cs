@@ -1,3 +1,4 @@
+using Parts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,11 +11,11 @@ public class SceneChanger : MonoBehaviour
         Instance = this;
     }
 
-    public void LoadBuildingScene()
+    public static void LoadBuildingScene()
     {
         var gameManager = GameObject.Find("GameManager(Clone)");
         var gameManagerScript = gameManager.GetComponent<GameManager>();
-        Destroy(gameManagerScript.Ship);
+        gameManagerScript.Ship.GetComponent<Spaceship>().ResetShip();
         SceneManager.LoadScene("BuildingScene");
     }
 
@@ -33,6 +34,12 @@ public class SceneChanger : MonoBehaviour
         
         foreach (var script in gameManagerScript.Ship.GetComponentsInChildren<Weapon>())
             script.Working = true;
+
+        foreach (var script in gameManagerScript.Ship.GetComponentsInChildren<Thruster>())
+        {
+            gameManagerScript.ShipScript.maxSpeed += Thruster.SpeedIncrease;
+            script.ThrusterDestroyedEvent += gameManagerScript.ShipScript.ThrusterDestroyedEventHandler;
+        }
         
         SceneManager.LoadScene("FlyingScene");
     }
