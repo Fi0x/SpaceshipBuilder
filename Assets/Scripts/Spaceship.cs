@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Spaceship : MonoBehaviour
 {
-    public int accelerationPerSecond = 100;
-    public int maxSpeed = 100;
+    public float accelerationPerSecond = 100;
+    public const int MaxSpeed = 20;
+    public int currentMaxSpeed = 20;
     public int maxAngle = 45;
     public int turnSpeed = 100;
 
@@ -67,8 +68,8 @@ public class Spaceship : MonoBehaviour
         else if (Input.GetKey(KeyCode.S))
             this.Speed -= this.accelerationPerSecond / 60;
         
-        if (this.Speed > this.maxSpeed)
-            this.Speed = this.maxSpeed;
+        if (this.Speed > this.currentMaxSpeed)
+            this.Speed = this.currentMaxSpeed;
         if (this.Speed < 10)
             this.Speed = 10;
     }
@@ -119,7 +120,7 @@ public class Spaceship : MonoBehaviour
             thruster.ThrusterDestroyedEvent -= this.ThrusterDestroyedEventHandler;
         else 
             return;
-        this.maxSpeed -= Thruster.SpeedIncrease;
+        this.currentMaxSpeed -= Thruster.SpeedIncrease;
     }
 
     private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)

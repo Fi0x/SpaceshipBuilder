@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d3ec13b2b30e346b4e9d4926eaa391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelerationPerSecond: 100
-  maxSpeed: 20
+  accelerationPerSecond: 50
+  currentMaxSpeed: 50
   maxAngle: 45
   turnSpeed: 200
 --- !u!114 &7087007523427068335

@@ -29,7 +29,6 @@ public class SceneChanger : MonoBehaviour
         
         // Activate Ship
         gameManagerScript.Ship.transform.position = new Vector3(0, -10, 0);
-        gameManagerScript.Ship.AddComponent(typeof(Spaceship));
         gameManagerScript.Ship.transform.localScale = Vector3.one * 2;
         
         foreach (var script in gameManagerScript.Ship.GetComponentsInChildren<Weapon>())
@@ -37,7 +36,7 @@ public class SceneChanger : MonoBehaviour
 
         foreach (var script in gameManagerScript.Ship.GetComponentsInChildren<Thruster>())
         {
-            gameManagerScript.ShipScript.maxSpeed += Thruster.SpeedIncrease;
+            gameManagerScript.ShipScript.currentMaxSpeed += Thruster.SpeedIncrease;
             script.ThrusterDestroyedEvent += gameManagerScript.ShipScript.ThrusterDestroyedEventHandler;
         }
         

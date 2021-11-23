@@ -5,7 +5,7 @@ namespace Parts
 {
     public class Thruster : MonoBehaviour
     {
-        public const int SpeedIncrease = 50;
+        public static readonly int SpeedIncrease = Spaceship.MaxSpeed / 4;
         public event EventHandler ThrusterDestroyedEvent;
 
         private void OnCollisionEnter2D(Collision2D collision)
