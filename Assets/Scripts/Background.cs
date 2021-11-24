@@ -1,3 +1,4 @@
+using Control;
 using UnityEngine;
 
 public class Background : MonoBehaviour
