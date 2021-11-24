@@ -1,119 +1,130 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Parts;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Spaceship : MonoBehaviour
 {
-    private int zAngle = 0;
-    public int AccelerationPerSecond = 100;
-    public int MaxSpeed = 100;
-    public int MaxAngle = 45;
-    public int TurnSpeed = 100;
+    public float accelerationPerSecond = 100;
+    public const int MaxSpeed = 20;
+    public int currentMaxSpeed = 20;
+    public int maxAngle = 45;
+    public int turnSpeed = 100;
 
-    private float speed;
-    private float horizontalOffset;
-    private GameManager gameManager;
-    // Start is called before the first frame update
-    void Start()
+    private int _zAngle;
+    private float _horizontalOffset;
+
+    private GameManager _gameManager;
+    private GameManager GameManagerInstance
     {
-        gameManager = GameManager.Instance;
-        gameManager.initShip();
+        get => this._gameManager;
+        set
+        {
+            this._gameManager = value;
+            
+            if(this._gameManager != null)
+                this._gameManager.InitShip(this.gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (gameManager.alive)
-        {
-            //Rotate
+    public float Speed { get; private set; }
 
-            if (zAngle == 360 && zAngle == -360)
-            {
-                zAngle = 0;
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                zAngle+= TurnSpeed/100;
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                zAngle-= TurnSpeed/100;
-            }
-            Vector2Int threshold = calcAngleThreshold();
-            zAngle = Mathf.Clamp(zAngle, threshold.x, threshold.y);
-            this.transform.rotation = Quaternion.AngleAxis(zAngle, Vector3.forward);
-          
-            
-            //Debug.Log("Rotation" + zAngle);
-            
-        }
+    private void Start()
+    {
+        this.GameManagerInstance = GameManager.Instance;
+        GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
     }
 
     private void FixedUpdate()
     {
-        if (gameManager.alive)
-        {
-            //Accelerate & Decelerate
+        if (!this.GameManagerInstance.Alive)
+            return;
+        
+        this.UpdateRotation();
+        this.UpdateSpeed();
+    }
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                speed += AccelerationPerSecond / 60;
-                if (speed > MaxSpeed)
-                {
-                    speed = MaxSpeed;
-                }
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                speed -= AccelerationPerSecond / 60;
-                if (speed < 10)
-                {
-                    speed = 10;
-                }
-            }
+    private void UpdateRotation()
+    {
+        //Rotate
+        if (this._zAngle == 360 && this._zAngle == -360)
+            this._zAngle = 0;
 
-            //Debug.Log("Speed:" + speed);
-            //Debug.Log("Horizontal: " + horizontalOffset);
-        }
+        if (Input.GetKey(KeyCode.A))
+            this._zAngle += this.turnSpeed / 60;
+        
+        if (Input.GetKey(KeyCode.D))
+            this._zAngle -= this.turnSpeed / 60;
+
+        var threshold = this.CalcAngleThreshold();
+        this._zAngle = Mathf.Clamp(this._zAngle, threshold.x, threshold.y);
+        this.transform.rotation = Quaternion.AngleAxis(this._zAngle, Vector3.forward);
+    }
+
+    private void UpdateSpeed()
+    {
+        //Adjust speed
+        if (Input.GetKey(KeyCode.W))
+            this.Speed += this.accelerationPerSecond / 60;
+        else if (Input.GetKey(KeyCode.S))
+            this.Speed -= this.accelerationPerSecond / 60;
+        
+        if (this.Speed > this.currentMaxSpeed)
+            this.Speed = this.currentMaxSpeed;
+        if (this.Speed < 10)
+            this.Speed = 10;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision!");
-        if (!collision.gameObject.name.Contains("Projectile") && collision.gameObject.tag != "Ship")
-        {
-            gameManager.GameOver();
-        }
+        if (!collision.gameObject.name.Contains("Projectile") && !collision.gameObject.tag.Equals("Ship"))
+            this.GameManagerInstance.GameOver();
     }
 
-    private Vector2Int calcAngleThreshold()
+    public void ResetShip()
     {
-        float offset = Mathf.Abs(horizontalOffset);
-        if(offset > 120 - MaxAngle/2)
-        {
-            Debug.Log("DangerZone!" + horizontalOffset);
-            if (horizontalOffset < 0) {
-                return new Vector2Int( -(int)(120 - offset)*2 , MaxAngle );
-            }
-            return new Vector2Int( -MaxAngle , (int)(120 - offset)*2 );
-        }
-        return new Vector2Int(-MaxAngle,MaxAngle);
+        var tf = this.transform;
+        tf.position = Vector3.zero;
+        tf.localScale = new Vector3(1, 1, 1);
+        tf.rotation = new Quaternion();
+        this._zAngle = 0;
+        this.Speed = 0;
     }
-    public float getSpeed()
+
+    private Vector2Int CalcAngleThreshold()
     {
-        return speed;
-    }
-    public Vector3 getDirection()
-    {
-        float angle = (zAngle-90) * Mathf.Deg2Rad;
-        Vector3 toReturn = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
-        return toReturn;
+        var offset = Mathf.Abs(this._horizontalOffset);
+        if (!(offset > 120 - this.maxAngle / 2)) 
+            return new Vector2Int(-this.maxAngle, this.maxAngle);
         
+        Debug.Log("DangerZone!" + this._horizontalOffset);
+        return this._horizontalOffset < 0
+            ? new Vector2Int(-(int) (120 - offset) * 2, this.maxAngle)
+            : new Vector2Int(-this.maxAngle, (int) (120 - offset) * 2);
+    }
+
+    public Vector3 GetDirection()
+    {
+        var angle = (this._zAngle - 90) * Mathf.Deg2Rad;
+        var toReturn = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+        return toReturn;
     }
 
     public void HorizontalOffset(float offset)
     {
-        horizontalOffset = offset;
+        this._horizontalOffset = offset;
+    }
+
+    public void ThrusterDestroyedEventHandler(object sender, EventArgs args)
+    {
+        if(sender is Thruster thruster)
+            thruster.ThrusterDestroyedEvent -= this.ThrusterDestroyedEventHandler;
+        else 
+            return;
+        this.currentMaxSpeed -= Thruster.SpeedIncrease;
+    }
+
+    private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
+    {
+        this.GameManagerInstance = args.NewInstance;
     }
 }

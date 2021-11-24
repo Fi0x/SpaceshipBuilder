@@ -1,54 +1,50 @@
+using Parts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-    [SerializeField] private GameObject ship;
-
-    private static SceneChanger _instance;
-    public static SceneChanger Instance => _instance;
+    public static SceneChanger Instance { get; private set; }
 
     private void Start()
     {
-        _instance = this;
+        Instance = this;
     }
 
-    public void StartButtonClicked()
+    public static void LoadBuildingScene()
     {
-        this.ChangeScene();
+        var gameManager = GameObject.Find("GameManager(Clone)");
+        var gameManagerScript = gameManager.GetComponent<GameManager>();
+        gameManagerScript.Ship.GetComponent<Spaceship>().ResetShip();
+        SceneManager.LoadScene("BuildingScene");
+    }
+
+    public void LoadFlyingScene()
+    {
+        var gameManager = GameObject.Find("GameManager(Clone)");
+        var gameManagerScript = gameManager.GetComponent<GameManager>();
+        gameManagerScript.StartGame();
+        DontDestroyOnLoad(gameManager);
+        DontDestroyOnLoad(gameManagerScript.Ship);
+        
+        // Activate Ship
+        gameManagerScript.Ship.transform.position = new Vector3(0, -10, 0);
+        gameManagerScript.Ship.transform.localScale = Vector3.one * 2;
+        
+        foreach (var script in gameManagerScript.Ship.GetComponentsInChildren<Weapon>())
+            script.Working = true;
+
+        foreach (var script in gameManagerScript.Ship.GetComponentsInChildren<Thruster>())
+        {
+            gameManagerScript.ShipScript.currentMaxSpeed += Thruster.SpeedIncrease;
+            script.ThrusterDestroyedEvent += gameManagerScript.ShipScript.ThrusterDestroyedEventHandler;
+        }
+        
+        SceneManager.LoadScene("FlyingScene");
     }
 
     public void QuitButtonClicked()
     {
         Application.Quit();
-    }
-
-    public void ChangeScene()
-    {
-        var currentScene = SceneManager.GetActiveScene().name;
-        if (currentScene.Equals("FlyingScene"))
-        {
-            Destroy(GameObject.Find("GameManager"));
-            Destroy(this.ship);
-            SceneManager.LoadScene("BuildingScene");
-            return;
-        }
-        
-        var gameManager = GameObject.Find("GameManager");
-        var gameManagerScript = gameManager.GetComponent<GameManager>();
-        gameManagerScript.startGame();
-        DontDestroyOnLoad(gameManager);
-        DontDestroyOnLoad(this.ship);
-        // Activate Ship
-        this.ship.transform.position = new Vector3(0, -10, 0);
-        this.ship.AddComponent(typeof(Spaceship));
-        this.ship.transform.localScale = Vector3.one * 2;
-        foreach (var script in this.ship.GetComponentsInChildren<Weapon>())
-        {
-            script.Enable();
-            Debug.Log("Enabling Weapon");
-        }
-
-        SceneManager.LoadScene("FlyingScene");
     }
 }

@@ -1,33 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AsteroidBehaviour : MonoBehaviour
 {
-    private GameManager gameManager;
-    private Vector3 vel;
-    // Start is called before the first frame update
-    void Start()
-    {
-        gameManager = GameManager.Instance;
+    private GameManager _gameManager;
+    [SerializeField, ReadOnly] private Vector3 vel;
 
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        this._gameManager = GameManager.Instance;
+        GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
     }
 
     public void Init()
     {
+        this._gameManager = GameManager.Instance;
+        
         /* Position
          * Velocity
          * Rotation
          */
-        Vector3 newPos = new Vector3(Random.Range(-120,120), 50, 0);
+        var newPos = new Vector3(Random.Range(-120, 120), 50, 0);
         this.transform.position = newPos;
-        vel = new Vector3(Random.Range(-20,20), Random.Range(-20,0), 0);
+        this.vel = new Vector3(
+            Random.Range(-this._gameManager.asteroidMaxSpeed, this._gameManager.asteroidMaxSpeed),
+            Random.Range(-this._gameManager.asteroidMaxSpeed, 0),
+            0);
     }
 
     public bool Move(float time)
@@ -36,16 +35,17 @@ public class AsteroidBehaviour : MonoBehaviour
          * Velocity
          * Rotation
          */
-        this.transform.position += vel * time;
-        if (gameManager.alive)
-        {
-            this.transform.position += gameManager.getBackgroundMovement() * time;
-            if (this.transform.position.y < -30)
-            {
-                return true;
-            }
+        this.transform.position += this.vel * time;
+        if (!this._gameManager.Alive)
             return false;
-        }
-        return false;
+
+        this.transform.position += this._gameManager.GetBackgroundMovement() * time;
+
+        return this.transform.position.y < -30;
+    }
+
+    private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
+    {
+        this._gameManager = args.NewInstance;
     }
 }

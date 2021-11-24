@@ -1,47 +1,51 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
-    public int Asteroids = 10;
-    public int NumberOfPresets = 12;
+    public int asteroidCount = 15;
+    [SerializeField] private GameObject[] presets;
+    [SerializeField, ReadOnly]private List<GameObject> asteroids;
 
-    private GameObject[] presets;
-    private GameObject[] asteroids;
-
-    private void Awake()
+    private void Start()
     {
-        presets = new GameObject[NumberOfPresets];
-        for(int i = 0; i<presets.Length; i++)
+        this.asteroids = new List<GameObject>();
+        for (var i = 0; i < this.asteroidCount; i++)
         {
-            presets[i] = GameObject.Find("Asteroid_" + (i+1));
-        }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        asteroids = new GameObject[Asteroids];
-        for (int i = 0;i < Asteroids ;i++ )
-        {
-            int type = (int)Random.Range(0, NumberOfPresets);
-            asteroids[i] = Instantiate(presets[type]);
-            asteroids[i].GetComponent<AsteroidBehaviour>().Init();
+            var type = Random.Range(0, this.presets.Length);
+            this.AddAsteroid(type);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        for (int i = 0; i < Asteroids; i++)
+        var asteroidsToDestroy = new List<GameObject>();
+        foreach (var asteroid in this.asteroids)
         {
-            if (asteroids[i]!= null && asteroids[i].GetComponent<AsteroidBehaviour>().Move(Time.deltaTime))
-            {
-                Destroy(asteroids[i]);
-                int type = (int)Random.Range(0, NumberOfPresets);
-                asteroids[i] = Instantiate(presets[type]);
-                asteroids[i].GetComponent<AsteroidBehaviour>().Init();
-            }
+            if (asteroid == null)
+                continue;
+            if(!asteroid.GetComponent<AsteroidBehaviour>().Move(Time.deltaTime))
+                continue;
+            
+            asteroidsToDestroy.Add(asteroid);
         }
+
+        while (asteroidsToDestroy.Count > 0)
+        {
+            this.asteroids.Remove(asteroidsToDestroy[0]);
+            Destroy(asteroidsToDestroy[0]);
+            asteroidsToDestroy.RemoveAt(0);
+            
+            var type = Random.Range(0, this.presets.Length);
+            this.AddAsteroid(type);
+        }
+    }
+
+    private void AddAsteroid(int type)
+    {
+        var asteroid = Instantiate(this.presets[type]);
+        this.asteroids.Add(asteroid);
+        asteroid.GetComponent<AsteroidBehaviour>().Init();
     }
 }
