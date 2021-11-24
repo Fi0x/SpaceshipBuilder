@@ -41,29 +41,42 @@ public class DragandDrop : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        if (this.InInventory)
+        if(!this.InInventory)
         {
-            this.transform.position = this.Inpos;
-            return;
-        }
-        
-        var otherbody = this.GetClosestEnemy();
-        var temp = (this.transform.position - otherbody.transform.position).normalized;
-        if (Math.Abs(temp.x) <= Math.Abs(temp.y))
-        {
-            this.transform.position = new Vector3(
-                otherbody.transform.position.x,
-                otherbody.transform.position.y + temp.y > 0 ? this.transform.localScale.y : -this.transform.localScale.y);
+            var otherbody = this.GetClosestEnemy();
+            var temp = (this.transform.position - otherbody.transform.position).normalized;
+            if (Math.Abs(temp.x) <= Math.Abs(temp.y))
+            {
+                if (temp.y > 0)
+                {
+                    this.transform.position = new Vector3(otherbody.transform.position.x,
+                        otherbody.transform.position.y + transform.localScale.y);
+                }
+                else
+                {
+                    this.transform.position = new Vector3(otherbody.transform.position.x,
+                        otherbody.transform.position.y - transform.localScale.y);
+                }
+            }
+            else
+            {
+                if (temp.x > 0) 
+                {
+                    this.transform.position = new Vector3(otherbody.transform.position.x + this.transform.localScale.x,
+                        otherbody.transform.position.y);
+                }
+                else
+                {
+                    this.transform.position = new Vector3(otherbody.transform.position.x - this.transform.localScale.x,
+                        otherbody.transform.position.y);
+                }
+            }
+
+            this.tag = "Ship";
+            this.transform.SetParent(this.spaceship.transform);
         }
         else
-        {
-            this.transform.position = new Vector3(
-                otherbody.transform.position.x + temp.x > 0 ? this.transform.localScale.x : -this.transform.localScale.x,
-                otherbody.transform.position.y);
-        }
-
-        this.tag = "Ship";
-        this.transform.SetParent(spaceship.transform);
+            this.transform.position = this.Inpos;
     }
     
     Vector3 GetMousePos()
