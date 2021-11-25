@@ -44,6 +44,8 @@ namespace Control
             gameManager.Menu = menu;
             gameManager.InGameButtons = buttons;
 
+            StatTracker.InstantiateTracker();
+
             SceneManager.sceneLoaded -= this.FillScene;
         }
     }

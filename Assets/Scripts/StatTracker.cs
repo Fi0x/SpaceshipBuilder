@@ -24,13 +24,24 @@ public class StatTracker
     {
         get
         {
-            var score = this.DestroyedAsteroids + this.DestroyedEnemies;
+            var score = 
+                    this.DestroyedAsteroids
+                    - this.LostShipParts
+                    + this.DestroyedEnemies
+                    + this.CollectedResources
+                    + this.CompletedLevels
+                    - this.UsedShipParts;
             return score;
         }
     }
 
-    public StatTracker()
+    private StatTracker()
     {
-        
+        Projectile.AsteroidDestroyedEvent += (sender, args) => { this.DestroyedAsteroids++; };
+    }
+
+    public static void InstantiateTracker()
+    {
+        _instance ??= new StatTracker();
     }
 }

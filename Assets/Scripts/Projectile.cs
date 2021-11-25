@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Control;
@@ -7,6 +8,9 @@ public class Projectile : MonoBehaviour
 {
     private Vector3 _dir;
     private GameManager _gameManager;
+
+    public static event EventHandler AsteroidDestroyedEvent;
+    
     private void Start()
     {
         this._gameManager = GameManager.Instance;
@@ -32,6 +36,7 @@ public class Projectile : MonoBehaviour
         
         var asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>();
         asteroid.Init();
+        AsteroidDestroyedEvent?.Invoke(null, null);
         Destroy(this.gameObject);
         Destroy(this);
     }
