@@ -30,27 +30,29 @@ namespace Control
             }
         }
         public GameObject Menu { get; set; }
+        public GameObject InGameButtons { get; set; }
         public GameObject Ship { get; set; }
         public Spaceship ShipScript { get; set; }
-        public bool Alive { get; private set; }
+        public bool Running { get; private set; }
 
         private void Awake()
         {
             Instance = this;
         }
 
-        public void GameOver()
+        public void GameOver(bool won)
         {
-            if (!this.Alive)
+            if (!this.Running)
                 return;
         
-            this.Alive = false;
-            SceneChanger.LoadBuildingScene();
+            this.Running = false;
+            StatTracker.Instance.PlayerWon = won;
+            SceneChanger.LoadStatScreen();
         }
 
         public void StartGame()
         {
-            this.Alive = true;
+            this.Running = true;
         }
         public void InitShip(GameObject ship)
         {
@@ -65,7 +67,7 @@ namespace Control
 
         private void Update()
         {
-            if(this.Alive)
+            if(this.Running)
                 return;
             if (!Input.GetKeyDown(KeyCode.R))
                 return;

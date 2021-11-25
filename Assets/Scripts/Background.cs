@@ -22,7 +22,7 @@ public class Background : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!this._gameManager.Alive)
+        if (!this._gameManager.Running)
             return;
         
         if (this.tile1.transform.position.y < this.tile2.transform.position.y)

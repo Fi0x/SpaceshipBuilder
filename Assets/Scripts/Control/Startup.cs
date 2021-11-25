@@ -32,12 +32,17 @@ namespace Control
             var spaceShip = Object.Instantiate(spaceshipPrefab);
             Debug.Log("Spaceship loaded");
 
-            var menuPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menu.prefab");
+            var menuPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/MainMenu.prefab");
             var menu = Object.Instantiate(menuPrefab);
+            Debug.Log("Menu loaded");
+
+            var buttonsPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/InGameButtons.prefab");
+            var buttons = Object.Instantiate(buttonsPrefab);
             Debug.Log("Menu loaded");
 
             gameManager.InitShip(spaceShip);
             gameManager.Menu = menu;
+            gameManager.InGameButtons = buttons;
 
             SceneManager.sceneLoaded -= this.FillScene;
         }

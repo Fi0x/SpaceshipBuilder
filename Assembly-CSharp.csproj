@@ -61,11 +61,13 @@
      <Compile Include="Assets\Scripts\DragandDrop.cs" />
      <Compile Include="Assets\Scripts\Spaceship.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
+     <Compile Include="Assets\Scripts\Control\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Control\Startup.cs" />
+     <Compile Include="Assets\Scripts\StatTracker.cs" />
      <Compile Include="Assets\Scripts\Control\AsteroidManager.cs" />
      <Compile Include="Assets\Scripts\CreatePart.cs" />
      <Compile Include="Assets\Scripts\Background.cs" />
-     <Compile Include="Assets\Scripts\Control\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\Control\StatMenu.cs" />
      <None Include="Assets\2D Space Kit\Backgrounds\Background Tip.txt" />
      <None Include="Assets\2D Space Kit\Readme.txt" />
      <None Include="Assets\2D Space Kit\Background Elements\Planets\Planet Masks\Note.txt" />

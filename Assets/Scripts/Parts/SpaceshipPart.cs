@@ -27,7 +27,7 @@ namespace Parts
                 case "Projectile":
                     return;
             }
-            if(!this._gameManager.Alive)
+            if(!this._gameManager.Running)
                 return;
         
             this.drift = true;
