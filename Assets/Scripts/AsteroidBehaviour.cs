@@ -1,3 +1,4 @@
+using Control;
 using Unity.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -36,7 +37,7 @@ public class AsteroidBehaviour : MonoBehaviour
          * Rotation
          */
         this.transform.position += this.vel * time;
-        if (!this._gameManager.Alive)
+        if (!this._gameManager.Running)
             return false;
 
         this.transform.position += this._gameManager.GetBackgroundMovement() * time;

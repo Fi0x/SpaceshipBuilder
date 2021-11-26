@@ -1,4 +1,5 @@
 using System;
+using Control;
 using Parts;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ public class Spaceship : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!this.GameManagerInstance.Alive)
+        if (!this.GameManagerInstance.Running)
             return;
         
         this.UpdateRotation();
@@ -77,7 +78,7 @@ public class Spaceship : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.name.Contains("Projectile") && !collision.gameObject.tag.Equals("Ship"))
-            this.GameManagerInstance.GameOver();
+            this.GameManagerInstance.GameOver(false);
     }
 
     public void ResetShip()
