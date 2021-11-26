@@ -33,6 +33,7 @@ namespace Parts
             {
                 case "Ship":
                 case "Projectile":
+                case "Station":
                     return;
             }
         

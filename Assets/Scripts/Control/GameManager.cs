@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using FlightScripts;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -8,12 +9,14 @@ namespace Control
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private GameObject stationPrefab;
-        [SerializeField] private long secondsUntilNextStation;
+        [SerializeField] private long secondsBetweenStations = 20;
         
         private Stopwatch _stopwatch;
         private GameObject _station;
+        private long _nextStationStopwatchTime;
     
         public static event EventHandler<NewGameManagerEventArgs> GameManagerInstantiatedEvent;
+        public static event EventHandler<LevelCompletedEventArgs> LevelCompletedEvent;
         
         private static GameManager _instance;
         public static GameManager Instance
@@ -35,8 +38,8 @@ namespace Control
         }
         public GameObject Menu { get; set; }
         public GameObject InGameButtons { get; set; }
-        public GameObject Ship { get; set; }
-        public Spaceship ShipScript { get; set; }
+        public GameObject Ship { get; private set; }
+        public Spaceship ShipScript { get; private set; }
         public bool Running { get; private set; }
 
         private void Awake()
@@ -50,6 +53,7 @@ namespace Control
             this.Running = true;
             this._stopwatch = new Stopwatch();
             this._stopwatch.Start();
+            this._nextStationStopwatchTime = this.secondsBetweenStations * 1000;
         }
 
         public void GameOver(bool won)
@@ -61,8 +65,12 @@ namespace Control
             this.Running = false;
 
             var tracker = StatTracker.Instance;
-            tracker.PlayerWon = won;
-            tracker.TimeInLevel = this._stopwatch.ElapsedMilliseconds;
+            var eventArgs = new LevelCompletedEventArgs
+            {
+                Won = won,
+                TimeForLevel = this._stopwatch.ElapsedMilliseconds
+            };
+            LevelCompletedEvent?.Invoke(null, eventArgs);
             
             SceneChanger.LoadStatScreen();
         }
@@ -84,21 +92,30 @@ namespace Control
             if(!this._stopwatch.IsRunning)
                 return;
             
-            if (this._stopwatch.ElapsedMilliseconds > 1000 * this.secondsUntilNextStation)
-                this.SpawnStation();
+            if (this._stopwatch.ElapsedMilliseconds < this._nextStationStopwatchTime)
+                return;
+            
+            this.SpawnStation();
+            this._nextStationStopwatchTime += this.secondsBetweenStations * 1000;
+            
         }
 
         private void SpawnStation()
         {
             if (this._station == null)
-            {
                 this._station = Instantiate(this.stationPrefab);
-            }
+
+            this._station.GetComponent<Station>().SpawnStation();
         }
 
         public class NewGameManagerEventArgs : EventArgs
         {
             public GameManager NewInstance;
+        }
+        public class LevelCompletedEventArgs : EventArgs
+        {
+            public bool Won;
+            public long TimeForLevel;
         }
     }
 }

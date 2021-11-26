@@ -43,6 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ce7c60ad1c59b42a07e67796ff189b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabProjectile: {fileID: 7494621351820610782, guid: bd20169f165d5e141b60640d254cfe5b, type: 3}
   stationPrefab: {fileID: 7772520674667532181, guid: 208d99e11f68a7d4fbff957a857a6e72, type: 3}
-  secondsUntilNextStation: 20
+  secondsBetweenStations: 20
