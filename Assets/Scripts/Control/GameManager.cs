@@ -1,15 +1,22 @@
 using System;
+using System.Diagnostics;
+using FlightScripts;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 namespace Control
 {
     public class GameManager : MonoBehaviour
     {
-        public float asteroidMaxSpeed = 10;
-        public GameObject prefabProjectile;
+        [SerializeField] private GameObject stationPrefab;
+        [SerializeField] private long secondsBetweenStations = 20;
+        
+        private Stopwatch _stopwatch;
+        private GameObject _station;
+        private long _nextStationStopwatchTime;
     
         public static event EventHandler<NewGameManagerEventArgs> GameManagerInstantiatedEvent;
+        public static event EventHandler<LevelCompletedEventArgs> LevelCompletedEvent;
         
         private static GameManager _instance;
         public static GameManager Instance
@@ -31,28 +38,41 @@ namespace Control
         }
         public GameObject Menu { get; set; }
         public GameObject InGameButtons { get; set; }
-        public GameObject Ship { get; set; }
-        public Spaceship ShipScript { get; set; }
+        public GameObject Ship { get; private set; }
+        public Spaceship ShipScript { get; private set; }
         public bool Running { get; private set; }
 
         private void Awake()
         {
             Instance = this;
+            this._stopwatch = new Stopwatch();
+        }
+
+        public void StartGame()
+        {
+            this.Running = true;
+            this._stopwatch = new Stopwatch();
+            this._stopwatch.Start();
+            this._nextStationStopwatchTime = this.secondsBetweenStations * 1000;
         }
 
         public void GameOver(bool won)
         {
             if (!this.Running)
                 return;
-        
+            
+            this._stopwatch.Stop();
             this.Running = false;
-            StatTracker.Instance.PlayerWon = won;
-            SceneChanger.LoadStatScreen();
-        }
 
-        public void StartGame()
-        {
-            this.Running = true;
+            var tracker = StatTracker.Instance;
+            var eventArgs = new LevelCompletedEventArgs
+            {
+                Won = won,
+                TimeForLevel = this._stopwatch.ElapsedMilliseconds
+            };
+            LevelCompletedEvent?.Invoke(null, eventArgs);
+            
+            SceneChanger.LoadStatScreen();
         }
         public void InitShip(GameObject ship)
         {
@@ -67,18 +87,35 @@ namespace Control
 
         private void Update()
         {
-            if(this.Running)
+            if(!this.Running)
                 return;
-            if (!Input.GetKeyDown(KeyCode.R))
+            if(!this._stopwatch.IsRunning)
                 return;
-        
-            var scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            
+            if (this._stopwatch.ElapsedMilliseconds < this._nextStationStopwatchTime)
+                return;
+            
+            this.SpawnStation();
+            this._nextStationStopwatchTime += this.secondsBetweenStations * 1000;
+            
+        }
+
+        private void SpawnStation()
+        {
+            if (this._station == null)
+                this._station = Instantiate(this.stationPrefab);
+
+            this._station.GetComponent<Station>().SpawnStation();
         }
 
         public class NewGameManagerEventArgs : EventArgs
         {
             public GameManager NewInstance;
+        }
+        public class LevelCompletedEventArgs : EventArgs
+        {
+            public bool Won;
+            public long TimeForLevel;
         }
     }
 }

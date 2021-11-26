@@ -13,6 +13,7 @@ namespace Control
         {
             this.gameObject.SetActive(false);
             GameManager.Instance.InGameButtons.SetActive(true);
+            StatTracker.ResetTracker();
         }
 
         public void SettingsButtonClicked()

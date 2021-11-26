@@ -32,7 +32,7 @@ public class Spaceship : MonoBehaviour
     private void Start()
     {
         this.GameManagerInstance = GameManager.Instance;
-        GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
+        GameManager.GameManagerInstantiatedEvent += (sender, args) => { this.GameManagerInstance = args.NewInstance; };
     }
 
     private void FixedUpdate()
@@ -77,8 +77,15 @@ public class Spaceship : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.name.Contains("Projectile") && !collision.gameObject.tag.Equals("Ship"))
-            this.GameManagerInstance.GameOver(false);
+        switch (collision.gameObject.tag)
+        {
+            case "Station":
+                this.GameManagerInstance.GameOver(true);
+                break;
+            case "Asteroid":
+                this.GameManagerInstance.GameOver(false);
+                break;
+        }
     }
 
     public void ResetShip()
@@ -122,10 +129,5 @@ public class Spaceship : MonoBehaviour
         else 
             return;
         this.currentMaxSpeed -= Thruster.SpeedIncrease;
-    }
-
-    private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
-    {
-        this.GameManagerInstance = args.NewInstance;
     }
 }
