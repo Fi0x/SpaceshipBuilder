@@ -1,6 +1,5 @@
 using System;
 using Control;
-using FlightScripts;
 using UnityEngine;
 
 namespace Parts
@@ -11,6 +10,7 @@ namespace Parts
         private GameManager _gameManager;
 
         public static event EventHandler ShipPartLostEvent;
+        public static event EventHandler ResourceCollectedEvent;
         
         public void Start()
         {
@@ -34,9 +34,18 @@ namespace Parts
                 case "Ship":
                 case "Projectile":
                 case "Station":
-                    return;
+                    break;
+                case "Asteroid":
+                    this.CollideWithAsteroid(collision.gameObject);
+                    break;
+                case "Resource":
+                    CollectResource(collision.gameObject);
+                    break;
             }
-        
+        }
+
+        private void CollideWithAsteroid(GameObject asteroid)
+        {
             this.drift = true;
             foreach (var script in this.gameObject.GetComponentsInChildren<Weapon>())
                 script.Working = false;
@@ -44,9 +53,13 @@ namespace Parts
             ShipPartLostEvent?.Invoke(null, null);
         
             this.transform.parent = null;
-            var asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>();
-            if (asteroid != null)
-                asteroid.Init();
+            Destroy(asteroid);
+        }
+
+        private static void CollectResource(GameObject resource)
+        {
+            ResourceCollectedEvent?.Invoke(null, null);
+            Destroy(resource);
         }
     }
 }

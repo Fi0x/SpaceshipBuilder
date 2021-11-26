@@ -1,4 +1,3 @@
-using System;
 using Control;
 using UnityEngine;
 
@@ -8,8 +7,6 @@ namespace FlightScripts
     {
         private Vector3 _dir;
         private GameManager _gameManager;
-
-        public static event EventHandler AsteroidDestroyedEvent;
     
         private void Start()
         {
@@ -22,10 +19,10 @@ namespace FlightScripts
             Destroy(this, 3f);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            this.transform.position += this._gameManager.GetBackgroundMovement() * Time.deltaTime;
-            this.transform.position += this._dir* -1 * (this._gameManager.ShipScript.Speed+100) * Time.deltaTime;
+            this.transform.position += this._gameManager.GetBackgroundMovement() / 60;
+            this.transform.position += this._dir* -1 * (this._gameManager.ShipScript.Speed+100) / 60;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -33,15 +30,11 @@ namespace FlightScripts
             switch (collision.gameObject.tag)
             {
                 case "Ship":
-                    break;
-                case "Asteroid": 
-                    collision.gameObject.GetComponent<AsteroidBehaviour>()?.Init(); 
-                    AsteroidDestroyedEvent?.Invoke(null, null);
+                    return;
+                case "Asteroid":
+                    collision.gameObject.GetComponent<AsteroidBehaviour>()?.DestroyByShot();
                     break;
             }
-            var incoming = collision.gameObject;
-            if(incoming.tag.Equals("Ship"))
-                return;
         
             Destroy(this.gameObject);
             Destroy(this);
