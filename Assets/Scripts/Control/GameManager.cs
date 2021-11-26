@@ -1,13 +1,17 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 namespace Control
 {
     public class GameManager : MonoBehaviour
     {
-        public float asteroidMaxSpeed = 10;
-        public GameObject prefabProjectile;
+        [SerializeField] private GameObject stationPrefab;
+        [SerializeField] private long secondsUntilNextStation;
+        
+        private Stopwatch _stopwatch;
+        private GameObject _station;
     
         public static event EventHandler<NewGameManagerEventArgs> GameManagerInstantiatedEvent;
         
@@ -38,21 +42,29 @@ namespace Control
         private void Awake()
         {
             Instance = this;
+            this._stopwatch = new Stopwatch();
+        }
+
+        public void StartGame()
+        {
+            this.Running = true;
+            this._stopwatch = new Stopwatch();
+            this._stopwatch.Start();
         }
 
         public void GameOver(bool won)
         {
             if (!this.Running)
                 return;
-        
+            
+            this._stopwatch.Stop();
             this.Running = false;
-            StatTracker.Instance.PlayerWon = won;
-            SceneChanger.LoadStatScreen();
-        }
 
-        public void StartGame()
-        {
-            this.Running = true;
+            var tracker = StatTracker.Instance;
+            tracker.PlayerWon = won;
+            tracker.TimeInLevel = this._stopwatch.ElapsedMilliseconds;
+            
+            SceneChanger.LoadStatScreen();
         }
         public void InitShip(GameObject ship)
         {
@@ -67,13 +79,21 @@ namespace Control
 
         private void Update()
         {
-            if(this.Running)
+            if(!this.Running)
                 return;
-            if (!Input.GetKeyDown(KeyCode.R))
+            if(!this._stopwatch.IsRunning)
                 return;
-        
-            var scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            
+            if (this._stopwatch.ElapsedMilliseconds > 1000 * this.secondsUntilNextStation)
+                this.SpawnStation();
+        }
+
+        private void SpawnStation()
+        {
+            if (this._station == null)
+            {
+                this._station = Instantiate(this.stationPrefab);
+            }
         }
 
         public class NewGameManagerEventArgs : EventArgs
