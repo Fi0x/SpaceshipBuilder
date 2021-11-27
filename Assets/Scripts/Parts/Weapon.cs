@@ -1,10 +1,12 @@
-using Control;
+using FlightScripts;
 using UnityEngine;
 
 namespace Parts
 {
     public class Weapon : SpaceshipPart
     {
+        [SerializeField] private GameObject prefabProjectile;
+
         private int _weaponDelay;
         
         public bool Working { get; set; }
@@ -25,7 +27,7 @@ namespace Parts
                 return;
 
             var tf = this.transform;
-            var projectile = Instantiate(this.GameManager.prefabProjectile, tf.position, tf.rotation);
+            var projectile = Instantiate(this.prefabProjectile, tf.position, tf.rotation);
             projectile.AddComponent(typeof(Projectile));
             this._weaponDelay = 15;
         }

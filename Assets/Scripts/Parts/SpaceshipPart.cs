@@ -1,3 +1,4 @@
+using System;
 using Control;
 using UnityEngine;
 
@@ -7,6 +8,10 @@ namespace Parts
     {
         [HideInInspector] public bool drift;
         protected GameManager GameManager;
+
+        public static event EventHandler ShipPartLostEvent;
+        public static event EventHandler ResourceCollectedEvent;
+        
         public void Start()
         {
             this.GameManager = GameManager.Instance;
@@ -21,23 +26,40 @@ namespace Parts
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if(!this.GameManager.Running)
+                return;
+            
             switch (collision.gameObject.tag)
             {
                 case "Ship":
                 case "Projectile":
-                    return;
+                case "Station":
+                    break;
+                case "Asteroid":
+                    this.CollideWithAsteroid(collision.gameObject);
+                    break;
+                case "Resource":
+                    CollectResource(collision.gameObject);
+                    break;
             }
-            if(!this.GameManager.Running)
-                return;
-        
+        }
+
+        private void CollideWithAsteroid(GameObject asteroid)
+        {
             this.drift = true;
             foreach (var script in this.gameObject.GetComponentsInChildren<Weapon>())
                 script.Working = false;
+            
+            ShipPartLostEvent?.Invoke(null, null);
         
             this.transform.parent = null;
-            var asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>();
-            if (asteroid != null)
-                asteroid.Init();
+            Destroy(asteroid);
+        }
+
+        private static void CollectResource(GameObject resource)
+        {
+            ResourceCollectedEvent?.Invoke(null, null);
+            Destroy(resource);
         }
     }
 }

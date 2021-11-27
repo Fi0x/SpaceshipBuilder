@@ -52,22 +52,24 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\FlightScripts\Station.cs" />
      <Compile Include="Assets\Scripts\Parts\Thruster.cs" />
      <Compile Include="Assets\Scripts\Parts\Weapon.cs" />
      <Compile Include="Assets\Scripts\Parts\SpaceshipPart.cs" />
-     <Compile Include="Assets\Scripts\AsteroidBehaviour.cs" />
+     <Compile Include="Assets\Scripts\FlightScripts\AsteroidBehaviour.cs" />
      <Compile Include="Assets\Scripts\Control\GameManager.cs" />
      <Compile Include="Assets\Scripts\Control\SceneChanger.cs" />
      <Compile Include="Assets\Scripts\BuildingScripts\DragAndDrop.cs" />
-     <Compile Include="Assets\Scripts\Spaceship.cs" />
+     <Compile Include="Assets\Scripts\FlightScripts\Spaceship.cs" />
      <Compile Include="Assets\Scripts\Control\StatMenu.cs" />
-     <Compile Include="Assets\Scripts\Projectile.cs" />
+     <Compile Include="Assets\Scripts\FlightScripts\Projectile.cs" />
      <Compile Include="Assets\Scripts\Control\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Control\Startup.cs" />
      <Compile Include="Assets\Scripts\StatTracker.cs" />
      <Compile Include="Assets\Scripts\Control\AsteroidManager.cs" />
      <Compile Include="Assets\Scripts\BuildingScripts\CreatePart.cs" />
-     <Compile Include="Assets\Scripts\Background.cs" />
+     <Compile Include="Assets\Scripts\FlightScripts\Background.cs" />
+     <Compile Include="Assets\Scripts\FlightScripts\Resource.cs" />
      <Compile Include="Assets\Scripts\BuildingScripts\Docking.cs" />
      <Compile Include="Assets\Scripts\Parts\Body.cs" />
      <None Include="Assets\2D Space Kit\Backgrounds\Background Tip.txt" />

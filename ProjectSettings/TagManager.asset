@@ -7,6 +7,9 @@ TagManager:
   - Part
   - Ship
   - Projectile
+  - Station
+  - Asteroid
+  - Resource
   - DockEmpty
   - DockFull
   layers:
@@ -48,6 +51,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 291715091
+    locked: 0
+  - name: BackgroundDetails
+    uniqueID: 829439185
     locked: 0
   - name: Asteroids
     uniqueID: 3615416047

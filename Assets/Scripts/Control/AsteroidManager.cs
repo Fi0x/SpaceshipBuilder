@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FlightScripts;
 using Unity.Collections;
 using UnityEngine;
 
@@ -14,23 +15,27 @@ namespace Control
         {
             this.asteroids = new List<GameObject>();
             for (var i = 0; i < this.asteroidCount; i++)
-            {
-                var type = Random.Range(0, this.presets.Length);
-                this.AddAsteroid(type);
-            }
+                this.AddRandomAsteroid();
         }
 
         private void FixedUpdate()
+        {
+            this.RespawnAsteroidsBelowCamera();
+
+            var missingAsteroids = this.asteroidCount - this.asteroids.Count;
+            for (var i = 0; i < missingAsteroids; i++)
+                this.AddRandomAsteroid();
+        }
+
+        private void RespawnAsteroidsBelowCamera()
         {
             var asteroidsToDestroy = new List<GameObject>();
             foreach (var asteroid in this.asteroids)
             {
                 if (asteroid == null)
                     continue;
-                if(!asteroid.GetComponent<AsteroidBehaviour>().Move(Time.deltaTime))
-                    continue;
-            
-                asteroidsToDestroy.Add(asteroid);
+                if(asteroid.transform.position.y < -30)
+                    asteroidsToDestroy.Add(asteroid);
             }
 
             while (asteroidsToDestroy.Count > 0)
@@ -39,16 +44,15 @@ namespace Control
                 Destroy(asteroidsToDestroy[0]);
                 asteroidsToDestroy.RemoveAt(0);
             
-                var type = Random.Range(0, this.presets.Length);
-                this.AddAsteroid(type);
+                this.AddRandomAsteroid();
             }
         }
 
-        private void AddAsteroid(int type)
+        private void AddRandomAsteroid()
         {
+            var type = Random.Range(0, this.presets.Length);
             var asteroid = Instantiate(this.presets[type]);
             this.asteroids.Add(asteroid);
-            asteroid.GetComponent<AsteroidBehaviour>().Init();
         }
     }
 }
