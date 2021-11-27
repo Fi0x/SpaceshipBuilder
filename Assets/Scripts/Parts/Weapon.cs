@@ -3,18 +3,11 @@ using UnityEngine;
 
 namespace Parts
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon : SpaceshipPart
     {
-        private GameManager _gameManager;
-        public bool Working { get; set; }
-
         private int _weaponDelay;
-    
-        private void Start()
-        {
-            this._gameManager = GameManager.Instance;
-            GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
-        }
+        
+        public bool Working { get; set; }
 
         private void FixedUpdate()
         {
@@ -28,17 +21,13 @@ namespace Parts
                 return;
             }
             
-            if (Input.GetKey(KeyCode.Space))
-            {
-                var projectile = Instantiate(this._gameManager.prefabProjectile, this.transform.position, this.transform.rotation);
-                projectile.AddComponent(typeof(Projectile));
-                this._weaponDelay = 15;
-            }
-        }
+            if (!Input.GetKey(KeyCode.Space))
+                return;
 
-        private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
-        {
-            this._gameManager = args.NewInstance;
+            var tf = this.transform;
+            var projectile = Instantiate(this.GameManager.prefabProjectile, tf.position, tf.rotation);
+            projectile.AddComponent(typeof(Projectile));
+            this._weaponDelay = 15;
         }
     }
 }

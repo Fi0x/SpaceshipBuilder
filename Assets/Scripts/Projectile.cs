@@ -35,8 +35,11 @@ public class Projectile : MonoBehaviour
             return;
         
         var asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>();
-        asteroid.Init();
-        AsteroidDestroyedEvent?.Invoke(null, null);
+        if (asteroid != null)
+        {
+            asteroid.Init();
+            AsteroidDestroyedEvent?.Invoke(null, null);
+        }
         Destroy(this.gameObject);
         Destroy(this);
     }

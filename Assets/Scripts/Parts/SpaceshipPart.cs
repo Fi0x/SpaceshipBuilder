@@ -6,17 +6,17 @@ namespace Parts
     public class SpaceshipPart : MonoBehaviour
     {
         [HideInInspector] public bool drift;
-        private GameManager _gameManager;
+        protected GameManager GameManager;
         public void Start()
         {
-            this._gameManager = GameManager.Instance;
-            GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
+            this.GameManager = GameManager.Instance;
+            GameManager.GameManagerInstantiatedEvent += (sender, args) => { this.GameManager = args.NewInstance; };
         }
 
-        public void FixedUpdate()
+        private void FixedUpdate()
         {
             if (this.drift)
-                this.transform.position += this._gameManager.GetBackgroundMovement() * Time.deltaTime;
+                this.transform.position += this.GameManager.GetBackgroundMovement() * Time.deltaTime;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -27,7 +27,7 @@ namespace Parts
                 case "Projectile":
                     return;
             }
-            if(!this._gameManager.Running)
+            if(!this.GameManager.Running)
                 return;
         
             this.drift = true;
@@ -38,11 +38,6 @@ namespace Parts
             var asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>();
             if (asteroid != null)
                 asteroid.Init();
-        }
-
-        private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
-        {
-            this._gameManager = args.NewInstance;
         }
     }
 }

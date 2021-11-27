@@ -53,13 +53,12 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Parts\Thruster.cs" />
-     <Compile Include="Assets\Scripts\Docking.cs" />
      <Compile Include="Assets\Scripts\Parts\Weapon.cs" />
      <Compile Include="Assets\Scripts\Parts\SpaceshipPart.cs" />
      <Compile Include="Assets\Scripts\AsteroidBehaviour.cs" />
      <Compile Include="Assets\Scripts\Control\GameManager.cs" />
      <Compile Include="Assets\Scripts\Control\SceneChanger.cs" />
-     <Compile Include="Assets\Scripts\DragandDrop.cs" />
+     <Compile Include="Assets\Scripts\BuildingScripts\DragAndDrop.cs" />
      <Compile Include="Assets\Scripts\Spaceship.cs" />
      <Compile Include="Assets\Scripts\Control\StatMenu.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
@@ -67,8 +66,10 @@
      <Compile Include="Assets\Scripts\Control\Startup.cs" />
      <Compile Include="Assets\Scripts\StatTracker.cs" />
      <Compile Include="Assets\Scripts\Control\AsteroidManager.cs" />
-     <Compile Include="Assets\Scripts\CreatePart.cs" />
+     <Compile Include="Assets\Scripts\BuildingScripts\CreatePart.cs" />
      <Compile Include="Assets\Scripts\Background.cs" />
+     <Compile Include="Assets\Scripts\BuildingScripts\Docking.cs" />
+     <Compile Include="Assets\Scripts\Parts\Body.cs" />
      <None Include="Assets\2D Space Kit\Backgrounds\Background Tip.txt" />
      <None Include="Assets\2D Space Kit\Readme.txt" />
      <None Include="Assets\2D Space Kit\Background Elements\Planets\Planet Masks\Note.txt" />
@@ -644,94 +645,94 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Animation.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.InternalAPIEngineBridge.001">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.PixelPerfect">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Tilemap.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
  </Reference>
  <Reference Include="PsdPlugin">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.IK.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.IK.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.IK.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Psdimporter.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Path.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.InternalAPIEditorBridge.001">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PlasticSCM.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Mathematics">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.IK.Runtime">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Animation.Triangle.Runtime">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Animation.Runtime">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.PixelPerfect.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Mathematics.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Common.Runtime">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.SpriteShape.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Common.Editor">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.SpriteShape.Runtime">
- <HintPath>C:/Users/patri/Documents/GitHub/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
+ <HintPath>E:/Users/felpe/RiderProjects/SpaceshipBuilder/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
