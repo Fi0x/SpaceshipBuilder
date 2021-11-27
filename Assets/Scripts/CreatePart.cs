@@ -13,7 +13,7 @@ public class CreatePart : MonoBehaviour
     {
         this._inventory = this.gameObject.transform.parent.gameObject;
 
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < 3; i++)
         {
           this.CreateBox();
         }
@@ -21,17 +21,12 @@ public class CreatePart : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             this.CreateBox();
         }
     }
-
-    private void OnMouseDown()
-    {
-        this.CreateBox();
-    }
-
+    
     private void CreateBox()
     {
         var a = Instantiate(this.boxPrefab, this._inventory.transform, true);
