@@ -55,6 +55,7 @@ public class StatTracker
             this.CompletedLevels += args.Won ? 1 : 0;
         };
         DragAndDrop.ShipPartAddedEvent += (sender, args) => { this.UsedShipParts++; };
+        DragAndDrop.ShipPartRemovedEvent += (sender, args) => { this.UsedShipParts--; };
     }
 
     public static void InstantiateTracker()
