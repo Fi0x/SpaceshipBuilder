@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace BuildingScripts
 {
-    public class SnapHelper
+    public static class SnapHelper
     {
-        public static bool Snap(Transform originalTransform, GameObject spaceship, SpaceshipPart partType, out GameObject[] parts)
+        public static bool Snap(Transform originalTransform, GameObject spaceship, SpaceshipPart partType)
         {
-            (var dockingObject, var dockingTransform) = GetClosestDockingPoint(originalTransform, out parts);
+            (var dockingObject, var dockingTransform) = GetClosestDockingPoint(originalTransform);
             if (dockingObject == null || dockingTransform == null)
                 return false;
             
@@ -24,14 +24,14 @@ namespace BuildingScripts
             return true;
         }
 
-        public static (GameObject, Transform) GetClosestDockingPoint(Transform originalTransform, out GameObject[] parts)
+        public static (GameObject, Transform) GetClosestDockingPoint(Transform originalTransform)
         {
             Transform dockingPoint = null;
             var children = new GameObject[originalTransform.childCount];
             for (var i = 0; i < originalTransform.childCount; i++)
                 children[i] = originalTransform.GetChild(i).gameObject;
             
-            parts = GameObject.FindGameObjectsWithTag("DockEmpty");
+            var parts = GameObject.FindGameObjectsWithTag("DockEmpty");
             var possibleDocks = parts.Except(children);
             var closestDistanceSqr = Mathf.Infinity;
             GameObject closestPart = null;

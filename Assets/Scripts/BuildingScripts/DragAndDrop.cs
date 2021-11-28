@@ -7,7 +7,6 @@ namespace BuildingScripts
 {
     public class DragAndDrop : MonoBehaviour
     {
-        [HideInInspector] public GameObject[] part;
         [HideInInspector] public GameObject spaceship;
 
         private bool _inInventory;
@@ -48,14 +47,13 @@ namespace BuildingScripts
             this._partType = this.gameObject.GetComponent<SpaceshipPart>();
         }
 
-        private void OnMouseDown()
+        public void OnMouseDown()
         {
             this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
-            this.part = GameObject.FindGameObjectsWithTag("DockEmpty");
             this.tag = "Part";
         }
 
-        private void OnMouseDrag()
+        public void OnMouseDrag()
         {
             var mouseReturn = GetMousePos();
             if (!mouseReturn.HasValue)
@@ -79,10 +77,10 @@ namespace BuildingScripts
                     transform1.eulerAngles = transform1.eulerAngles + newRotation;
                 }
             }
-            Preview.RenderShadow(this._snapShadow, this.gameObject.transform.rotation, this.transform, out this.part);
+            Preview.RenderShadow(this._snapShadow, this.gameObject.transform.rotation, this.transform);
         }
 
-        private void OnMouseUp()
+        public void OnMouseUp()
         {
             Destroy(this._snapShadow);
             if (this._inInventory)
@@ -92,7 +90,7 @@ namespace BuildingScripts
                 Destroy(this);
                 ShipPartRemovedEvent?.Invoke(null, null);
             }
-            else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType, out this.part))
+            else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType))
             {
                 ShipPartAddedEvent?.Invoke(null, null);
             }

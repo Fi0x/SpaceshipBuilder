@@ -12,7 +12,7 @@ namespace Parts
         public static event EventHandler ShipPartLostEvent;
         public static event EventHandler ResourceCollectedEvent;
         
-        public GameObject OriginalInventory { get; protected set; }
+        public GameObject OriginalInventory { get; set; }
 
         protected virtual void FixedUpdate()
         {

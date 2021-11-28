@@ -10,11 +10,6 @@ namespace Parts
         private int _weaponDelay;
         
         public bool Working { get; set; }
-        
-        private void Start()
-        {
-            this.OriginalInventory = GameObject.Find("WeaponInventory");
-        }
 
         protected override void FixedUpdate()
         {
@@ -33,8 +28,7 @@ namespace Parts
                 return;
 
             var tf = this.transform;
-            var projectile = Instantiate(this.prefabProjectile, tf.position, tf.rotation);
-            projectile.AddComponent(typeof(Projectile));
+            Instantiate(this.prefabProjectile, tf.position, tf.rotation);
             this._weaponDelay = 15;
         }
     }

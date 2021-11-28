@@ -23,10 +23,10 @@ namespace BuildingScripts
             return shadow;
         }
         
-        public static void RenderShadow(GameObject shadow, Quaternion rotation, Transform objectTransform, out GameObject[] parts)
+        public static void RenderShadow(GameObject shadow, Quaternion rotation, Transform objectTransform)
         {
             shadow.transform.rotation = rotation;
-            (GameObject obj, Transform tf) dock = SnapHelper.GetClosestDockingPoint(objectTransform, out parts);
+            (GameObject obj, Transform tf) dock = SnapHelper.GetClosestDockingPoint(objectTransform);
             
             if(dock.obj == null || dock.tf == null)
                 return;
