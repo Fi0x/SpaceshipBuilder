@@ -27,11 +27,10 @@ namespace Parts
                 this.transform.position += this._gameManager.GetBackgroundMovement() * Time.deltaTime;
         }
 
-        public void RespawnInInventory()
+        public void SpawnInInventory()
         {
             var partInventory = this.OriginalInventory.GetComponent<CreatePart>();
             partInventory.SpawnPart();
-            Destroy(this.gameObject);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

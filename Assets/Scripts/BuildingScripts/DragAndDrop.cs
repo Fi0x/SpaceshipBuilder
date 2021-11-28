@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Parts;
 using UnityEngine;
@@ -89,7 +90,10 @@ namespace BuildingScripts
             if(!this._inInventory)
                 this.Snap();
             else
-                this._partType.RespawnInInventory();
+            {
+                this._partType.SpawnInInventory();
+                Destroy(this.gameObject);
+            }
         }
     
         private static Vector3? GetMousePos()
@@ -143,6 +147,8 @@ namespace BuildingScripts
             var localPosRot= transform1.rotation * localPosition;
             transform1.position = position-localPosRot;
             this.transform.SetParent(this.spaceship.transform);
+
+            this._partType.SpawnInInventory();
         }
         
         private void InitShadow()
