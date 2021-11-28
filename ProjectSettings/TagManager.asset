@@ -58,6 +58,9 @@ TagManager:
   - name: Projectiles
     uniqueID: 3962058965
     locked: 0
+  - name: Enemies
+    uniqueID: 1385690219
+    locked: 0
   - name: Spaceship
     uniqueID: 900917387
     locked: 0
