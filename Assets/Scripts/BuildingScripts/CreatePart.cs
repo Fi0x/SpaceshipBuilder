@@ -4,27 +4,26 @@ namespace BuildingScripts
 {
     public class CreatePart : MonoBehaviour
     {
-        public GameObject boxPrefab;
+        public GameObject partPrefab;
 
         private GameObject _inventory;
         private void Start()
         {
-            this._inventory = this.gameObject.transform.parent.gameObject;
-
-            for (var i = 0; i < 3; i++)
-                this.CreateBox();
+            this._inventory = this.gameObject;
+            this.SpawnPart();
         }
 
         private void Update()
         {
+            //TODO: Do this automatically when a part is dragged out of this inventory
             if (Input.GetKeyDown(KeyCode.F1))
-                this.CreateBox();
+                this.SpawnPart();
         }
     
-        private void CreateBox()
+        public void SpawnPart()
         {
-            var a = Instantiate(this.boxPrefab, this._inventory.transform, true);
-            a.transform.position = this.transform.position;
+            var part = Instantiate(this.partPrefab, this._inventory.transform, true);
+            part.transform.position = this.transform.position;
         }
     }
 }

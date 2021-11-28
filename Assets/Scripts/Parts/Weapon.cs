@@ -10,6 +10,11 @@ namespace Parts
         private int _weaponDelay;
         
         public bool Working { get; set; }
+        
+        private void Start()
+        {
+            this.OriginalInventory = GameObject.Find("WeaponInventory");
+        }
 
         private void FixedUpdate()
         {

@@ -1,4 +1,5 @@
 using System;
+using BuildingScripts;
 using Control;
 using UnityEngine;
 
@@ -7,26 +8,37 @@ namespace Parts
     public class SpaceshipPart : MonoBehaviour
     {
         [HideInInspector] public bool drift;
-        protected GameManager GameManager;
+        private GameManager _gameManager;
 
         public static event EventHandler ShipPartLostEvent;
         public static event EventHandler ResourceCollectedEvent;
         
-        public void Start()
+        public GameObject OriginalInventory { get; protected set; }
+        
+        private void Start()
         {
-            this.GameManager = GameManager.Instance;
-            GameManager.GameManagerInstantiatedEvent += (sender, args) => { this.GameManager = args.NewInstance; };
+            this._gameManager = GameManager.Instance;
+            GameManager.GameManagerInstantiatedEvent += (sender, args) => { this._gameManager = args.NewInstance; };
         }
 
         private void FixedUpdate()
         {
             if (this.drift)
-                this.transform.position += this.GameManager.GetBackgroundMovement() * Time.deltaTime;
+                this.transform.position += this._gameManager.GetBackgroundMovement() * Time.deltaTime;
+        }
+
+        public void RespawnInInventory()
+        {
+            var partInventory = this.OriginalInventory.GetComponent<CreatePart>();
+            partInventory.SpawnPart();
+            Destroy(this.gameObject);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if(!this.GameManager.Running)
+            if(this._gameManager == null)
+                return;
+            if(!this._gameManager.Running)
                 return;
             
             switch (collision.gameObject.tag)

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 148360718}
   - component: {fileID: 148360717}
   m_Layer: 0
-  m_Name: Thruster Inventory
+  m_Name: ThrusterInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,11 +150,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 148360715}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.7, y: -2.8013, z: 0.36814857}
+  m_LocalPosition: {x: -6.843341, y: -3.02965, z: 0}
   m_LocalScale: {x: 3.5577, y: 2.9466133, z: 1}
   m_Children: []
-  m_Father: {fileID: 379563637}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &148360717
 MonoBehaviour:
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc126fc7c730d46b6ca39cbe2a5405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxPrefab: {fileID: 8365831555668978806, guid: 5fdee65fb15cf48468829f63b26f3635, type: 3}
+  partPrefab: {fileID: 8365831555668978806, guid: 5fdee65fb15cf48468829f63b26f3635, type: 3}
 --- !u!61 &148360718
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -246,68 +246,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &377937381
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 377937382}
-  m_Layer: 0
-  m_Name: Building
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &377937382
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377937381}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1433412, y: -0.22834983, z: -0.36814857}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 736320541}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &379563636
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 379563637}
-  m_Layer: 0
-  m_Name: Thrusters
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &379563637
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379563636}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1433412, y: -0.22834983, z: -0.36814857}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 148360716}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &445979613
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +408,7 @@ GameObject:
   - component: {fileID: 736320539}
   - component: {fileID: 736320542}
   m_Layer: 0
-  m_Name: Building Inventory
+  m_Name: BuildingInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -561,11 +499,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736320538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.71, y: 3.6592, z: 0.36814857}
+  m_LocalPosition: {x: -6.853341, y: 3.43085, z: 0}
   m_LocalScale: {x: 3.5577, y: 2.8246322, z: 1}
   m_Children: []
-  m_Father: {fileID: 377937382}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &736320542
 MonoBehaviour:
@@ -579,38 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc126fc7c730d46b6ca39cbe2a5405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxPrefab: {fileID: 4201675981297996760, guid: 303a8b9a0c9e7ae4886d479a5fe1e554, type: 3}
---- !u!1 &1878884985
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1878884986}
-  m_Layer: 0
-  m_Name: Weapons
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1878884986
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878884985}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1433412, y: -0.22834983, z: -0.36814857}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1968274561}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  partPrefab: {fileID: 4201675981297996760, guid: 303a8b9a0c9e7ae4886d479a5fe1e554, type: 3}
 --- !u!1 &1968274560
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,7 +531,7 @@ GameObject:
   - component: {fileID: 1968274563}
   - component: {fileID: 1968274562}
   m_Layer: 0
-  m_Name: Weapon Inventory
+  m_Name: WeaponInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -638,11 +545,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968274560}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.7, y: 0.49, z: 0.36814857}
+  m_LocalPosition: {x: -6.843341, y: 0.26165017, z: 0}
   m_LocalScale: {x: 3.5577, y: 3.1173832, z: 1}
   m_Children: []
-  m_Father: {fileID: 1878884986}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1968274562
 MonoBehaviour:
@@ -656,7 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc126fc7c730d46b6ca39cbe2a5405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxPrefab: {fileID: 8365831555668978806, guid: 5f9bb0543f8983840933b36c0afa2688, type: 3}
+  partPrefab: {fileID: 8365831555668978806, guid: 5f9bb0543f8983840933b36c0afa2688, type: 3}
 --- !u!61 &1968274563
 BoxCollider2D:
   m_ObjectHideFlags: 0

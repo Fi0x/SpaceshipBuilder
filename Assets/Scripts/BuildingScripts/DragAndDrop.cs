@@ -1,4 +1,5 @@
 using System.Linq;
+using Parts;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -6,16 +7,19 @@ namespace BuildingScripts
 {
     public class DragAndDrop : MonoBehaviour
     {
-        public GameObject[] part;
-        public GameObject closestPart;
-        public GameObject spaceship;
-        public GameObject inventory;
+        [HideInInspector] public GameObject[] part;
+        [HideInInspector] public GameObject closestPart;
+        [HideInInspector] public GameObject spaceship;
+        
         private bool _inInventory;
         private GameObject _snapShadow;
+        private SpaceshipPart _partType;
     
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject != this.inventory)
+            if(this._partType == null)
+                return;
+            if (other.gameObject != this._partType.OriginalInventory)
                 return;
             
             for (var i = 0; i < this.transform.childCount; i++)
@@ -26,7 +30,9 @@ namespace BuildingScripts
    
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject != inventory)
+            if(this._partType == null)
+                return;
+            if (other.gameObject != this._partType.OriginalInventory)
                 return;
             
             this._inInventory = false;
@@ -40,7 +46,7 @@ namespace BuildingScripts
         private void Start()
         {
             this.spaceship = GameObject.Find("Spaceship(Clone)");
-            this.inventory = GameObject.Find("Building Inventory");
+            this._partType = this.gameObject.GetComponent<SpaceshipPart>();
         }
 
         private void OnMouseDown()
@@ -83,7 +89,7 @@ namespace BuildingScripts
             if(!this._inInventory)
                 this.Snap();
             else
-                this.transform.position = this.inventory.transform.position;
+                this._partType.RespawnInInventory();
         }
     
         private static Vector3? GetMousePos()
@@ -141,7 +147,7 @@ namespace BuildingScripts
         
         private void InitShadow()
         {
-            this._snapShadow = Instantiate(this.gameObject, this.inventory.transform, true);
+            this._snapShadow = Instantiate(this.gameObject, this._partType.OriginalInventory.transform, true);
             foreach (var comp in this._snapShadow.GetComponents<Component>())
             {
                 if (!(comp is Transform || comp is SpriteRenderer))

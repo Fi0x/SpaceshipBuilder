@@ -208,9 +208,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4201675981297996767}
   - component: {fileID: 4201675981297996766}
-  - component: {fileID: 4393122642533894310}
   - component: {fileID: -7272746497471828557}
   - component: {fileID: -2172054666750138816}
+  - component: {fileID: -1576417150949157968}
   - component: {fileID: 4166134122170269818}
   m_Layer: 0
   m_Name: Body
@@ -288,22 +288,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4393122642533894310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4201675981297996760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1e4fa7511714348afba54bae9edb54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  part: []
-  closestPart: {fileID: 0}
-  spaceship: {fileID: 0}
-  inventory: {fileID: 0}
 --- !u!50 &-7272746497471828557
 Rigidbody2D:
   serializedVersion: 4
@@ -342,7 +326,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.48828125, y: 0.4892578}
+    oldSize: {x: 0.9765625, y: 0.9785156}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -351,6 +335,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-1576417150949157968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201675981297996760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb1e4fa7511714348afba54bae9edb54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part: []
+  closestPart: {fileID: 0}
+  spaceship: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &4166134122170269818
 MonoBehaviour:
   m_ObjectHideFlags: 0
