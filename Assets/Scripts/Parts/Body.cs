@@ -4,8 +4,9 @@ namespace Parts
 {
     public class Body : SpaceshipPart
     {
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             this.OriginalInventory = GameObject.Find("BuildingInventory");
         }
     }

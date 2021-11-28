@@ -11,13 +11,15 @@ namespace Parts
         
         public bool Working { get; set; }
         
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             this.OriginalInventory = GameObject.Find("WeaponInventory");
         }
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             if(this.gameObject.GetComponent<SpaceshipPart>().drift)
                 return;
             if (!this.Working)

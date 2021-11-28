@@ -1,4 +1,3 @@
-using System;
 using Control;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ namespace FlightScripts
 
         private void FixedUpdate()
         {
-            if (!GameManager.Instance.Running)
+            if (!GameManager.Running)
                 return;
             
             this.Move();

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Parts;
 using UnityEngine;
@@ -10,10 +11,12 @@ namespace BuildingScripts
         [HideInInspector] public GameObject[] part;
         [HideInInspector] public GameObject closestPart;
         [HideInInspector] public GameObject spaceship;
-        
+
         private bool _inInventory;
         private GameObject _snapShadow;
         private SpaceshipPart _partType;
+
+        public static event EventHandler ShipPartAddedEvent;
     
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -21,10 +24,7 @@ namespace BuildingScripts
                 return;
             if (other.gameObject != this._partType.OriginalInventory)
                 return;
-            
-            for (var i = 0; i < this.transform.childCount; i++)
-                Destroy(this.transform.GetChild(i).gameObject.GetComponent<Docking>());
-                
+
             this._inInventory = true;
         }
    
@@ -86,11 +86,17 @@ namespace BuildingScripts
         private void OnMouseUp()
         {
             this.DestroyShadow();
-            if(!this._inInventory && this.Snap()) ;
-            else
+            if (this._inInventory)
             {
                 this._partType.SpawnInInventory();
                 Destroy(this.gameObject);
+                Destroy(this);
+            }
+            else if(!this.Snap())
+            {
+                this._partType.SpawnInInventory();
+                Destroy(this.gameObject);
+                Destroy(this);
             }
         }
     
@@ -149,6 +155,7 @@ namespace BuildingScripts
             transform1.position = position-localPosRot;
             this.transform.SetParent(this.spaceship.transform);
 
+            ShipPartAddedEvent?.Invoke(null, null);
             this._partType.SpawnInInventory();
             return true;
         }

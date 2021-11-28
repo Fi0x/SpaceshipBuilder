@@ -12,13 +12,6 @@ namespace BuildingScripts
             this._inventory = this.gameObject;
             this.SpawnPart();
         }
-
-        private void Update()
-        {
-            //TODO: Do this automatically when a part is dragged out of this inventory
-            if (Input.GetKeyDown(KeyCode.F1))
-                this.SpawnPart();
-        }
     
         public void SpawnPart()
         {

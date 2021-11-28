@@ -15,31 +15,23 @@ namespace Parts
         
         public GameObject OriginalInventory { get; protected set; }
         
-        private void Start()
+        protected virtual void Start()
         {
             this._gameManager = GameManager.Instance;
             GameManager.GameManagerInstantiatedEvent += (sender, args) => { this._gameManager = args.NewInstance; };
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (this.drift)
                 this.transform.position += this._gameManager.GetBackgroundMovement() * Time.deltaTime;
         }
 
-        public void SpawnInInventory()
+        protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
-            var partInventory = this.OriginalInventory.GetComponent<CreatePart>();
-            partInventory.SpawnPart();
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if(this._gameManager == null)
+            Debug.Log("Collision detected");
+            if(!GameManager.Running)
                 return;
-            if(!this._gameManager.Running)
-                return;
-            
             switch (collision.gameObject.tag)
             {
                 case "Ship":
@@ -53,6 +45,12 @@ namespace Parts
                     CollectResource(collision.gameObject);
                     break;
             }
+        }
+
+        public void SpawnInInventory()
+        {
+            var partInventory = this.OriginalInventory.GetComponent<CreatePart>();
+            partInventory.SpawnPart();
         }
 
         private void CollideWithAsteroid(GameObject asteroid)
