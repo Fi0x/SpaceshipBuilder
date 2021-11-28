@@ -52,6 +52,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BuildingScripts\Preview.cs" />
      <Compile Include="Assets\Scripts\FlightScripts\Station.cs" />
      <Compile Include="Assets\Scripts\Parts\Body.cs" />
      <Compile Include="Assets\Scripts\Parts\Thruster.cs" />
@@ -70,10 +71,9 @@
      <Compile Include="Assets\Scripts\StatTracker.cs" />
      <Compile Include="Assets\Scripts\FlightScripts\Resource.cs" />
      <Compile Include="Assets\Scripts\Control\AsteroidManager.cs" />
+     <Compile Include="Assets\Scripts\BuildingScripts\SnapHelper.cs" />
      <Compile Include="Assets\Scripts\BuildingScripts\CreatePart.cs" />
      <Compile Include="Assets\Scripts\FlightScripts\Background.cs" />
-     <Compile Include="Assets\Scripts\BuildingScripts\Preview.cs" />
-     <Compile Include="Assets\Scripts\BuildingScripts\SnapHelper.cs" />
      <None Include="Assets\2D Space Kit\Backgrounds\Background Tip.txt" />
      <None Include="Assets\2D Space Kit\Readme.txt" />
      <None Include="Assets\2D Space Kit\Background Elements\Planets\Planet Masks\Note.txt" />

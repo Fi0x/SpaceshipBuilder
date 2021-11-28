@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Parts;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -12,6 +13,7 @@ namespace BuildingScripts
         private bool _inInventory;
         private GameObject _snapShadow;
         private SpaceshipPart _partType;
+        private IEnumerable<GameObject> _possibleDocks;
 
         public static event EventHandler ShipPartAddedEvent;
         public static event EventHandler ShipPartRemovedEvent;
@@ -49,6 +51,7 @@ namespace BuildingScripts
 
         public void OnMouseDown()
         {
+            this._possibleDocks = SnapHelper.GetPossibleDockingPoints(this.gameObject);
             this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
             this.tag = "Part";
         }
@@ -77,12 +80,14 @@ namespace BuildingScripts
                     transform1.eulerAngles = transform1.eulerAngles + newRotation;
                 }
             }
-            Preview.RenderShadow(this._snapShadow, this.gameObject.transform.rotation, this.transform);
+            Preview.RenderShadow(this._snapShadow, this.gameObject.transform.rotation, this.transform, this._possibleDocks);
         }
 
         public void OnMouseUp()
         {
             Destroy(this._snapShadow);
+            SnapHelper.MakeDockingPointsInvisible();
+            
             if (this._inInventory)
             {
                 this._partType.SpawnInInventory();
@@ -90,7 +95,7 @@ namespace BuildingScripts
                 Destroy(this);
                 ShipPartRemovedEvent?.Invoke(null, null);
             }
-            else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType))
+            else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType, this._possibleDocks))
             {
                 ShipPartAddedEvent?.Invoke(null, null);
             }

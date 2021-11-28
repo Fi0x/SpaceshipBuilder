@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BuildingScripts
@@ -23,10 +24,10 @@ namespace BuildingScripts
             return shadow;
         }
         
-        public static void RenderShadow(GameObject shadow, Quaternion rotation, Transform objectTransform)
+        public static void RenderShadow(GameObject shadow, Quaternion rotation, Transform objectTransform, IEnumerable<GameObject> possibleDocks)
         {
             shadow.transform.rotation = rotation;
-            (GameObject obj, Transform tf) dock = SnapHelper.GetClosestDockingPoint(objectTransform);
+            (GameObject obj, Transform tf) dock = SnapHelper.GetClosestDockingPoint(objectTransform, possibleDocks);
             
             if(dock.obj == null || dock.tf == null)
                 return;

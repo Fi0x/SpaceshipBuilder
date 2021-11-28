@@ -14,8 +14,7 @@ namespace Parts
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            if(this.gameObject.GetComponent<SpaceshipPart>().drift)
-                return;
+            
             if (!this.Working)
                 return;
             if (this._weaponDelay > 0)

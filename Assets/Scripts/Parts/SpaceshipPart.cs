@@ -7,7 +7,7 @@ namespace Parts
 {
     public class SpaceshipPart : MonoBehaviour
     {
-        [HideInInspector] public bool drift;
+        private bool _isDrifting;
 
         public static event EventHandler ShipPartLostEvent;
         public static event EventHandler ResourceCollectedEvent;
@@ -16,13 +16,12 @@ namespace Parts
 
         protected virtual void FixedUpdate()
         {
-            if (this.drift)
+            if (this._isDrifting)
                 this.transform.position += GameManager.Instance.GetBackgroundMovement() * Time.deltaTime;
         }
 
         protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.Log("Collision detected");
             if(!GameManager.Running)
                 return;
             switch (collision.gameObject.tag)
@@ -48,7 +47,7 @@ namespace Parts
 
         private void CollideWithAsteroid(GameObject asteroid)
         {
-            this.drift = true;
+            this._isDrifting = true;
             foreach (var script in this.gameObject.GetComponentsInChildren<Weapon>())
                 script.Working = false;
             
