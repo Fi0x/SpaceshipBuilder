@@ -8,23 +8,16 @@ namespace Parts
     public class SpaceshipPart : MonoBehaviour
     {
         [HideInInspector] public bool drift;
-        private GameManager _gameManager;
 
         public static event EventHandler ShipPartLostEvent;
         public static event EventHandler ResourceCollectedEvent;
         
         public GameObject OriginalInventory { get; protected set; }
-        
-        protected virtual void Start()
-        {
-            this._gameManager = GameManager.Instance;
-            GameManager.GameManagerInstantiatedEvent += (sender, args) => { this._gameManager = args.NewInstance; };
-        }
 
         protected virtual void FixedUpdate()
         {
             if (this.drift)
-                this.transform.position += this._gameManager.GetBackgroundMovement() * Time.deltaTime;
+                this.transform.position += GameManager.Instance.GetBackgroundMovement() * Time.deltaTime;
         }
 
         protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -63,6 +56,7 @@ namespace Parts
         
             this.transform.parent = null;
             Destroy(asteroid);
+            Destroy(this.gameObject, 5);
         }
 
         private static void CollectResource(GameObject resource)

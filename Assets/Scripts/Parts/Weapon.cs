@@ -11,9 +11,8 @@ namespace Parts
         
         public bool Working { get; set; }
         
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
             this.OriginalInventory = GameObject.Find("WeaponInventory");
         }
 

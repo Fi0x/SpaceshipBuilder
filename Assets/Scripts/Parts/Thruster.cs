@@ -9,9 +9,8 @@ namespace Parts
         public const int SpeedIncrease = Spaceship.MaxSpeed / 4;
         public event EventHandler ThrusterDestroyedEvent;
         
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
             this.OriginalInventory = GameObject.Find("ThrusterInventory");
         }
 
