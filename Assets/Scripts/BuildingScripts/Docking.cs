@@ -17,7 +17,6 @@ namespace BuildingScripts
             other.GetComponent<Docking>().SetOtherBody(this.gameObject);
             this.transform.parent.tag = "Ship";
             other.transform.parent.tag = "Ship";
-            Debug.Log(this.otherBody);
         }  
     
         private void OnTriggerExit2D(Collider2D other)

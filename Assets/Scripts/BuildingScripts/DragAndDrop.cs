@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Parts;
 using UnityEngine;
@@ -87,8 +86,7 @@ namespace BuildingScripts
         private void OnMouseUp()
         {
             this.DestroyShadow();
-            if(!this._inInventory)
-                this.Snap();
+            if(!this._inInventory && this.Snap()) ;
             else
             {
                 this._partType.SpawnInInventory();
@@ -138,17 +136,21 @@ namespace BuildingScripts
             return (this.closestPart,dockingPoint);
         }
         
-        private void Snap()
+        private bool Snap()
         {
-            (GameObject gobj, Transform tf) docking = this.GetClosestDockingPoint();
+            (var dockingObject, var dockingTransform) = this.GetClosestDockingPoint();
+            if (dockingObject == null || dockingTransform == null)
+                return false;
+            
             var transform1 = this.transform;
-            var position = docking.gobj.transform.position;
-            var localPosition = docking.tf.localPosition;
+            var position = dockingObject.transform.position;
+            var localPosition = dockingTransform.localPosition;
             var localPosRot= transform1.rotation * localPosition;
             transform1.position = position-localPosRot;
             this.transform.SetParent(this.spaceship.transform);
 
             this._partType.SpawnInInventory();
+            return true;
         }
         
         private void InitShadow()
@@ -172,10 +174,14 @@ namespace BuildingScripts
         {
             this._snapShadow.transform.rotation = this.gameObject.transform.rotation;
             var spriteRenderer = this._snapShadow.gameObject.GetComponent<SpriteRenderer>();
-            (GameObject gobj, Transform tf) docking =  this.GetClosestDockingPoint(); 
+            
+            (var dockingObject, var dockingTransform) =  this.GetClosestDockingPoint();
+            if(dockingObject == null || dockingTransform == null)
+                return;
+            
             var transform1 = this.transform;
-            var position = docking.gobj.transform.position;
-            var localPosition = docking.tf.localPosition;
+            var position = dockingObject.transform.position;
+            var localPosition = dockingTransform.localPosition;
             var localPosRot= transform1.rotation * localPosition;
             spriteRenderer.transform.position = position-localPosRot;
         }
