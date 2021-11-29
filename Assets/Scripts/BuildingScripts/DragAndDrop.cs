@@ -13,7 +13,7 @@ namespace BuildingScripts
         private bool _inInventory;
         private GameObject _snapShadow;
         private SpaceshipPart _partType;
-        private IEnumerable<GameObject> _possibleDocks;
+        private List<GameObject> _possibleDocks;
 
         public static event EventHandler ShipPartAddedEvent;
         public static event EventHandler ShipPartRemovedEvent;
@@ -51,7 +51,7 @@ namespace BuildingScripts
 
         public void OnMouseDown()
         {
-            this._possibleDocks = SnapHelper.GetPossibleDockingPoints(this.gameObject);
+            this._possibleDocks = SnapHelper.GetPossibleDockingPoints();
             this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
             this.tag = "Part";
 
@@ -88,7 +88,6 @@ namespace BuildingScripts
         public void OnMouseUp()
         {
             Destroy(this._snapShadow);
-            SnapHelper.MakeDockingPointsInvisible();
             
             if (this._inInventory)
             {
@@ -108,6 +107,8 @@ namespace BuildingScripts
                 Destroy(this);
                 ShipPartRemovedEvent?.Invoke(null, null);
             }
+            
+            SnapHelper.MakeDockingPointsInvisible();
             
             //TODO: Go through all parts and "enable" all connected ones
         }

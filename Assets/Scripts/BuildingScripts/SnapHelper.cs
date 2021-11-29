@@ -8,24 +8,24 @@ namespace BuildingScripts
 {
     public static class SnapHelper
     {
-        public static bool Snap(Transform originalTransform, GameObject spaceship, SpaceshipPart partType, IEnumerable<GameObject> possibleDocks)
+        public static bool Snap(Transform originalTransform, GameObject spaceship, SpaceshipPart partType, List<GameObject> possibleDocks)
         {
             (var dockingObject, var dockingTransform) = GetClosestDockingPoint(originalTransform, possibleDocks);
             if (dockingObject == null || dockingTransform == null)
                 return false;
 
-            var transform1 = originalTransform;
             var position = dockingObject.transform.position;
             var localPosition = dockingTransform.localPosition;
-            var localPosRot= transform1.rotation * localPosition;
-            transform1.position = position-localPosRot;
+            var localPosRot= originalTransform.rotation * localPosition;
+            originalTransform.position = position - localPosRot;
             originalTransform.SetParent(spaceship.transform);
+            originalTransform.tag = "Ship";
 
             partType.SpawnInInventory();
             return true;
         }
 
-        public static (GameObject, Transform) GetClosestDockingPoint(Transform originalTransform, IEnumerable<GameObject> possibleDocks)
+        public static (GameObject, Transform) GetClosestDockingPoint(Transform originalTransform, List<GameObject> possibleDocks)
         {
             Transform dockingPoint = null;
             
@@ -54,17 +54,15 @@ namespace BuildingScripts
             return (closestPart, dockingPoint);
         }
 
-        public static IEnumerable<GameObject> GetPossibleDockingPoints(GameObject dragObject)
+        public static List<GameObject> GetPossibleDockingPoints()
         {
-            var exceptions = new List<GameObject>();
-            dragObject.GetComponentsInChildren<CircleCollider2D>().ToList().ForEach(child => exceptions.Add(child.gameObject));
+            var shipDocks = new List<GameObject>();
+            
+            GameObject.Find("Spaceship(Clone)").GetComponentsInChildren<CircleCollider2D>()
+                .ToList()
+                .ForEach(c => shipDocks.Add(c.gameObject));
 
-            var emptyDocks = GameObject.FindGameObjectsWithTag("DockEmpty");
-            var possibleDocks = emptyDocks
-                .Where(dock => dock.transform.parent.tag.Equals("Ship"))
-                .Except(exceptions)
-                .ToList();
-
+            var possibleDocks = shipDocks.Where(dock => dock.tag.Equals("DockEmpty")).ToList();
             possibleDocks.ForEach(d => SetRendererColor(d.GetComponent<SpriteRenderer>(), 0, 1, 0, 0.5f));
 
             return possibleDocks;
