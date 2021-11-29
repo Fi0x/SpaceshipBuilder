@@ -51,6 +51,7 @@ namespace BuildingScripts
 
         public void OnMouseDown()
         {
+            this.transform.parent = null;
             this._possibleDocks = SnapHelper.GetPossibleDockingPoints();
             this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
             this.tag = "Part";
