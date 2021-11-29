@@ -40,6 +40,9 @@ namespace Control
         public GameObject InGameButtons { get; set; }
         public GameObject Ship { get; private set; }
         public Spaceship ShipScript { get; private set; }
+        public GameObject BuildInventory { get; set; }
+        public GameObject WeaponInventory { get; set; }
+        public GameObject ThrusterInventory { get; set; }
         public static bool Running { get; private set; }
 
         private void Awake()

@@ -54,6 +54,8 @@ namespace BuildingScripts
             this._possibleDocks = SnapHelper.GetPossibleDockingPoints(this.gameObject);
             this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
             this.tag = "Part";
+
+            // TODO: Remove part from ship, iterate through all parts and "disable" non connected
         }
 
         public void OnMouseDrag()
@@ -106,6 +108,8 @@ namespace BuildingScripts
                 Destroy(this);
                 ShipPartRemovedEvent?.Invoke(null, null);
             }
+            
+            //TODO: Go through all parts and "enable" all connected ones
         }
 
         private static Vector3? GetMousePos()

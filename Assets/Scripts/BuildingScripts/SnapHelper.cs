@@ -13,7 +13,7 @@ namespace BuildingScripts
             (var dockingObject, var dockingTransform) = GetClosestDockingPoint(originalTransform, possibleDocks);
             if (dockingObject == null || dockingTransform == null)
                 return false;
-            
+
             var transform1 = originalTransform;
             var position = dockingObject.transform.position;
             var localPosition = dockingTransform.localPosition;
@@ -65,7 +65,7 @@ namespace BuildingScripts
                 .Except(exceptions)
                 .ToList();
 
-            possibleDocks.ForEach(d => d.GetComponent<SpriteRenderer>().enabled = true);
+            possibleDocks.ForEach(d => SetRendererColor(d.GetComponent<SpriteRenderer>(), 0, 1, 0, 0.5f));
 
             return possibleDocks;
         }
@@ -73,7 +73,13 @@ namespace BuildingScripts
         public static void MakeDockingPointsInvisible()
         {
             var collider = GameObject.Find("Spaceship(Clone)").GetComponentsInChildren<CircleCollider2D>();
-            collider.ToList().ForEach(c => c.gameObject.GetComponent<SpriteRenderer>().enabled = false);
+            collider.ToList().ForEach(c => SetRendererColor(c.gameObject.GetComponent<SpriteRenderer>(), 1, 1, 1, 0));
+        }
+
+        private static void SetRendererColor(SpriteRenderer renderer, float r, float g, float b, float alpha)
+        {
+            renderer.enabled = true;
+            renderer.color = new Color(r, g, b, alpha);
         }
     }
 }
