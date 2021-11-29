@@ -12,7 +12,7 @@ public class Spaceship : MonoBehaviour
     public int turnSpeed = 100;
 
     private int _zAngle;
-    private float _horizontalOffset;
+    public float _horizontalOffset;
 
     private GameManager _gameManager;
     private GameManager GameManagerInstance
@@ -85,6 +85,12 @@ public class Spaceship : MonoBehaviour
             case "Asteroid":
                 this.GameManagerInstance.GameOver(false);
                 break;
+            case "EnemyProjectile":
+                this.GameManagerInstance.GameOver(false);
+                break;
+            case "Enemy":
+                this.GameManagerInstance.GameOver(false);
+                break;
         }
     }
 
@@ -120,6 +126,11 @@ public class Spaceship : MonoBehaviour
     public void HorizontalOffset(float offset)
     {
         this._horizontalOffset = offset;
+    }
+
+    public float GetHorizontalOffset()
+    {
+        return this._horizontalOffset;
     }
 
     public void ThrusterDestroyedEventHandler(object sender, EventArgs args)

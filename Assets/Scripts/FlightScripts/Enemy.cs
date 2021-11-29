@@ -18,13 +18,23 @@ public class Enemy : MonoBehaviour
     private float targetRotation;
     private float currentRotation;
     private bool weaponReady = true;
+    private float searchangle;
     private void Awake()
     {
         gameManager = GameManager.Instance;
     }
     void Start()
     {
+        searchangle = Random.Range(110, 150);
         currentRotation = 180;
+        if(gameManager.ShipScript.GetHorizontalOffset() < 0)
+        {
+        targetRotation = searchangle;
+        }
+        else
+        {
+            targetRotation = -searchangle;
+        }
     }
 
     // Update is called once per frame
@@ -35,25 +45,18 @@ public class Enemy : MonoBehaviour
         distanceToPlayer *= -1;
 
         Vector3 move = Vector3.zero;
-        setTargetRotation();
         Debug.Log(targetRotation);
 
-        if(distanceToPlayer.magnitude < NoticingRange)
+        setTargetRotation();
+        turnToTarget();
+
+        if (distanceToPlayer.magnitude < NoticingRange && weaponReady)
         {
-            // Noticed behaviour
-            //Wrong Behaviour, but works as intended
-            turnToTarget();
-            float rotationInRad = (currentRotation-90) * Mathf.Deg2Rad;
-            move = new Vector3(-Mathf.Cos(rotationInRad), -Mathf.Sin(rotationInRad),0);
-            if (weaponReady)
-            {
-                shoot();
-            }
+            shoot();
         }
-        else
-        {
-            //Unnoticed behaviour
-        }
+
+            float rotationInRad = (currentRotation - 90) * Mathf.Deg2Rad;
+        move = new Vector3(-Mathf.Cos(rotationInRad), -Mathf.Sin(rotationInRad), 0);
         move.Normalize();
 
         this.transform.rotation = Quaternion.AngleAxis(currentRotation, Vector3.forward);
@@ -72,19 +75,40 @@ public class Enemy : MonoBehaviour
     private void setTargetRotation()
     {
         float angle;
-        if (distanceToPlayer.x < 0)
+        if (distanceToPlayer.magnitude < NoticingRange)
         {
-            angle = Mathf.Acos(distanceToPlayer.normalized.x);
-            if (distanceToPlayer.y < 0)
+            // Noticed behaviour
+            if (distanceToPlayer.x < 0)
             {
-                angle = Mathf.PI * 2 - angle;
+                angle = Mathf.Acos(distanceToPlayer.normalized.x);
+                if (distanceToPlayer.y < 0)
+                {
+                    angle = Mathf.PI * 2 - angle;
                 }
-        }
+            }
         else
         {
             angle = Mathf.Asin(distanceToPlayer.normalized.y);
         }
-        targetRotation = (angle * Mathf.Rad2Deg - 90);
+        targetRotation = (angle * Mathf.Rad2Deg - 90);   
+        }
+        else
+        {
+            //Unnoticed behaviour
+            float offset = gameManager.ShipScript.GetHorizontalOffset();
+            offset += transform.position.x;
+            if(offset < -80)
+            {
+                targetRotation = -searchangle;
+            }
+            else
+            {
+                if(offset > 80)
+                {
+                targetRotation = searchangle;
+                }
+            }            
+        }
     }
 
     private void turnToTarget()
@@ -104,7 +128,7 @@ public class Enemy : MonoBehaviour
             currentRotation = targetRotation;
             return;
         }
-        if(diff < 0)
+        if(diff < 0 && diff > -90)
         {
             currentRotation -= maxTurn;
         }
@@ -127,5 +151,13 @@ public class Enemy : MonoBehaviour
     private void resetWeaponFlag()
     {
         weaponReady = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Projectile")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

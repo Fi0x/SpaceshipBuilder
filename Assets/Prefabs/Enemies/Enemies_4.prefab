@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 5612511163918637549}
   - component: {fileID: 4860838727444367270}
   - component: {fileID: 5463617317711418406}
+  - component: {fileID: 8086258292986435842}
+  - component: {fileID: 916333676882834889}
   m_Layer: 0
   m_Name: Enemies_4
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,5 +98,68 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 2050358665146770349, guid: d176cf1096210534188ae60598972b83, type: 3}
-  Speed: 5
-  NoticingRange: 50
+  Speed: 9
+  NoticingRange: 100
+  turnSpeed: 300
+  ReloadTime: 1
+--- !u!60 &8086258292986435842
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559127621658018072}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5, y: 5}
+    newSize: {x: 5, y: 5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.01, y: -0.65}
+      - {x: 0.25, y: -0.66999996}
+      - {x: 0.66999996, y: -0.56}
+      - {x: 0.95, y: -0.75}
+      - {x: 1.35, y: -0.75}
+      - {x: 1.35, y: -0.38}
+      - {x: 0.08, y: 0.79999995}
+      - {x: -0.26999998, y: 0.79999995}
+      - {x: -0.68, y: 0.59999996}
+      - {x: -1.63, y: -0.45999998}
+      - {x: -1.63, y: -0.75}
+      - {x: -1.24, y: -0.75}
+      - {x: -0.91999996, y: -0.59999996}
+      - {x: -0.53, y: -0.65999997}
+      - {x: -0.26, y: -0.62}
+--- !u!50 &916333676882834889
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559127621658018072}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7

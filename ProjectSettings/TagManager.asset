@@ -9,6 +9,8 @@ TagManager:
   - Projectile
   - Station
   - Asteroid
+  - EnemyProjectile
+  - Enemy
   layers:
   - Default
   - TransparentFX

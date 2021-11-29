@@ -397,7 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0496d5cb9c211b24ebf986e5afdec972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumberOfEnemies: 4
+  NumberOfEnemies: 10
   SpawnDelay: 2
   presets:
   - {fileID: 8154769244570420728, guid: de78b2e6491a5d74a8d671c27a7aade6, type: 3}
