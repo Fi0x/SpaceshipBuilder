@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shot: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  menuClick: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  buildPartAdded: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  buildPartRemoved: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
+  menuClick: {fileID: 8300000, guid: 1c2441e26a71fc041af84e28bc700562, type: 3}
+  buildPartAdded: {fileID: 8300000, guid: f141eca5cf8ee044fbb66a87155727fd, type: 3}
+  buildPartRemoved: {fileID: 8300000, guid: f141eca5cf8ee044fbb66a87155727fd, type: 3}
   partDestroyed: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
   asteroidDestroyed: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
   enemyDestroyed: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
