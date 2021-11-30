@@ -8,8 +8,8 @@ namespace FlightScripts
     public class Spaceship : MonoBehaviour
     {
         public float accelerationPerSecond = 100;
-        public const int MaxSpeed = 20;
-        public int currentMaxSpeed = 20;
+        public const float MaxSpeed = 20;
+        public float currentMaxSpeed = 20;
         public int maxAngle = 45;
         public int turnSpeed = 100;
 
@@ -105,13 +105,13 @@ namespace FlightScripts
             this._horizontalOffset = offset;
         }
 
-        public void ThrusterDestroyedEventHandler(object sender, EventArgs args)
+        public void ThrusterDestroyedEventHandler(object sender, Thruster.ThrusterDestroyedEventArgs args)
         {
             if(sender is Thruster thruster)
                 thruster.ThrusterDestroyedEvent -= this.ThrusterDestroyedEventHandler;
             else 
                 return;
-            this.currentMaxSpeed -= Thruster.SpeedIncrease;
+            this.currentMaxSpeed -= args.Thruster.SpeedIncrease;
         }
     }
 }

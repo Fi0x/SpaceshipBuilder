@@ -6,6 +6,8 @@ namespace FlightScripts
 {
     public class Projectile : MonoBehaviour
     {
+        [SerializeField] private float speed;
+        
         private Vector3 _dir;
         private GameManager _gameManager;
     
@@ -23,7 +25,7 @@ namespace FlightScripts
         private void FixedUpdate()
         {
             this.transform.position += this._gameManager.GetBackgroundMovement() / 60;
-            this.transform.position += this._dir* -1 * (this._gameManager.ShipScript.Speed+100) / 60;
+            this.transform.position += this._dir * -1 * (this._gameManager.ShipScript.Speed + this.speed) / 60;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

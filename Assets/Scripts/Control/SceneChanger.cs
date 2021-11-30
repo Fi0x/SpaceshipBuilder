@@ -31,7 +31,7 @@ namespace Control
             GameManager.Instance.ShipScript.currentMaxSpeed = Spaceship.MaxSpeed;
             foreach (var script in GameManager.Instance.Ship.GetComponentsInChildren<Thruster>())
             {
-                GameManager.Instance.ShipScript.currentMaxSpeed += Thruster.SpeedIncrease;
+                GameManager.Instance.ShipScript.currentMaxSpeed += script.SpeedIncrease;
                 script.ThrusterDestroyedEvent += GameManager.Instance.ShipScript.ThrusterDestroyedEventHandler;
             }
             
