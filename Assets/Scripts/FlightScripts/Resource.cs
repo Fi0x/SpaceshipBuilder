@@ -7,7 +7,7 @@ namespace FlightScripts
     {
         public void FixedUpdate()
         {
-            if (!GameManager.Instance.Running)
+            if (!GameManager.Running)
                 return;
 
             this.transform.position += GameManager.Instance.GetBackgroundMovement() / 60;

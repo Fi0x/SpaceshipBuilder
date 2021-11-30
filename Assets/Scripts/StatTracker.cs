@@ -1,6 +1,8 @@
 using Control;
 using FlightScripts;
 using Parts;
+using UnityEditor;
+using DragAndDrop = BuildingScripts.DragAndDrop;
 
 public class StatTracker
 {
@@ -52,6 +54,8 @@ public class StatTracker
             this.TotalTime += args.TimeForLevel;
             this.CompletedLevels += args.Won ? 1 : 0;
         };
+        DragAndDrop.ShipPartAddedEvent += (sender, args) => { this.UsedShipParts++; };
+        DragAndDrop.ShipPartRemovedEvent += (sender, args) => { this.UsedShipParts--; };
     }
 
     public static void InstantiateTracker()

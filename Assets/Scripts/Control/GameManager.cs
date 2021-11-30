@@ -40,7 +40,10 @@ namespace Control
         public GameObject InGameButtons { get; set; }
         public GameObject Ship { get; private set; }
         public Spaceship ShipScript { get; private set; }
-        public bool Running { get; private set; }
+        public GameObject BuildInventory { get; set; }
+        public GameObject WeaponInventory { get; set; }
+        public GameObject ThrusterInventory { get; set; }
+        public static bool Running { get; private set; }
 
         private void Awake()
         {
@@ -50,7 +53,7 @@ namespace Control
 
         public void StartGame()
         {
-            this.Running = true;
+            Running = true;
             this._stopwatch = new Stopwatch();
             this._stopwatch.Start();
             this._nextStationStopwatchTime = this.secondsBetweenStations * 1000;
@@ -58,13 +61,12 @@ namespace Control
 
         public void GameOver(bool won)
         {
-            if (!this.Running)
+            if (!Running)
                 return;
             
             this._stopwatch.Stop();
-            this.Running = false;
+            Running = false;
 
-            var tracker = StatTracker.Instance;
             var eventArgs = new LevelCompletedEventArgs
             {
                 Won = won,
@@ -87,7 +89,7 @@ namespace Control
 
         private void Update()
         {
-            if(!this.Running)
+            if(!Running)
                 return;
             if(!this._stopwatch.IsRunning)
                 return;

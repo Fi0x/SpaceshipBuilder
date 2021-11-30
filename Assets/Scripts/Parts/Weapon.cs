@@ -1,23 +1,22 @@
 using System;
-using FlightScripts;
 using UnityEngine;
 
 namespace Parts
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon : SpaceshipPart
     {
         [SerializeField] private GameObject prefabProjectile;
 
         public static event EventHandler ShotFiredEvent;
+
+        private int _weaponDelay;
         
         public bool Working { get; set; }
 
-        private int _weaponDelay;
-
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
-            if(this.gameObject.GetComponent<SpaceshipPart>().drift)
-                return;
+            base.FixedUpdate();
+            
             if (!this.Working)
                 return;
             if (this._weaponDelay > 0)
@@ -32,8 +31,8 @@ namespace Parts
 
         private void Shoot()
         {
-            var projectile = Instantiate(this.prefabProjectile, this.transform.position, this.transform.rotation);
-            projectile.AddComponent(typeof(Projectile));
+            var tf = this.transform;
+            Instantiate(this.prefabProjectile, tf.position, tf.rotation);
             this._weaponDelay = 15;
             
             ShotFiredEvent?.Invoke(null, null);
