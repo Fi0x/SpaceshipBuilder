@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BuildingScripts;
 using FlightScripts;
 using Parts;
 using UnityEngine;
@@ -9,11 +10,14 @@ namespace Control
     {
         [SerializeField] private AudioClip shot;
         [SerializeField] private AudioClip menuClick;
-        [SerializeField] private AudioClip gameLost;
-        [SerializeField] private AudioClip gameWon;
+        [SerializeField] private AudioClip buildPartAdded;
+        [SerializeField] private AudioClip buildPartRemoved;
         [SerializeField] private AudioClip partDestroyed;
         [SerializeField] private AudioClip asteroidDestroyed;
         [SerializeField] private AudioClip enemyDestroyed;
+        [SerializeField] private AudioClip resourceCollected;
+        [SerializeField] private AudioClip gameLost;
+        [SerializeField] private AudioClip gameWon;
 
         private Dictionary<SoundName, AudioSource> _audioSources;
         private void Start()
@@ -24,9 +28,12 @@ namespace Control
             SceneChanger.InGameButtonClickedEvent += (sender, args) => { this._audioSources[SoundName.MenuClick].Play(); };
             StatMenu.StatMenuClosedEvent += (sender, args) => { this._audioSources[SoundName.MenuClick].Play(); };
             MainMenu.MenuButtonClickedEvent += (sender, args) => { this._audioSources[SoundName.MenuClick].Play(); };
-            GameManager.LevelCompletedEvent += (sender, args) => { this._audioSources[args.Won ? SoundName.GameWon : SoundName.GameLost].Play(); };
+            DragAndDrop.ShipPartAddedEvent += (sender, args) => { this._audioSources[SoundName.BuildPartAdded].Play(); };
+            DragAndDrop.ShipPartRemovedEvent += (sender, args) => { this._audioSources[SoundName.BuildPartRemoved].Play(); };
             SpaceshipPart.ShipPartLostEvent += (sender, args) => { this._audioSources[SoundName.PartDestroyed].Play(); };
             AsteroidBehaviour.AsteroidDestroyedEvent += (sender, args) => { this._audioSources[SoundName.AsteroidDestroyed].Play(); };
+            SpaceshipPart.ResourceCollectedEvent += (sender, args) => { this._audioSources[SoundName.ResourceCollected].Play(); };
+            GameManager.LevelCompletedEvent += (sender, args) => { this._audioSources[args.Won ? SoundName.GameWon : SoundName.GameLost].Play(); };
         }
 
         private void InstantiateAudioObjects()
@@ -35,11 +42,14 @@ namespace Control
 
             this.AddAudioObject(SoundName.Shot, this.shot, 0.2f);
             this.AddAudioObject(SoundName.MenuClick, this.menuClick, 0.2f);
-            this.AddAudioObject(SoundName.GameLost, this.gameLost, 0.2f);
-            this.AddAudioObject(SoundName.GameWon, this.gameWon, 0.2f);
+            this.AddAudioObject(SoundName.BuildPartAdded, this.buildPartAdded, 0.2f);
+            this.AddAudioObject(SoundName.BuildPartRemoved, this.buildPartRemoved, 0.2f);
             this.AddAudioObject(SoundName.PartDestroyed, this.partDestroyed, 0.2f);
             this.AddAudioObject(SoundName.AsteroidDestroyed, this.asteroidDestroyed, 0.2f);
             this.AddAudioObject(SoundName.EnemyDestroyed, this.enemyDestroyed, 0.2f);
+            this.AddAudioObject(SoundName.ResourceCollected, this.resourceCollected, 0.2f);
+            this.AddAudioObject(SoundName.GameLost, this.gameLost, 0.2f);
+            this.AddAudioObject(SoundName.GameWon, this.gameWon, 0.2f);
         }
 
         private void AddAudioObject(SoundName objectName, AudioClip clip, float volume)
@@ -60,11 +70,14 @@ namespace Control
         {
             Shot,
             MenuClick,
-            GameLost,
-            GameWon,
+            BuildPartAdded,
+            BuildPartRemoved,
             PartDestroyed,
             AsteroidDestroyed,
-            EnemyDestroyed
+            EnemyDestroyed,
+            ResourceCollected,
+            GameLost,
+            GameWon,
         }
     }
 }

@@ -45,11 +45,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shot: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
   menuClick: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  gameLost: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  gameWon: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
+  buildPartAdded: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
+  buildPartRemoved: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
   partDestroyed: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
   asteroidDestroyed: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
   enemyDestroyed: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
+  resourceCollected: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
+  gameLost: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
+  gameWon: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
 --- !u!1 &4996668805634956955
 GameObject:
   m_ObjectHideFlags: 0
