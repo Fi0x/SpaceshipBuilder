@@ -1,8 +1,8 @@
+using FlightScripts;
 using Parts;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Control
 {
@@ -11,34 +11,34 @@ namespace Control
         public static void LoadBuildingScene()
         {
             GameManager.Instance.Ship.GetComponent<Spaceship>().ResetShip();
+            GameManager.Instance.BuildInventory.SetActive(true);
+            GameManager.Instance.WeaponInventory.SetActive(true);
+            GameManager.Instance.ThrusterInventory.SetActive(true);
             SceneManager.LoadScene("BuildingScene");
         }
 
         private static void LoadFlyingScene()
         {
-            var gameManager = GameObject.Find("GameManager(Clone)");
-            var gameManagerScript = gameManager.GetComponent<GameManager>();
-            gameManagerScript.StartGame();
-            DontDestroyOnLoad(gameManager);
-            DontDestroyOnLoad(gameManagerScript.Ship);
-            DontDestroyOnLoad(gameManagerScript.Menu);
-            DontDestroyOnLoad(gameManagerScript.InGameButtons);
+            GameManager.Instance.StartGame();
         
             // Activate Ship
-            gameManagerScript.Ship.transform.position = new Vector3(0, -10, 0);
-            gameManagerScript.Ship.transform.localScale = Vector3.one * 2;
+            GameManager.Instance.Ship.transform.position = new Vector3(0, -10, 0);
+            GameManager.Instance.Ship.transform.localScale = Vector3.one * 2;
         
-            foreach (var script in gameManagerScript.Ship.GetComponentsInChildren<Weapon>())
+            foreach (var script in GameManager.Instance.Ship.GetComponentsInChildren<Weapon>())
                 script.Working = true;
 
-            gameManagerScript.ShipScript.currentMaxSpeed = Spaceship.MaxSpeed;
-            foreach (var script in gameManagerScript.Ship.GetComponentsInChildren<Thruster>())
+            GameManager.Instance.ShipScript.currentMaxSpeed = Spaceship.MaxSpeed;
+            foreach (var script in GameManager.Instance.Ship.GetComponentsInChildren<Thruster>())
             {
-                gameManagerScript.ShipScript.currentMaxSpeed += Thruster.SpeedIncrease;
-                script.ThrusterDestroyedEvent += gameManagerScript.ShipScript.ThrusterDestroyedEventHandler;
+                GameManager.Instance.ShipScript.currentMaxSpeed += Thruster.SpeedIncrease;
+                script.ThrusterDestroyedEvent += GameManager.Instance.ShipScript.ThrusterDestroyedEventHandler;
             }
             
             GameManager.Instance.InGameButtons.SetActive(false);
+            GameManager.Instance.BuildInventory.SetActive(false);
+            GameManager.Instance.WeaponInventory.SetActive(false);
+            GameManager.Instance.ThrusterInventory.SetActive(false);
         
             SceneManager.LoadScene("FlyingScene");
         }

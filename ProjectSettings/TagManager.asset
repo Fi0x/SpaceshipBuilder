@@ -10,6 +10,8 @@ TagManager:
   - Station
   - Asteroid
   - Resource
+  - DockEmpty
+  - DockFull
   layers:
   - Default
   - TransparentFX
