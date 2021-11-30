@@ -22,17 +22,16 @@ namespace BuildingScripts
         {
             if(this._partType == null)
                 return;
-            if (other.gameObject != this._partType.OriginalInventory)
-                return;
+            if (other.gameObject.tag.Equals("Inventory")) 
+                this._inInventory = true;
 
-            this._inInventory = true;
         }
    
         private void OnTriggerExit2D(Collider2D other)
         {
             if(this._partType == null)
                 return;
-            if (other.gameObject != this._partType.OriginalInventory)
+            if (!other.gameObject.tag.Equals("Inventory"))
                 return;
             
             this._inInventory = false;
