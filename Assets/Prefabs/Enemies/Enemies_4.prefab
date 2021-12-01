@@ -97,11 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801aae8e7e648624ca513b6aaef76ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 2050358665146770349, guid: d176cf1096210534188ae60598972b83, type: 3}
-  Speed: 9
-  NoticingRange: 100
+  projectilePrefab: {fileID: 2050358665146770349, guid: d176cf1096210534188ae60598972b83, type: 3}
+  speed: 9
+  noticingRange: 100
   turnSpeed: 300
-  ReloadTime: 1
+  reloadTime: 1
 --- !u!60 &8086258292986435842
 PolygonCollider2D:
   m_ObjectHideFlags: 0

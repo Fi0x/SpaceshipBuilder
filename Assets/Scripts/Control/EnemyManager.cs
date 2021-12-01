@@ -1,38 +1,29 @@
-using System.Collections;
 using System.Collections.Generic;
+using FlightScripts.Enemies;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+namespace Control
 {
-    public int NumberOfEnemies = 3;
-    public float SpawnDelay = 2;
-    [SerializeField] private GameObject[] presets;
-    private List<GameObject> enemies;
-    // Start is called before the first frame update
-    void Start()
+    public class EnemyManager : MonoBehaviour
     {
-        for(int i = 0; i<NumberOfEnemies; i++)
-        {
-            Invoke("spawnEnemy", (i + 1) * SpawnDelay);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        [SerializeField] private int numberOfEnemies = 3;
+        [SerializeField] private float spawnDelay = 2;
+        [SerializeField] private GameObject[] presets;
+        private List<GameObject> enemies;
         
-    }
+        private void Start()
+        {
+            this.enemies = new List<GameObject>();
+            for(var i = 0; i<this.numberOfEnemies; i++)
+                this.Invoke(nameof(this.SpawnEnemy), (i + 1) * this.spawnDelay);
+        }
 
-    private void spawnEnemy()
-    {
-        var type = Random.Range(0, this.presets.Length);
-        GameObject enemy = Instantiate(this.presets[type]);
-        enemy.GetComponent<Enemy>().Init();
-        enemies.Add(enemy);
-    }
-
-    private void spawnEnemy(int type)
-    {
-
+        private void SpawnEnemy()
+        {
+            var type = Random.Range(0, this.presets.Length);
+            var enemy = Instantiate(this.presets[type]);
+            enemy.GetComponent<Enemy>().Init();
+            this.enemies.Add(enemy);
+        }
     }
 }
