@@ -1,4 +1,3 @@
-using System;
 using Control;
 using UnityEngine;
 
@@ -7,14 +6,10 @@ namespace FlightScripts
     public class Projectile : MonoBehaviour
     {
         private Vector3 _dir;
-        private GameManager _gameManager;
     
         private void Start()
         {
-            this._gameManager = GameManager.Instance;
-            GameManager.GameManagerInstantiatedEvent += this.GameManagerInstantiatedEventHandler;
-            if(this._gameManager != null)
-                this._dir = this._gameManager.ShipScript.GetDirection();
+            this._dir = GameManager.Instance.ShipScript.GetDirection();
      
             Destroy(this.gameObject, 3f);
             Destroy(this, 3f);
@@ -22,8 +17,9 @@ namespace FlightScripts
 
         private void FixedUpdate()
         {
-            this.transform.position += this._gameManager.GetBackgroundMovement() / 60;
-            this.transform.position += this._dir* -1 * (this._gameManager.ShipScript.Speed+100) / 60;
+            var vector = GameManager.Instance.GetBackgroundMovement() / 60;
+            vector += -1 * (GameManager.Instance.ShipScript.Speed + 100) / 60 * this._dir;
+            this.transform.position += vector;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -39,12 +35,6 @@ namespace FlightScripts
         
             Destroy(this.gameObject);
             Destroy(this);
-        }
-
-        private void GameManagerInstantiatedEventHandler(object sender, GameManager.NewGameManagerEventArgs args)
-        {
-            this._gameManager = args.NewInstance;
-            this._dir = this._gameManager.ShipScript.GetDirection();
         }
     }
 }
