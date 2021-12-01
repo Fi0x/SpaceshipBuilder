@@ -1,3 +1,5 @@
+using Control;
+using FlightScripts;
 using UnityEngine;
 
 namespace Parts
@@ -26,8 +28,18 @@ namespace Parts
                 return;
 
             var tf = this.transform;
-            Instantiate(this.prefabProjectile, tf.position, tf.rotation);
+            var projectile = Instantiate(this.prefabProjectile, tf.position, tf.rotation);
+            
+            projectile.GetComponent<Projectile>().dir = this.GetDirection();
+
             this._weaponDelay = 15;
+        }
+
+        private Vector3 GetDirection()
+        {
+            var angle = this.transform.localRotation.z * 2 + (GameManager.Instance.ShipScript.zAngle - 90) * Mathf.Deg2Rad;
+            var toReturn = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+            return toReturn;
         }
     }
 }

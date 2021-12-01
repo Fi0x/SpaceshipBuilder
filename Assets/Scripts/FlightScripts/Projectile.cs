@@ -5,12 +5,10 @@ namespace FlightScripts
 {
     public class Projectile : MonoBehaviour
     {
-        private Vector3 _dir;
+        public Vector3 dir;
     
         private void Start()
         {
-            this._dir = GameManager.Instance.ShipScript.GetDirection();
-     
             Destroy(this.gameObject, 3f);
             Destroy(this, 3f);
         }
@@ -18,7 +16,7 @@ namespace FlightScripts
         private void FixedUpdate()
         {
             var vector = GameManager.Instance.GetBackgroundMovement() / 60;
-            vector += -1 * (GameManager.Instance.ShipScript.Speed + 100) / 60 * this._dir;
+            vector += -1 * (GameManager.Instance.ShipScript.Speed + 100) / 60 * this.dir;
             this.transform.position += vector;
         }
 
