@@ -44,7 +44,7 @@ namespace Control
             Object.DontDestroyOnLoad(buttons);
             Debug.Log("Buttons loaded");
 
-            var itemInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/Inventory.prefab");
+            var itemInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/InventoryReduced.prefab");
             var itemInventory = Object.Instantiate(itemInventoryPrefab);
             Object.DontDestroyOnLoad(itemInventory);
             Debug.Log("Inventory loaded");

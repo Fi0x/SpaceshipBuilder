@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Parts;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace BuildingScripts
 {
@@ -24,7 +23,6 @@ namespace BuildingScripts
                 return;
             if (other.gameObject.tag.Equals("Inventory")) 
                 this._inInventory = true;
-
         }
    
         private void OnTriggerExit2D(Collider2D other)
@@ -37,7 +35,7 @@ namespace BuildingScripts
             this._inInventory = false;
             for (var i = 0; i < this.transform.childCount; i++)
             {
-                if(!this.transform.GetChild(i).gameObject.GetComponent<Docking>()) 
+                if(!this.transform.GetChild(i).gameObject.GetComponent<Docking>())
                     this.transform.GetChild(i).gameObject.AddComponent<Docking>();
             }
         }
@@ -70,7 +68,6 @@ namespace BuildingScripts
                 Transform transform1;
                 if (Input.GetAxis("Mouse ScrollWheel") > 0f)
                 {
-                    Debug.Log("90°");
                     var newRotation = new Vector3(0, 0, 90);
                     transform1 = this.transform;
                     transform1.eulerAngles = transform1.eulerAngles + newRotation;
@@ -100,7 +97,8 @@ namespace BuildingScripts
             {
                 ShipPartAddedEvent?.Invoke(null, null);
             }
-            else
+            
+            if(this.transform.parent == null)
             {
                 this._partType.SpawnInInventory();
                 Destroy(this.gameObject);

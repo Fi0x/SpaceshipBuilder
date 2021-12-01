@@ -481,6 +481,7 @@ GameObject:
   - component: {fileID: 1088989510499295482}
   - component: {fileID: 1088989510499295485}
   - component: {fileID: 1088989510499295483}
+  - component: {fileID: 8196188696233473484}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Inventory
@@ -573,6 +574,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8196188696233473484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088989510499295487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee2802fa74041c4eba3237b411a12da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1088989510606881946
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,6 +683,7 @@ GameObject:
   - component: {fileID: 1088989510717611580}
   - component: {fileID: 1088989510717611583}
   - component: {fileID: 1088989510717611581}
+  - component: {fileID: 7100364613235708488}
   m_Layer: 0
   m_Name: Thruster
   m_TagString: Inventory
@@ -762,6 +776,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7100364613235708488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088989510717611569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee2802fa74041c4eba3237b411a12da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1088989510762470121
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,6 +1006,7 @@ GameObject:
   - component: {fileID: 1088989511246526446}
   - component: {fileID: 1088989511246526433}
   - component: {fileID: 1088989511246526447}
+  - component: {fileID: 6473425912293585494}
   m_Layer: 0
   m_Name: Building
   m_TagString: Inventory
@@ -1072,6 +1099,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6473425912293585494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088989511246526435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee2802fa74041c4eba3237b411a12da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1088989511500707248
 GameObject:
   m_ObjectHideFlags: 0
