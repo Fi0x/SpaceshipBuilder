@@ -7,7 +7,7 @@ namespace FlightScripts
     {
         public void SpawnStation()
         {
-            this.transform.position = new Vector3(0, 50, 0);
+            this.transform.position = new Vector3(0, 40, 0);
         }
 
         private void FixedUpdate()
