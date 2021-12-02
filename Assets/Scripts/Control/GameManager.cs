@@ -12,7 +12,6 @@ namespace Control
         [SerializeField] private long secondsBetweenStations = 20;
         
         private Stopwatch _stopwatch;
-        private GameObject _station;
         private long _nextStationStopwatchTime;
     
         public static event EventHandler<NewGameManagerEventArgs> GameManagerInstantiatedEvent;
@@ -102,10 +101,8 @@ namespace Control
 
         private void SpawnStation()
         {
-            if (this._station == null)
-                this._station = Instantiate(this.stationPrefab);
-
-            this._station.GetComponent<Station>().SpawnStation();
+            var station = Instantiate(this.stationPrefab);
+            station.GetComponent<Station>().SpawnStation();
         }
 
         public class NewGameManagerEventArgs : EventArgs

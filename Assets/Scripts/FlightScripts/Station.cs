@@ -16,6 +16,9 @@ namespace FlightScripts
                 return;
             
             this.Move();
+            
+            if(this.transform.position.y < -50)
+                Destroy(this.gameObject);
         }
 
         private void Move()
