@@ -12,6 +12,7 @@ TagManager:
   - Resource
   - DockEmpty
   - DockFull
+  - Inventory
   layers:
   - Default
   - TransparentFX

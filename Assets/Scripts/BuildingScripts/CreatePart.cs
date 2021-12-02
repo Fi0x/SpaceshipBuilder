@@ -17,6 +17,10 @@ namespace BuildingScripts
     
         public void SpawnPart()
         {
+            for (var i = 0; i < this.transform.childCount; i++)
+            {
+                Destroy(this.transform.GetChild(i).gameObject);
+            }
             var part = Instantiate(this.partPrefab, this._inventory.transform, true);
             this._currentChild = part;
             part.transform.position = this.transform.position;
