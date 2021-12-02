@@ -43,16 +43,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad261b80def99984ba0c28dce3297410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  menuClick: {fileID: 8300000, guid: 1c2441e26a71fc041af84e28bc700562, type: 3}
-  buildPartAdded: {fileID: 8300000, guid: f141eca5cf8ee044fbb66a87155727fd, type: 3}
-  buildPartRemoved: {fileID: 8300000, guid: f141eca5cf8ee044fbb66a87155727fd, type: 3}
-  partDestroyed: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  asteroidDestroyed: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  enemyDestroyed: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  resourceCollected: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  gameLost: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
-  gameWon: {fileID: 8300000, guid: d73d56847d301a94b9d1c414a2948c4b, type: 3}
+  shot: {fileID: 8300000, guid: 540e470a07af11946b649f3e3809737b, type: 3}
+  menuClick: {fileID: 8300000, guid: 474d4e30133fe9245b18fa2314999f37, type: 3}
+  buildPartAdded: {fileID: 8300000, guid: d5c5524545f4a7049b2c9fc9f12a349d, type: 3}
+  buildPartRemoved: {fileID: 8300000, guid: 18cb1dc69906d6e468ffcbeb3cbc8711, type: 3}
+  partDestroyed: {fileID: 8300000, guid: 23bacc0985fb80f49b6779bf806115c8, type: 3}
+  asteroidDestroyed: {fileID: 8300000, guid: bb0ffc841d4600f4c8e78c1778a0ce7c, type: 3}
+  enemyDestroyed: {fileID: 8300000, guid: 2ca12d93b617b7044a16a739cf55177b, type: 3}
+  resourceCollected: {fileID: 8300000, guid: 39ffd431ac74cd548bc41e312e7f5eee, type: 3}
+  gameLost: {fileID: 8300000, guid: a02703e07822e214a9b130f4eed03778, type: 3}
+  gameWon: {fileID: 8300000, guid: 32670d772c6e7b949a0f21a671b3f10a, type: 3}
 --- !u!1 &4996668805634956955
 GameObject:
   m_ObjectHideFlags: 0
