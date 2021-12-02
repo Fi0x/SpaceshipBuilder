@@ -36,7 +36,7 @@ namespace BuildingScripts
                 foreach (var possibleDock in possibleDocks)
                 {
                     var localRotVec = - (originalTransform.rotation * child.localPosition);
-                    if(possibleDock.transform.parent.rotation * possibleDock.transform.localPosition != localRotVec)
+                    if (possibleDock.transform.parent.rotation * possibleDock.transform.localPosition != localRotVec)
                         continue;
 
                     possibleDock.GetComponent<SpriteRenderer>().enabled = true;

@@ -7,8 +7,9 @@ namespace Parts
     public class Weapon : SpaceshipPart
     {
         [SerializeField] private GameObject prefabProjectile;
+        [SerializeField] private int weaponDelay;
 
-        private int _weaponDelay;
+        private int _timeToNextShot;
         
         public bool Working { get; set; }
 
@@ -18,9 +19,9 @@ namespace Parts
             
             if (!this.Working)
                 return;
-            if (this._weaponDelay > 0)
+            if (this._timeToNextShot > 0)
             {
-                this._weaponDelay--;
+                this._timeToNextShot--;
                 return;
             }
             
@@ -29,10 +30,9 @@ namespace Parts
 
             var tf = this.transform;
             var projectile = Instantiate(this.prefabProjectile, tf.position, tf.rotation);
-            
             projectile.GetComponent<Projectile>().dir = this.GetDirection();
-
-            this._weaponDelay = 15;
+            
+            this._timeToNextShot = this.weaponDelay;
         }
 
         private Vector3 GetDirection()

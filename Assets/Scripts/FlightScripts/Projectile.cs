@@ -5,6 +5,8 @@ namespace FlightScripts
 {
     public class Projectile : MonoBehaviour
     {
+        [SerializeField] private float speed;
+        
         public Vector3 dir;
     
         private void Start()
@@ -16,7 +18,7 @@ namespace FlightScripts
         private void FixedUpdate()
         {
             var vector = GameManager.Instance.GetBackgroundMovement() / 60;
-            vector += -1 * (GameManager.Instance.ShipScript.Speed + 100) / 60 * this.dir;
+            vector += -1 * (GameManager.Instance.ShipScript.Speed + this.speed) / 60 * this.dir;
             this.transform.position += vector;
         }
 

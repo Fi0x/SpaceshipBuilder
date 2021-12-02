@@ -44,23 +44,15 @@ namespace Control
             Object.DontDestroyOnLoad(buttons);
             Debug.Log("Buttons loaded");
 
-            var buildInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Building/BuildingInventory.prefab");
-            var buildInventory = Object.Instantiate(buildInventoryPrefab);
-            Object.DontDestroyOnLoad(buildInventory);
-            var weaponInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Building/WeaponInventory.prefab");
-            var weaponInventory = Object.Instantiate(weaponInventoryPrefab);
-            Object.DontDestroyOnLoad(weaponInventory);
-            var thrusterInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Building/ThrusterInventory.prefab");
-            var thrusterInventory = Object.Instantiate(thrusterInventoryPrefab);
-            Object.DontDestroyOnLoad(thrusterInventory);
-            Debug.Log("Inventories loaded");
+            var itemInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/InventoryReduced.prefab");
+            var itemInventory = Object.Instantiate(itemInventoryPrefab);
+            Object.DontDestroyOnLoad(itemInventory);
+            Debug.Log("Inventory loaded");
 
             gameManager.InitShip(spaceShip);
             gameManager.Menu = menu;
             gameManager.InGameButtons = buttons;
-            gameManager.BuildInventory = buildInventory;
-            gameManager.WeaponInventory = weaponInventory;
-            gameManager.ThrusterInventory = thrusterInventory;
+            gameManager.ItemInventory = itemInventory;
 
             StatTracker.InstantiateTracker();
 
