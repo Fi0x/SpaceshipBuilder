@@ -1,3 +1,4 @@
+using System;
 using FlightScripts;
 using Parts;
 using UnityEditor;
@@ -8,6 +9,8 @@ namespace Control
 {
     public class SceneChanger : MonoBehaviour
     {
+        public static event EventHandler InGameButtonClickedEvent;
+        
         public static void LoadBuildingScene()
         {
             GameManager.Instance.Ship.GetComponent<Spaceship>().ResetShip();
@@ -47,11 +50,13 @@ namespace Control
 
         public void StartButtonClicked()
         {
+            InGameButtonClickedEvent?.Invoke(null, null);
             LoadFlyingScene();
         }
 
         public void MenuButtonClicked()
         {
+            InGameButtonClickedEvent?.Invoke(null, null);
             this.gameObject.SetActive(false);
             GameManager.Instance.Menu.gameObject.SetActive(true);
         }
