@@ -42,6 +42,7 @@ namespace Control
             SceneChanger.LoadBuildingScene();
             GameManager.Instance.Menu.SetActive(!StatTracker.Instance.PlayerWon);
             GameManager.Instance.InGameButtons.SetActive(StatTracker.Instance.PlayerWon);
+            GameManager.Instance.ItemInventory.SetActive(StatTracker.Instance.PlayerWon);
         }
     }
 }

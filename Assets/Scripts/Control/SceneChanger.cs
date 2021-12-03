@@ -14,9 +14,6 @@ namespace Control
         public static void LoadBuildingScene()
         {
             GameManager.Instance.Ship.GetComponent<Spaceship>().ResetShip();
-            GameManager.Instance.BuildInventory.SetActive(true);
-            GameManager.Instance.WeaponInventory.SetActive(true);
-            GameManager.Instance.ThrusterInventory.SetActive(true);
             SceneManager.LoadScene("BuildingScene");
         }
 
@@ -34,14 +31,12 @@ namespace Control
             GameManager.Instance.ShipScript.currentMaxSpeed = Spaceship.MaxSpeed;
             foreach (var script in GameManager.Instance.Ship.GetComponentsInChildren<Thruster>())
             {
-                GameManager.Instance.ShipScript.currentMaxSpeed += Thruster.SpeedIncrease;
+                GameManager.Instance.ShipScript.currentMaxSpeed += script.SpeedIncrease;
                 script.ThrusterDestroyedEvent += GameManager.Instance.ShipScript.ThrusterDestroyedEventHandler;
             }
             
             GameManager.Instance.InGameButtons.SetActive(false);
-            GameManager.Instance.BuildInventory.SetActive(false);
-            GameManager.Instance.WeaponInventory.SetActive(false);
-            GameManager.Instance.ThrusterInventory.SetActive(false);
+            GameManager.Instance.ItemInventory.SetActive(false);
         
             SceneManager.LoadScene("FlyingScene");
         }

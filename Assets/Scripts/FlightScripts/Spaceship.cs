@@ -8,12 +8,12 @@ namespace FlightScripts
     public class Spaceship : MonoBehaviour
     {
         public float accelerationPerSecond = 100;
-        public const int MaxSpeed = 20;
-        public int currentMaxSpeed = 20;
+        public const float MaxSpeed = 20;
+        public float currentMaxSpeed = 20;
         public int maxAngle = 45;
         public int turnSpeed = 100;
 
-        private int _zAngle;
+        [HideInInspector] public int zAngle;
         private float _horizontalOffset;
 
         public float Speed { get; private set; }
@@ -30,18 +30,18 @@ namespace FlightScripts
         private void UpdateRotation()
         {
             //Rotate
-            if (this._zAngle == 360 && this._zAngle == -360)
-                this._zAngle = 0;
+            if (this.zAngle == 360 && this.zAngle == -360)
+                this.zAngle = 0;
 
             if (Input.GetKey(KeyCode.A))
-                this._zAngle += this.turnSpeed / 60;
+                this.zAngle += this.turnSpeed / 60;
         
             if (Input.GetKey(KeyCode.D))
-                this._zAngle -= this.turnSpeed / 60;
+                this.zAngle -= this.turnSpeed / 60;
 
             var threshold = this.CalcAngleThreshold();
-            this._zAngle = Mathf.Clamp(this._zAngle, threshold.x, threshold.y);
-            this.transform.rotation = Quaternion.AngleAxis(this._zAngle, Vector3.forward);
+            this.zAngle = Mathf.Clamp(this.zAngle, threshold.x, threshold.y);
+            this.transform.rotation = Quaternion.AngleAxis(this.zAngle, Vector3.forward);
         }
 
         private void UpdateSpeed()
@@ -77,7 +77,7 @@ namespace FlightScripts
             tf.position = Vector3.zero;
             tf.localScale = new Vector3(1, 1, 1);
             tf.rotation = new Quaternion();
-            this._zAngle = 0;
+            this.zAngle = 0;
             this.Speed = 0;
         }
 
@@ -95,7 +95,7 @@ namespace FlightScripts
 
         public Vector3 GetDirection()
         {
-            var angle = (this._zAngle - 90) * Mathf.Deg2Rad;
+            var angle = (this.zAngle - 90) * Mathf.Deg2Rad;
             var toReturn = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
             return toReturn;
         }
@@ -107,11 +107,11 @@ namespace FlightScripts
 
         public void ThrusterDestroyedEventHandler(object sender, EventArgs args)
         {
-            if(sender is Thruster thruster)
-                thruster.ThrusterDestroyedEvent -= this.ThrusterDestroyedEventHandler;
-            else 
-                return;
-            this.currentMaxSpeed -= Thruster.SpeedIncrease;
+            if (sender is Thruster thruster)
+            {
+                thruster.ThrusterDestroyedEvent -= this.ThrusterDestroyedEventHandler; 
+                this.currentMaxSpeed -= thruster.SpeedIncrease;
+            }
         }
     }
 }
