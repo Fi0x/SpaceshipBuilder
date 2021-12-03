@@ -97,7 +97,6 @@ namespace Control
             
             this.SpawnStation();
             this._nextStationStopwatchTime += this.secondsBetweenStations * 1000;
-            
         }
 
         private void SpawnStation()

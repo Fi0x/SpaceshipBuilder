@@ -1,3 +1,4 @@
+using System;
 using Control;
 using FlightScripts;
 using UnityEngine;
@@ -10,6 +11,10 @@ namespace Parts
         [SerializeField] private int weaponDelay;
 
         private int _timeToNextShot;
+        
+        public static event EventHandler ShotFiredEvent;
+
+        private int _weaponDelay;
         
         public bool Working { get; set; }
 
@@ -25,14 +30,19 @@ namespace Parts
                 return;
             }
             
-            if (!Input.GetKey(KeyCode.Space))
-                return;
+            if (Input.GetKey(KeyCode.Space))
+                this.Shoot();
+            
+            this._timeToNextShot = this.weaponDelay;
+        }
 
+        private void Shoot()
+        {
             var tf = this.transform;
             var projectile = Instantiate(this.prefabProjectile, tf.position, tf.rotation);
             projectile.GetComponent<Projectile>().dir = this.GetDirection();
             
-            this._timeToNextShot = this.weaponDelay;
+            ShotFiredEvent?.Invoke(null, null);
         }
 
         private Vector3 GetDirection()
