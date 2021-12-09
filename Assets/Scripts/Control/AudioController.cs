@@ -34,6 +34,8 @@ namespace Control
             AsteroidBehaviour.AsteroidDestroyedEvent += (sender, args) => { this._audioSources[SoundName.AsteroidDestroyed].Play(); };
             SpaceshipPart.ResourceCollectedEvent += (sender, args) => { this._audioSources[SoundName.ResourceCollected].Play(); };
             GameManager.LevelCompletedEvent += (sender, args) => { this._audioSources[args.Won ? SoundName.GameWon : SoundName.GameLost].Play(); };
+            
+            //TODO: Listen for volume change and act on it
         }
 
         private void InstantiateAudioObjects()
