@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Control
@@ -16,9 +15,10 @@ namespace Control
         private void Start()
         {
             this.InstantiateAudioObjects();
+            this._menuSource.Play();
             
             SceneChanger.SceneChangedEvent += this.HandleSceneChange;
-            
+
             //TODO: Listen for Volume change and act on it
         }
 
@@ -45,16 +45,21 @@ namespace Control
 
         private void HandleSceneChange(object sender, SceneChanger.SceneChangedEventArgs args)
         {
-            Debug.Log("New track");
             switch (args.NewScene)
             {
                 case SceneChanger.Scene.Menu:
+                    this._freeFlightSource.Stop();
+                    this._buildSource.Stop();
                     this._menuSource.Play();
                     break;
-                case SceneChanger.Scene.Build: 
+                case SceneChanger.Scene.Build:
+                    this._menuSource.Stop();
+                    this._freeFlightSource.Stop();
                     this._buildSource.Play();
                     break;
                 case SceneChanger.Scene.Flight:
+                    this._menuSource.Stop();
+                    this._buildSource.Stop();
                     this._freeFlightSource.Play();
                     break;
             }

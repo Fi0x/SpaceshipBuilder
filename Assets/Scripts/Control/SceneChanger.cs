@@ -12,12 +12,18 @@ namespace Control
         public static event EventHandler<SceneChangedEventArgs> SceneChangedEvent;
         public static event EventHandler InGameButtonClickedEvent;
 
-        public static void LoadBuildingScene()
+        public void Start()
+        {
+            var args = new SceneChangedEventArgs { NewScene = Scene.Build};
+            SceneChangedEvent?.Invoke(null, args);
+        }
+
+        public static void LoadBuildingScene(bool displayingMenu)
         {
             GameManager.Instance.Ship.GetComponent<Spaceship>().ResetShip();
             SceneManager.LoadScene("BuildingScene");
 
-            var args = new SceneChangedEventArgs { NewScene = Scene.Build};
+            var args = new SceneChangedEventArgs { NewScene = displayingMenu ? Scene.Menu : Scene.Build };
             SceneChangedEvent?.Invoke(null, args);
         }
 
