@@ -11,6 +11,7 @@ namespace FlightScripts
     
         private void Start()
         {
+            this.transform.position -= this.dir * 1.5f;
             Destroy(this.gameObject, 3f);
             Destroy(this, 3f);
         }
