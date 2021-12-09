@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0cf1a59fd149a49a35a02dd5096125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherBody: {fileID: 0}
+  connectionToMain: []
 --- !u!1 &4033803523489414967
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0cf1a59fd149a49a35a02dd5096125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherBody: {fileID: 0}
+  connectionToMain: []
 --- !u!1 &6013515081359997509
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0cf1a59fd149a49a35a02dd5096125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherBody: {fileID: 0}
+  connectionToMain: []
 --- !u!1 &7028638111602117226
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0cf1a59fd149a49a35a02dd5096125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherBody: {fileID: 0}
+  connectionToMain: []
 --- !u!1 &7087007523427068330
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 7087007523427068331}
   - component: {fileID: 7087007523427068334}
   - component: {fileID: -131720107481085298}
+  - component: {fileID: 6639394197534899935}
   m_Layer: 0
   m_Name: Spaceship
   m_TagString: Ship
@@ -605,6 +606,7 @@ MonoBehaviour:
   currentMaxSpeed: 50
   maxAngle: 45
   turnSpeed: 200
+  zAngle: 0
 --- !u!114 &-131720107481085298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,3 +619,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7422470d53e3da42a5cc75962c51ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6639394197534899935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7087007523427068330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de49fd97bc9db0a438536cd108b6214f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _building: 0

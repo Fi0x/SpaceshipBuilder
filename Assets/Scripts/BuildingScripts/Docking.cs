@@ -1,20 +1,39 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BuildingScripts
 {
     public class Docking : MonoBehaviour
     {
-        private void OnTriggerEnter2D(Collider2D other)
+        public List<GameObject> connectionToMain;
+
+        public String GetParentTag()
         {
-            if (!other.CompareTag("DockEmpty"))
-                return;
-            
-            this.tag = "DockFull";
-            other.tag = "DockFull";
-            this.transform.parent.tag = "Ship";
-            other.transform.parent.tag = "Ship";
-        }  
-    
+            return this.transform.parent.tag;
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if ((other.GetComponent<Docking>() != null))
+            {
+                if (GameObject.Find("Spaceship(Clone)").GetComponent<AntiRace>()._building == false)
+                {
+                    if (other.gameObject.GetComponent<Docking>().GetParentTag() == "Ship")
+                    {
+                        this.gameObject.transform.parent.tag = "Ship";
+                    }
+                }
+
+                if (!other.CompareTag("DockEmpty"))
+                    return;
+                this.tag = "DockFull";
+                other.tag = "DockFull";
+                this.transform.parent.tag = "Ship";
+            }
+        }
+
+
         private void OnTriggerExit2D(Collider2D other)
         {
             if (!other.CompareTag("DockFull"))

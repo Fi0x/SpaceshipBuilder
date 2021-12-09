@@ -20,7 +20,7 @@ namespace BuildingScripts
             originalTransform.position = position - localPosRot;
             originalTransform.SetParent(spaceship.transform);
             originalTransform.tag = "Ship";
-
+            
             partType.SpawnInInventory();
             return true;
         }
@@ -35,8 +35,9 @@ namespace BuildingScripts
             {
                 foreach (var possibleDock in possibleDocks)
                 {
-                    var localRotVec = - (originalTransform.rotation * child.localPosition);
-                    if (possibleDock.transform.parent.rotation * possibleDock.transform.localPosition != localRotVec)
+                    var localRotVec = - (originalTransform.rotation * child.localPosition).normalized;
+                    var otherpartVec = (possibleDock.transform.parent.rotation * possibleDock.transform.localPosition).normalized;
+                    if  (otherpartVec!= localRotVec)
                         continue;
 
                     possibleDock.GetComponent<SpriteRenderer>().enabled = true;
@@ -63,6 +64,8 @@ namespace BuildingScripts
                 .ForEach(c => shipDocks.Add(c.gameObject));
 
             var possibleDocks = shipDocks.Where(dock => dock.tag.Equals("DockEmpty")).ToList();
+            possibleDocks = possibleDocks.Where(dock => dock.transform.parent.CompareTag("Ship"))
+                .ToList();
             possibleDocks.ForEach(d => SetRendererColor(d.GetComponent<SpriteRenderer>(), 0, 1, 0, 0.5f));
 
             return possibleDocks;
