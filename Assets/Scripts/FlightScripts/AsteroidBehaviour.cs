@@ -1,5 +1,6 @@
+using System;
 using Control;
-using Unity.Collections;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,14 +9,14 @@ namespace FlightScripts
     public class AsteroidBehaviour : MonoBehaviour
     {
         [SerializeField] private float asteroidMaxSpeed = 10;
+        [SerializeField, Range(0, 1)] private float resourceChance = 0.5f;
+        
         private Vector3 _vel;
 
-        public void Init()
+        public static event EventHandler AsteroidDestroyedEvent;
+
+        private void Start()
         {
-            /* Position
-             * Velocity
-             * Rotation
-             */
             var newPos = new Vector3(Random.Range(-120, 120), 50, 0);
             this.transform.position = newPos;
             this._vel = new Vector3(
@@ -24,19 +25,26 @@ namespace FlightScripts
                 0);
         }
 
-        public bool Move(float time)
+        public void FixedUpdate()
         {
-            /* Position
-             * Velocity
-             * Rotation
-             */
-            this.transform.position += this._vel * time;
-            if (!GameManager.Instance.Running)
-                return false;
+            if (!GameManager.Running)
+                return;
 
-            this.transform.position += GameManager.Instance.GetBackgroundMovement() * time;
+            this.transform.position += this._vel / 60;
+            this.transform.position += GameManager.Instance.GetBackgroundMovement() / 60;
+        }
 
-            return this.transform.position.y < -30;
+        public void DestroyByShot()
+        {
+            AsteroidDestroyedEvent?.Invoke(null, null);
+
+            if (Random.value < this.resourceChance)
+            {
+                var resourcePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Resource.prefab");
+                Instantiate(resourcePrefab, this.transform.position, new Quaternion());
+            }
+            
+            Destroy(this.gameObject);
         }
     }
 }

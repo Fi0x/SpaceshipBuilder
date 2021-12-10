@@ -9,38 +9,20 @@ namespace Control
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private GameObject stationPrefab;
-        [SerializeField] private long secondsBetweenStations = 20;
+        [SerializeField] private double distanceBetweenStations = 200;
         
         private Stopwatch _stopwatch;
-        private GameObject _station;
-        private long _nextStationStopwatchTime;
     
-        public static event EventHandler<NewGameManagerEventArgs> GameManagerInstantiatedEvent;
         public static event EventHandler<LevelCompletedEventArgs> LevelCompletedEvent;
         
-        private static GameManager _instance;
-        public static GameManager Instance
-        {
-            get
-            {
-                if(_instance == null)
-                {
-                    Debug.LogError("No Game Manager");
-                }
-                return _instance;
-            }
-            private set
-            {
-                _instance = value;
-                var args = new NewGameManagerEventArgs { NewInstance = _instance};
-                GameManagerInstantiatedEvent?.Invoke(_instance, args);
-            }
-        }
+        public static GameManager Instance { get; private set; }
         public GameObject Menu { get; set; }
         public GameObject InGameButtons { get; set; }
         public GameObject Ship { get; private set; }
         public Spaceship ShipScript { get; private set; }
-        public bool Running { get; private set; }
+        public GameObject ItemInventory { get; set; }
+        public static bool Running { get; private set; }
+        public double DistanceToNextStation { get; set; }
 
         private void Awake()
         {
@@ -50,21 +32,20 @@ namespace Control
 
         public void StartGame()
         {
-            this.Running = true;
+            Running = true;
             this._stopwatch = new Stopwatch();
             this._stopwatch.Start();
-            this._nextStationStopwatchTime = this.secondsBetweenStations * 1000;
+            this.DistanceToNextStation = this.distanceBetweenStations;
         }
 
         public void GameOver(bool won)
         {
-            if (!this.Running)
+            if (!Running)
                 return;
             
             this._stopwatch.Stop();
-            this.Running = false;
+            Running = false;
 
-            var tracker = StatTracker.Instance;
             var eventArgs = new LevelCompletedEventArgs
             {
                 Won = won,
@@ -87,31 +68,25 @@ namespace Control
 
         private void Update()
         {
-            if(!this.Running)
+            if(!Running)
                 return;
             if(!this._stopwatch.IsRunning)
                 return;
             
-            if (this._stopwatch.ElapsedMilliseconds < this._nextStationStopwatchTime)
+            Debug.Log("Distance: " + this.DistanceToNextStation);
+            if(this.DistanceToNextStation > 0)
                 return;
             
             this.SpawnStation();
-            this._nextStationStopwatchTime += this.secondsBetweenStations * 1000;
-            
+            this.DistanceToNextStation = this.distanceBetweenStations;
         }
 
         private void SpawnStation()
         {
-            if (this._station == null)
-                this._station = Instantiate(this.stationPrefab);
-
-            this._station.GetComponent<Station>().SpawnStation();
+            var station = Instantiate(this.stationPrefab);
+            station.GetComponent<Station>().SpawnStation();
         }
-
-        public class NewGameManagerEventArgs : EventArgs
-        {
-            public GameManager NewInstance;
-        }
+        
         public class LevelCompletedEventArgs : EventArgs
         {
             public bool Won;

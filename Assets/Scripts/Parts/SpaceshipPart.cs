@@ -1,52 +1,67 @@
 using System;
+using BuildingScripts;
 using Control;
-using FlightScripts;
 using UnityEngine;
 
 namespace Parts
 {
     public class SpaceshipPart : MonoBehaviour
     {
-        [HideInInspector] public bool drift;
-        private GameManager _gameManager;
+        private bool _isDrifting;
 
         public static event EventHandler ShipPartLostEvent;
+        public static event EventHandler ResourceCollectedEvent;
         
-        public void Start()
+        public GameObject OriginalInventory { get; set; }
+
+        protected virtual void FixedUpdate()
         {
-            this._gameManager = GameManager.Instance;
-            GameManager.GameManagerInstantiatedEvent += (sender, args) => { this._gameManager = args.NewInstance; };
+            if (this._isDrifting)
+                this.transform.position += GameManager.Instance.GetBackgroundMovement() * Time.deltaTime;
         }
 
-        public void FixedUpdate()
+        protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
-            if (this.drift)
-                this.transform.position += this._gameManager.GetBackgroundMovement() * Time.deltaTime;
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if(!this._gameManager.Running)
+            if(!GameManager.Running)
                 return;
-            
             switch (collision.gameObject.tag)
             {
                 case "Ship":
                 case "Projectile":
                 case "Station":
-                    return;
+                    break;
+                case "Asteroid":
+                    this.CollideWithAsteroid(collision.gameObject);
+                    break;
+                case "Resource":
+                    CollectResource(collision.gameObject);
+                    break;
             }
-        
-            this.drift = true;
+        }
+
+        public void SpawnInInventory()
+        {
+            var partInventory = this.OriginalInventory.GetComponent<CreatePart>();
+            partInventory.SpawnPart();
+        }
+
+        private void CollideWithAsteroid(GameObject asteroid)
+        {
+            this._isDrifting = true;
             foreach (var script in this.gameObject.GetComponentsInChildren<Weapon>())
                 script.Working = false;
             
             ShipPartLostEvent?.Invoke(null, null);
         
             this.transform.parent = null;
-            var asteroid = collision.gameObject.GetComponent<AsteroidBehaviour>();
-            if (asteroid != null)
-                asteroid.Init();
+            Destroy(asteroid);
+            Destroy(this.gameObject, 5);
+        }
+
+        private static void CollectResource(GameObject resource)
+        {
+            ResourceCollectedEvent?.Invoke(null, null);
+            Destroy(resource);
         }
     }
 }

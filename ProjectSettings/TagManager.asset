@@ -9,6 +9,10 @@ TagManager:
   - Projectile
   - Station
   - Asteroid
+  - Resource
+  - DockEmpty
+  - DockFull
+  - Inventory
   - EnemyProjectile
   - Enemy
   layers:

@@ -9,7 +9,6 @@ namespace FlightScripts
         private Spaceship _spaceshipScript;
         private GameObject _lowerTile;
         private GameObject _upperTile;
-        private GameManager _gameManager;
 
         public GameObject tile1;
         public GameObject tile2;
@@ -18,13 +17,11 @@ namespace FlightScripts
         {
             this._spaceship = GameObject.Find("Spaceship(Clone)");
             this._spaceshipScript = this._spaceship.GetComponent<Spaceship>();
-            this._gameManager = GameManager.Instance;
-            GameManager.GameManagerInstantiatedEvent += (sender, args) => { this._gameManager = args.NewInstance; };
         }
 
         private void FixedUpdate()
         {
-            if (!this._gameManager.Running)
+            if (!GameManager.Running)
                 return;
         
             if (this.tile1.transform.position.y < this.tile2.transform.position.y)
@@ -38,7 +35,10 @@ namespace FlightScripts
                 this._upperTile = this.tile1;
             }
 
-            this._lowerTile.transform.position += this._spaceshipScript.GetDirection() * this._spaceshipScript.Speed / 60;
+            var movement = this._spaceshipScript.GetDirection() * this._spaceshipScript.Speed / 60;
+            GameManager.Instance.DistanceToNextStation += movement.y;
+            
+            this._lowerTile.transform.position += movement;
             var pos = this._lowerTile.transform.position;
             if (pos.y <= -61.46f)
                 (this._lowerTile, this._upperTile) = (this._upperTile, this._lowerTile);

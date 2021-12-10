@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace Parts
 {
-    public class Thruster : MonoBehaviour
+    public class Thruster : SpaceshipPart
     {
-        public static readonly int SpeedIncrease = Spaceship.MaxSpeed / 4;
+        [SerializeField] private float speedMultiplier;
+        public float SpeedIncrease => Spaceship.MaxSpeed * this.speedMultiplier;
         public event EventHandler ThrusterDestroyedEvent;
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        protected override void OnCollisionEnter2D(Collision2D collision)
         {
+            base.OnCollisionEnter2D(collision);
             switch (collision.gameObject.tag)
             {
                 case "Ship":

@@ -1,6 +1,8 @@
 using Control;
 using FlightScripts;
 using Parts;
+using UnityEditor;
+using DragAndDrop = BuildingScripts.DragAndDrop;
 
 public class StatTracker
 {
@@ -42,8 +44,9 @@ public class StatTracker
 
     private StatTracker()
     {
-        Projectile.AsteroidDestroyedEvent += (sender, args) => { this.DestroyedAsteroids++; };
+        AsteroidBehaviour.AsteroidDestroyedEvent += (sender, args) => { this.DestroyedAsteroids++; };
         SpaceshipPart.ShipPartLostEvent += (sender, args) => { this.LostShipParts++; };
+        SpaceshipPart.ResourceCollectedEvent += (sender, args) => { this.CollectedResources++; };
         GameManager.LevelCompletedEvent += (sender, args) =>
         {
             this.PlayerWon = args.Won;
@@ -51,6 +54,8 @@ public class StatTracker
             this.TotalTime += args.TimeForLevel;
             this.CompletedLevels += args.Won ? 1 : 0;
         };
+        DragAndDrop.ShipPartAddedEvent += (sender, args) => { this.UsedShipParts++; };
+        DragAndDrop.ShipPartRemovedEvent += (sender, args) => { this.UsedShipParts--; };
     }
 
     public static void InstantiateTracker()

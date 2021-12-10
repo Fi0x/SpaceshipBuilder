@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ namespace Control
         [SerializeField] private Text totalScoreValueValue;
         [SerializeField] private Text buttonText;
 
+        public static event EventHandler StatMenuClosedEvent;
+
         private void Start()
         {
             this.title.text = StatTracker.Instance.PlayerWon ? "You won!" : "Game Over";
@@ -35,9 +38,11 @@ namespace Control
         public void ContinueButtonClicked()
         {
             Time.timeScale = 1;
+            StatMenuClosedEvent?.Invoke(null, null);
             SceneChanger.LoadBuildingScene();
             GameManager.Instance.Menu.SetActive(!StatTracker.Instance.PlayerWon);
             GameManager.Instance.InGameButtons.SetActive(StatTracker.Instance.PlayerWon);
+            GameManager.Instance.ItemInventory.SetActive(StatTracker.Instance.PlayerWon);
         }
     }
 }

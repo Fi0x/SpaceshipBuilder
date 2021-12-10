@@ -26,23 +26,33 @@ namespace Control
         {
             var gameManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GameManager.prefab");
             var gameManager = Object.Instantiate(gameManagerPrefab).GetComponent<GameManager>();
+            Object.DontDestroyOnLoad(gameManager);
             Debug.Log("Game manager loaded");
         
             var spaceshipPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Ship/Spaceship.prefab");
             var spaceShip = Object.Instantiate(spaceshipPrefab);
+            Object.DontDestroyOnLoad(spaceShip);
             Debug.Log("Spaceship loaded");
 
             var menuPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/MainMenu.prefab");
             var menu = Object.Instantiate(menuPrefab);
+            Object.DontDestroyOnLoad(menu);
             Debug.Log("Menu loaded");
 
             var buttonsPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/InGameButtons.prefab");
             var buttons = Object.Instantiate(buttonsPrefab);
-            Debug.Log("Menu loaded");
+            Object.DontDestroyOnLoad(buttons);
+            Debug.Log("Buttons loaded");
+
+            var itemInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/InventoryReduced.prefab");
+            var itemInventory = Object.Instantiate(itemInventoryPrefab);
+            Object.DontDestroyOnLoad(itemInventory);
+            Debug.Log("Inventory loaded");
 
             gameManager.InitShip(spaceShip);
             gameManager.Menu = menu;
             gameManager.InGameButtons = buttons;
+            gameManager.ItemInventory = itemInventory;
 
             StatTracker.InstantiateTracker();
 
