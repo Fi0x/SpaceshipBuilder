@@ -7,7 +7,7 @@ namespace FlightScripts
     {
         public void SpawnStation()
         {
-            this.transform.position = new Vector3(0, 50, 0);
+            this.transform.position = new Vector3(0, 40, 0);
         }
 
         private void FixedUpdate()
@@ -16,6 +16,9 @@ namespace FlightScripts
                 return;
             
             this.Move();
+            
+            if(this.transform.position.y < -50)
+                Destroy(this.gameObject);
         }
 
         private void Move()
