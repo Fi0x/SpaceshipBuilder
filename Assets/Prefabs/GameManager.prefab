@@ -53,6 +53,7 @@ MonoBehaviour:
   resourceCollected: {fileID: 8300000, guid: 39ffd431ac74cd548bc41e312e7f5eee, type: 3}
   gameLost: {fileID: 8300000, guid: a02703e07822e214a9b130f4eed03778, type: 3}
   gameWon: {fileID: 8300000, guid: 32670d772c6e7b949a0f21a671b3f10a, type: 3}
+  defaultVolume: 0.4
 --- !u!1 &3700841625374107309
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +100,8 @@ MonoBehaviour:
   freeFlightMusic: {fileID: 8300000, guid: 814271cc88eba614aa736479db75e564, type: 3}
   menuMusic: {fileID: 8300000, guid: 33217751d64ce1548b7e3fe416b61f64, type: 3}
   buildMusic: {fileID: 8300000, guid: dea4e096588468744b5b9f901fb8a77c, type: 3}
+  defaultVolume: 0.2
+  fadeTime: 0.5
 --- !u!1 &4996668805634956955
 GameObject:
   m_ObjectHideFlags: 0

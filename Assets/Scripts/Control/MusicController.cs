@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Control
@@ -8,6 +9,7 @@ namespace Control
         [SerializeField] private AudioClip menuMusic;
         [SerializeField] private AudioClip buildMusic;
         [SerializeField, Range(0, 1)] private float defaultVolume = 0.2f;
+        [SerializeField] private float fadeTime = 0.5f;
         
         private AudioSource _freeFlightSource;
         private AudioSource _menuSource;
@@ -57,21 +59,35 @@ namespace Control
             switch (args.NewScene)
             {
                 case SceneChanger.Scene.Menu:
-                    this._freeFlightSource.Stop();
-                    this._buildSource.Stop();
+                    this.StartCoroutine(FadeOut(this._freeFlightSource, this.fadeTime));
+                    this.StartCoroutine(FadeOut(this._buildSource, this.fadeTime));
                     this._menuSource.Play();
                     break;
                 case SceneChanger.Scene.Build:
-                    this._menuSource.Stop();
-                    this._freeFlightSource.Stop();
+                    this.StartCoroutine(FadeOut(this._menuSource, this.fadeTime));
+                    this.StartCoroutine(FadeOut(this._freeFlightSource, this.fadeTime));
                     this._buildSource.Play();
                     break;
                 case SceneChanger.Scene.Flight:
-                    this._menuSource.Stop();
-                    this._buildSource.Stop();
+                    this.StartCoroutine(FadeOut(this._menuSource, this.fadeTime));
+                    this.StartCoroutine(FadeOut(this._buildSource, this.fadeTime));
                     this._freeFlightSource.Play();
                     break;
             }
+        }
+ 
+        private static IEnumerator FadeOut (AudioSource audioSource, float fadeTime)
+        {
+            var startVolume = audioSource.volume;
+ 
+            while (audioSource.volume > 0)
+            {
+                audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+                yield return null;
+            }
+ 
+            audioSource.Stop ();
+            audioSource.volume = startVolume;
         }
     }
 }
