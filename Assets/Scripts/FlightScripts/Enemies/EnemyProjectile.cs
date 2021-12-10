@@ -20,5 +20,18 @@ namespace FlightScripts.Enemies
         {
             this.transform.position += this._dir * 30 / 60 + GameManager.Instance.GetBackgroundMovement() / 60;
         }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            switch (collision.gameObject.tag)
+            {
+                case "Enemy":
+                    break;
+
+                default:
+                    Destroy(this.gameObject);
+                    break;
+            }
+        }
     }
 }

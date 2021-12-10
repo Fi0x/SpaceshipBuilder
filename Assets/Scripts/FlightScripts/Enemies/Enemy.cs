@@ -35,8 +35,6 @@ namespace FlightScripts.Enemies
             this._distanceToPlayer.y += 10;
             this._distanceToPlayer *= -1;
 
-            Debug.Log(this._targetRotation);
-
             this.SetTargetRotation();
             this.TurnToTarget();
 
@@ -91,6 +89,10 @@ namespace FlightScripts.Enemies
                         this._targetRotation = this._searchAngle;
                 }            
             }
+            if(_distanceToPlayer.y > 30)
+            {
+                _targetRotation = 180;
+            }
         }
 
         private void TurnToTarget()
@@ -130,8 +132,20 @@ namespace FlightScripts.Enemies
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if(collision.gameObject.tag.Equals("Projectile"))
-                Destroy(this.gameObject);
+            switch (collision.gameObject.tag)
+            {
+                case "Asteroid":
+                    break;
+
+                case "EnemyProjectile":
+                    break;
+
+                default:
+                    Debug.Log(collision.gameObject.tag);
+                    Destroy(this.gameObject);
+                    break;
+
+            }
         }
     }
 }

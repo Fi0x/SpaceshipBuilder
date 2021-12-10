@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 3395842623975638585, guid: 5bee0621cac27784890be9196b20b90e, type: 3}
   speed: 9
-  noticingRange: 100
+  noticingRange: 50
   turnSpeed: 300
   reloadTime: 1
 --- !u!60 &-7128456338961365437
