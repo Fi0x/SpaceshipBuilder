@@ -14,8 +14,6 @@ namespace Parts
         
         public static event EventHandler ShotFiredEvent;
 
-        private int _weaponDelay;
-        
         public bool Working { get; set; }
 
         protected override void FixedUpdate()

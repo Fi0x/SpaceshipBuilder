@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\BuildingScripts\Preview.cs" />
      <Compile Include="Assets\Scripts\Control\AudioController.cs" />
      <Compile Include="Assets\Scripts\FlightScripts\Station.cs" />
+     <Compile Include="Assets\Scripts\FlightScripts\StationManager.cs" />
      <Compile Include="Assets\Scripts\BuildingScripts\MouseEventSender.cs" />
      <Compile Include="Assets\Scripts\Parts\Body.cs" />
      <Compile Include="Assets\Scripts\Control\MusicController.cs" />
