@@ -9,8 +9,15 @@ namespace Control
 {
     public class SceneChanger : MonoBehaviour
     {
+        public static event EventHandler<SceneChangedEventArgs> SceneChangedEvent;
         public static event EventHandler InGameButtonClickedEvent;
-        
+
+        public void Start()
+        {
+            var args = new SceneChangedEventArgs { NewScene = Scene.Build};
+            SceneChangedEvent?.Invoke(null, args);
+        }
+
         public static void LoadBuildingScene()
         {
             GameManager.Instance.Ship.GetComponent<Spaceship>().ResetShip();
@@ -39,6 +46,9 @@ namespace Control
             GameManager.Instance.ItemInventory.SetActive(false);
         
             SceneManager.LoadScene("FlyingScene");
+            
+            var args = new SceneChangedEventArgs { NewScene = Scene.Flight};
+            SceneChangedEvent?.Invoke(null, args);
         }
         
         public static void LoadStatScreen()
@@ -46,6 +56,9 @@ namespace Control
             Time.timeScale = 0;
             var statScreenPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/StatScreen.prefab");
             Instantiate(statScreenPrefab);
+            
+            var args = new SceneChangedEventArgs { NewScene = Scene.Menu};
+            SceneChangedEvent?.Invoke(null, args);
         }
 
         public void StartButtonClicked()
@@ -59,6 +72,21 @@ namespace Control
             InGameButtonClickedEvent?.Invoke(null, null);
             this.gameObject.SetActive(false);
             GameManager.Instance.Menu.gameObject.SetActive(true);
+            
+            var args = new SceneChangedEventArgs { NewScene = Scene.Menu};
+            SceneChangedEvent?.Invoke(null, args);
+        }
+        
+        public class SceneChangedEventArgs : EventArgs
+        {
+            public Scene NewScene;
+        }
+        
+        public enum Scene
+        {
+            Menu,
+            Build,
+            Flight
         }
     }
 }

@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Control
 {
     public class MainMenu : MonoBehaviour
     {
         public static event EventHandler MenuButtonClickedEvent;
+        public static event EventHandler<VolumeChangedEventArgs> VolumeChangedEvent;
         
         private void Start()
         {
@@ -22,15 +24,38 @@ namespace Control
             StatTracker.ResetTracker();
         }
 
-        public void SettingsButtonClicked()
+        public void EffectVolumeChanged(Slider sender)
         {
-            MenuButtonClickedEvent?.Invoke(null, null);
+            var args = new VolumeChangedEventArgs
+            {
+                Effects = true,
+                NewVolume = sender.value
+            };
+            
+            VolumeChangedEvent?.Invoke(null, args);
+        }
+
+        public void MusicVolumeChanged(Slider sender)
+        {
+            var args = new VolumeChangedEventArgs
+            {
+                Effects = false,
+                NewVolume = sender.value
+            };
+            
+            VolumeChangedEvent?.Invoke(null, args);
         }
 
         public void QuitButtonClicked()
         {
             MenuButtonClickedEvent?.Invoke(null, null);
             Application.Quit();
+        }
+        
+        public class VolumeChangedEventArgs : EventArgs
+        {
+            public bool Effects;
+            public float NewVolume;
         }
     }
 }
