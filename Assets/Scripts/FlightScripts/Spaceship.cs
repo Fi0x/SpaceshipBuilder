@@ -17,7 +17,7 @@ namespace FlightScripts
         private float _horizontalOffset;
 
         public float Speed { get; private set; }
-        public float HorizontalOffset { get { return _horizontalOffset; } set { _horizontalOffset = value; } }
+        public float HorizontalOffset { get; set; }
 
         private void FixedUpdate()
         {
