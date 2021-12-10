@@ -13,7 +13,6 @@ namespace Control
         {
             GameManager.Instance.InGameButtons.SetActive(false);
             GameManager.Instance.ItemInventory.SetActive(false);
-            //TODO: Set sliders to correct value
         }
 
         public void PlayButtonClicked()

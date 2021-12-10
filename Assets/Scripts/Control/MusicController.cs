@@ -7,6 +7,7 @@ namespace Control
         [SerializeField] private AudioClip freeFlightMusic;
         [SerializeField] private AudioClip menuMusic;
         [SerializeField] private AudioClip buildMusic;
+        [SerializeField, Range(0, 1)] private float defaultVolume = 0.2f;
         
         private AudioSource _freeFlightSource;
         private AudioSource _menuSource;
@@ -19,14 +20,22 @@ namespace Control
             
             SceneChanger.SceneChangedEvent += this.HandleSceneChange;
 
-            //TODO: Listen for Volume change and act on it
+            MainMenu.VolumeChangedEvent += (sender, args) =>
+            {
+                if(args.Effects)
+                    return;
+                
+                this._freeFlightSource.volume = this.defaultVolume * args.NewVolume;
+                this._menuSource.volume = this.defaultVolume * args.NewVolume;
+                this._buildSource.volume = this.defaultVolume * args.NewVolume;
+            };
         }
 
         private void InstantiateAudioObjects()
         {
-            this._freeFlightSource = this.GetAudioSourceObject(this.freeFlightMusic, 0.1f);
-            this._menuSource = this.GetAudioSourceObject(this.menuMusic, 0.1f);
-            this._buildSource = this.GetAudioSourceObject(this.buildMusic, 0.1f);
+            this._freeFlightSource = this.GetAudioSourceObject(this.freeFlightMusic, this.defaultVolume);
+            this._menuSource = this.GetAudioSourceObject(this.menuMusic, this.defaultVolume);
+            this._buildSource = this.GetAudioSourceObject(this.buildMusic, this.defaultVolume);
         }
 
         private AudioSource GetAudioSourceObject(AudioClip clip, float volume)
