@@ -17,6 +17,7 @@ namespace FlightScripts
         private float _horizontalOffset;
 
         public float Speed { get; private set; }
+        public float HorizontalOffset { get { return _horizontalOffset; } set { _horizontalOffset = value; } }
 
         private void FixedUpdate()
         {
@@ -98,11 +99,6 @@ namespace FlightScripts
             var angle = (this.zAngle - 90) * Mathf.Deg2Rad;
             var toReturn = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
             return toReturn;
-        }
-
-        public void HorizontalOffset(float offset)
-        {
-            this._horizontalOffset = offset;
         }
 
         public void ThrusterDestroyedEventHandler(object sender, EventArgs args)

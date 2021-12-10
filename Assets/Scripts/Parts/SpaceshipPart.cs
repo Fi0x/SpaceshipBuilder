@@ -36,6 +36,12 @@ namespace Parts
                 case "Resource":
                     CollectResource(collision.gameObject);
                     break;
+                case "Enemy":
+                    this.CollideWithAsteroid(null);
+                    break;
+                case "EnemyProjectile":
+                    this.CollideWithAsteroid(null);
+                    break;
             }
         }
 
