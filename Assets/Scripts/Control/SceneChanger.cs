@@ -18,13 +18,10 @@ namespace Control
             SceneChangedEvent?.Invoke(null, args);
         }
 
-        public static void LoadBuildingScene(bool displayingMenu)
+        public static void LoadBuildingScene()
         {
             GameManager.Instance.Ship.GetComponent<Spaceship>().ResetShip();
             SceneManager.LoadScene("BuildingScene");
-
-            var args = new SceneChangedEventArgs { NewScene = displayingMenu ? Scene.Menu : Scene.Build };
-            SceneChangedEvent?.Invoke(null, args);
         }
 
         private static void LoadFlyingScene()

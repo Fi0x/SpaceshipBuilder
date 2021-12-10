@@ -39,7 +39,7 @@ namespace Control
         {
             Time.timeScale = 1;
             StatMenuClosedEvent?.Invoke(null, null);
-            SceneChanger.LoadBuildingScene(!StatTracker.Instance.PlayerWon);
+            SceneChanger.LoadBuildingScene();
             GameManager.Instance.Menu.SetActive(!StatTracker.Instance.PlayerWon);
             GameManager.Instance.InGameButtons.SetActive(StatTracker.Instance.PlayerWon);
             GameManager.Instance.ItemInventory.SetActive(StatTracker.Instance.PlayerWon);

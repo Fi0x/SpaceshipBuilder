@@ -27,7 +27,7 @@ namespace Control
                 if(args.Effects)
                     return;
                 
-                this._freeFlightSource.volume = this.defaultVolume * args.NewVolume;
+                this._freeFlightSource.volume = this.defaultVolume * 0.7f * args.NewVolume;
                 this._menuSource.volume = this.defaultVolume * args.NewVolume;
                 this._buildSource.volume = this.defaultVolume * args.NewVolume;
             };
@@ -35,7 +35,7 @@ namespace Control
 
         private void InstantiateAudioObjects()
         {
-            this._freeFlightSource = this.GetAudioSourceObject(this.freeFlightMusic, this.defaultVolume);
+            this._freeFlightSource = this.GetAudioSourceObject(this.freeFlightMusic, this.defaultVolume * 0.7f);
             this._menuSource = this.GetAudioSourceObject(this.menuMusic, this.defaultVolume);
             this._buildSource = this.GetAudioSourceObject(this.buildMusic, this.defaultVolume);
         }

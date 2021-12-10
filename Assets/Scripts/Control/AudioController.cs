@@ -43,6 +43,11 @@ namespace Control
 
                 foreach (var source in this._audioSources)
                     source.Value.volume = this.defaultVolume * args.NewVolume;
+                
+                this._audioSources[SoundName.Shot].volume = this.defaultVolume * 0.5f * args.NewVolume;
+                this._audioSources[SoundName.BuildPartRemoved].volume = this.defaultVolume * 0.2f * args.NewVolume;
+                this._audioSources[SoundName.PartDestroyed].volume = this.defaultVolume * 0.3f * args.NewVolume;
+                this._audioSources[SoundName.GameWon].volume = this.defaultVolume * 0.5f * args.NewVolume;
             };
         }
 
@@ -50,16 +55,16 @@ namespace Control
         {
             this._audioSources = new Dictionary<SoundName, AudioSource>();
 
-            this.AddAudioObject(SoundName.Shot, this.shot, this.defaultVolume);
+            this.AddAudioObject(SoundName.Shot, this.shot, this.defaultVolume * 0.5f);
             this.AddAudioObject(SoundName.MenuClick, this.menuClick, this.defaultVolume);
             this.AddAudioObject(SoundName.BuildPartAdded, this.buildPartAdded, this.defaultVolume);
-            this.AddAudioObject(SoundName.BuildPartRemoved, this.buildPartRemoved, this.defaultVolume);
-            this.AddAudioObject(SoundName.PartDestroyed, this.partDestroyed, this.defaultVolume);
+            this.AddAudioObject(SoundName.BuildPartRemoved, this.buildPartRemoved, this.defaultVolume * 0.2f);
+            this.AddAudioObject(SoundName.PartDestroyed, this.partDestroyed, this.defaultVolume * 0.3f);
             this.AddAudioObject(SoundName.AsteroidDestroyed, this.asteroidDestroyed, this.defaultVolume);
             this.AddAudioObject(SoundName.EnemyDestroyed, this.enemyDestroyed, this.defaultVolume);
             this.AddAudioObject(SoundName.ResourceCollected, this.resourceCollected, this.defaultVolume);
             this.AddAudioObject(SoundName.GameLost, this.gameLost, this.defaultVolume);
-            this.AddAudioObject(SoundName.GameWon, this.gameWon, this.defaultVolume);
+            this.AddAudioObject(SoundName.GameWon, this.gameWon, this.defaultVolume * 0.5f);
         }
 
         private void AddAudioObject(SoundName objectName, AudioClip clip, float volume)
