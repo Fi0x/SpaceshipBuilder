@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 8336570781341518020}
   - component: {fileID: 7371361856096555645}
   m_Layer: 0
-  m_Name: Body4
+  m_Name: Body2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -694,7 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcc126fc7c730d46b6ca39cbe2a5405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partPrefab: {fileID: 365170222489188771, guid: 38fe6c1ab819ac448a5b503056cae7f3, type: 3}
+  partPrefab: {fileID: 522509453145069741, guid: 04e796a2bfa47ec4abf17e31d0dd6038, type: 3}
 --- !u!1 &5433169274959711426
 GameObject:
   m_ObjectHideFlags: 0
