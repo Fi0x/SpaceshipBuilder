@@ -7,10 +7,15 @@ namespace Control
 {
     public class AsteroidManager : MonoBehaviour
     {
-        public int asteroidCount = 15;
+        private int asteroidCount = 15;
         [SerializeField] private GameObject[] presets;
         [SerializeField, ReadOnly]private List<GameObject> asteroids;
 
+        private void Awake()
+        {
+            asteroidCount = GameManager.Instance.GetAsteroidManagerParams();
+            Debug.Log("Asteroid Manager: " + asteroidCount);
+        }
         private void Start()
         {
             this.asteroids = new List<GameObject>();

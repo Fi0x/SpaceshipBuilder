@@ -148,4 +148,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stationPrefab: {fileID: 7772520674667532181, guid: 208d99e11f68a7d4fbff957a857a6e72, type: 3}
-  secondsBetweenStations: 20
+  distanceBetweenStations: 400
+  LengthStarting: 400
+  LenghtIncrement: 200
+  AsteroidsStarting: 15
+  AsteroidsIncrement: 5
+  EnemiesStarting: 4
+  EnemiesIncrement: 2

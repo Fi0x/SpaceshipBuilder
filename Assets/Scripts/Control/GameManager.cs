@@ -9,9 +9,25 @@ namespace Control
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private GameObject stationPrefab;
-        [SerializeField] private double distanceBetweenStations = 200;
-        
+
+        // Bug in inspector?
+        [Header("Level Length")]
+        [Header("Level Params")]
+        [Space(5)]
+        [SerializeField] private int LengthStarting;
+        [SerializeField] private int LenghtIncrement;
+        [Space(5)]
+        [Header("Asteroid Count")]
+        [SerializeField] private int AsteroidsStarting;
+        [SerializeField] private int AsteroidsIncrement;
+        [Space(5)]
+        [Header("Enemy Count")]
+        [SerializeField] private int EnemiesStarting;
+        [SerializeField] private int EnemiesIncrement;
+
         private Stopwatch _stopwatch;
+        private double _distanceBetweenStations;
+        private int _level = -1;
     
         public static event EventHandler<LevelCompletedEventArgs> LevelCompletedEvent;
         
@@ -28,6 +44,7 @@ namespace Control
         {
             Instance = this;
             this._stopwatch = new Stopwatch();
+            this._distanceBetweenStations = LengthStarting + _level * LenghtIncrement;
         }
 
         public void StartGame()
@@ -35,7 +52,7 @@ namespace Control
             Running = true;
             this._stopwatch = new Stopwatch();
             this._stopwatch.Start();
-            this.DistanceToNextStation = this.distanceBetweenStations;
+            this.DistanceToNextStation = this._distanceBetweenStations;
         }
 
         public void GameOver(bool won)
@@ -45,6 +62,9 @@ namespace Control
             
             this._stopwatch.Stop();
             Running = false;
+
+            if (!won)
+                this._level = -1;
 
             var eventArgs = new LevelCompletedEventArgs
             {
@@ -73,12 +93,12 @@ namespace Control
             if(!this._stopwatch.IsRunning)
                 return;
             
-            Debug.Log("Distance: " + this.DistanceToNextStation);
+            //Debug.Log("Distance to Go: " + this.DistanceToNextStation);
             if(this.DistanceToNextStation > 0)
                 return;
             
             this.SpawnStation();
-            this.DistanceToNextStation = this.distanceBetweenStations;
+            this.DistanceToNextStation = this._distanceBetweenStations;
         }
 
         private void SpawnStation()
@@ -86,11 +106,28 @@ namespace Control
             var station = Instantiate(this.stationPrefab);
             station.GetComponent<Station>().SpawnStation();
         }
+        // Level Management
+        public Vector2 GetEnemyManagerParams()
+        {
+            int enemyCount = EnemiesStarting + _level * EnemiesIncrement;
+            return new Vector2(enemyCount, (float)(_distanceBetweenStations / (20f * enemyCount)));
+        }
+
+        public int GetAsteroidManagerParams()
+        {
+            return AsteroidsStarting + _level * AsteroidsIncrement;
+        }
+
+        public void IncrementLevel()
+        {
+            this._level++;
+        }
         
         public class LevelCompletedEventArgs : EventArgs
         {
             public bool Won;
             public long TimeForLevel;
         }
+
     }
 }

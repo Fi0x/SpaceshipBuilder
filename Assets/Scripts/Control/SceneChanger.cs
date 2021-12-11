@@ -44,6 +44,8 @@ namespace Control
             
             GameManager.Instance.InGameButtons.SetActive(false);
             GameManager.Instance.ItemInventory.SetActive(false);
+
+            GameManager.Instance.IncrementLevel();
         
             SceneManager.LoadScene("FlyingScene");
             
