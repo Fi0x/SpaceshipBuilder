@@ -769,8 +769,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3811204932988425825}
   m_HandleRect: {fileID: 4430829505647808411}
   m_Direction: 2
-  m_Value: 0.99985915
-  m_Size: 0.55755156
+  m_Value: 0.99984336
+  m_Size: 0.5575515
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1264,7 +1264,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7296560648310878766}
   m_HandleRect: {fileID: 3337664461554477957}
   m_Direction: 2
-  m_Value: 0.9999199
+  m_Value: 0.9998912
   m_Size: 0.55849123
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1588,7 +1588,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4592649040430055970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1843,8 +1843,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6543896628685475445}
   m_HandleRect: {fileID: 351165858245188420}
   m_Direction: 2
-  m_Value: 0.99997544
-  m_Size: 0.36626536
+  m_Value: 0.9999717
+  m_Size: 0.36626533
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
