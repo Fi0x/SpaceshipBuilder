@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\BuildingScripts\Preview.cs" />
      <Compile Include="Assets\Scripts\Control\AudioController.cs" />
      <Compile Include="Assets\Scripts\FlightScripts\Station.cs" />
+     <Compile Include="Assets\Scripts\BuildingScripts\AntiRace.cs" />
      <Compile Include="Assets\Scripts\BuildingScripts\MouseEventSender.cs" />
      <Compile Include="Assets\Scripts\Parts\Body.cs" />
      <Compile Include="Assets\Scripts\Parts\Thruster.cs" />
@@ -65,6 +66,7 @@
      <Compile Include="Assets\Scripts\Control\GameManager.cs" />
      <Compile Include="Assets\Scripts\Control\SceneChanger.cs" />
      <Compile Include="Assets\Scripts\BuildingScripts\DragAndDrop.cs" />
+     <Compile Include="Assets\Scripts\BuildingScripts\ConnectionCheck.cs" />
      <Compile Include="Assets\Scripts\FlightScripts\Spaceship.cs" />
      <Compile Include="Assets\Scripts\Control\StatMenu.cs" />
      <Compile Include="Assets\Scripts\FlightScripts\Projectile.cs" />
@@ -76,8 +78,11 @@
      <Compile Include="Assets\Scripts\BuildingScripts\SnapHelper.cs" />
      <Compile Include="Assets\Scripts\BuildingScripts\CreatePart.cs" />
      <Compile Include="Assets\Scripts\FlightScripts\Background.cs" />
-     <Compile Include="Assets\Scripts\BuildingScripts\AntiRace.cs" />
-     <Compile Include="Assets\Scripts\BuildingScripts\ConnectionCheck.cs" />
+     <Compile Include="Assets\Scripts\Control\MusicController.cs" />
+     <Compile Include="Assets\Scripts\FlightScripts\Enemies\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Control\EnemyManager.cs" />
+     <Compile Include="Assets\Scripts\FlightScripts\Enemies\EnemyProjectile.cs" />
+     <Compile Include="Assets\Scripts\FlightScripts\StationManager.cs" />
      <None Include="Assets\2D Space Kit\Backgrounds\Background Tip.txt" />
      <None Include="Assets\2D Space Kit\Readme.txt" />
      <None Include="Assets\2D Space Kit\Background Elements\Planets\Planet Masks\Note.txt" />
