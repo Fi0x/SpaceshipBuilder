@@ -16,7 +16,6 @@ namespace BuildingScripts
         private SpaceshipPart _partType;
         private List<GameObject> _possibleDocks;
         private Vector3 _pickupPosition;
-        private int i = 0;
         public static event EventHandler ShipPartAddedEvent;
         public static event EventHandler ShipPartRemovedEvent;
         
@@ -27,17 +26,13 @@ namespace BuildingScripts
          
                 if (this.CompareTag("Part") && this.GetComponentInChildren<Docking>() != null)
                 {
-                    if (i > 7)
-                    {
+                    if (spaceship.GetComponent<AntiRace>()._red)
                         this.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
-                        i = 1;
-                    }
                 }
                 else
                 {
                     this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                 }
-                i++;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -65,6 +60,8 @@ namespace BuildingScripts
 
         public void OnMouseDown()
         {
+            spaceship.GetComponent<AntiRace>()._red = false;
+            wait();
             _pickupPosition = this.transform.position;
             foreach (var a in GetComponentsInChildren<Docking>())
             {
@@ -157,6 +154,12 @@ namespace BuildingScripts
                 var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePos.z = 0;
                 return mousePos;
+            }
+
+            private void wait()
+            {
+              new WaitForSeconds(1);
+              spaceship.GetComponent<AntiRace>()._red = true;
             }
     }
 }

@@ -35,11 +35,27 @@ namespace BuildingScripts
             {
                 foreach (var possibleDock in possibleDocks)
                 {
-                    var localRotVec = - (originalTransform.rotation * child.localPosition).normalized;
-                    var otherpartVec = (possibleDock.transform.parent.rotation * possibleDock.transform.localPosition).normalized;
+                    var locChildPoss =child.localPosition.normalized;
+                    if (child.name.Contains("."))
+                    {
+                        locChildPoss.x = 0;
+                        locChildPoss = locChildPoss.normalized;
+                    }
+                    Debug.Log(locChildPoss);
+
+                    var localTransPoss = possibleDock.transform.localPosition.normalized;
+
+                    if (possibleDock.name.Contains("."))
+                    {
+                        localTransPoss.x = 0;
+                        localTransPoss = localTransPoss.normalized;
+                    }
+                    
+                    var localRotVec = - (originalTransform.rotation * locChildPoss ).normalized;
+                    var otherpartVec = (possibleDock.transform.parent.rotation *localTransPoss).normalized;
                     if  (otherpartVec!= localRotVec)
                         continue;
-
+                    
                     possibleDock.GetComponent<SpriteRenderer>().enabled = true;
 
                     var directionToTarget = possibleDock.transform.position - child.position;
@@ -82,5 +98,6 @@ namespace BuildingScripts
             renderer.enabled = true;
             renderer.color = new Color(r, g, b, alpha);
         }
+        
     }
 }
