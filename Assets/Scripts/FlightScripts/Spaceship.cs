@@ -69,6 +69,13 @@ namespace FlightScripts
                 case "Asteroid":
                     GameManager.Instance.GameOver(false);
                     break;
+                case "Enemy":
+                    GameManager.Instance.GameOver(false);
+                    break;
+                case "EnemyProjectile":
+                    GameManager.Instance.GameOver(false);
+                    break;
+
             }
         }
 

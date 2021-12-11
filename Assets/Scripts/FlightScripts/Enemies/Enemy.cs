@@ -17,16 +17,11 @@ namespace FlightScripts.Enemies
         private float _currentRotation;
         private bool _weaponReady = true;
         private float _searchAngle;
+        private bool _lostTrack = false;
         
         private void Start()
         {
-            this._searchAngle = Random.Range(110, 150);
-            this._currentRotation = 180;
-            
-            if(GameManager.Instance.ShipScript.HorizontalOffset < 0)
-                this._targetRotation = this._searchAngle;
-            else
-                this._targetRotation = -this._searchAngle;
+            Init();
         }
 
         private void FixedUpdate()
@@ -54,9 +49,19 @@ namespace FlightScripts.Enemies
 
         public void Init()
         {
+            this._searchAngle = Random.Range(110, 150);
+            this._currentRotation = 180;
+
+            if (GameManager.Instance.ShipScript.HorizontalOffset < 0)
+                this._targetRotation = this._searchAngle;
+            else
+                this._targetRotation = -this._searchAngle;
+
             var newPos = new Vector3(Random.Range(-120, 120), 120, 0);
             this.transform.position = newPos;
             this._distanceToPlayer = new Vector2(newPos.x, newPos.y + 10);
+            this._lostTrack = false;
+
         }
 
         private void SetTargetRotation()
@@ -89,9 +94,12 @@ namespace FlightScripts.Enemies
                         this._targetRotation = this._searchAngle;
                 }            
             }
-            if(_distanceToPlayer.y > 30)
+            if(_distanceToPlayer.y > 30 && !_lostTrack)
             {
+                Invoke(nameof(Init), 2.0f);
                 _targetRotation = 180;
+                this._lostTrack = true;
+                Debug.Log("Enemy Respawn");
             }
         }
 
