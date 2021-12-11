@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8c33b68d-89ff-4160-b1b4-3572fb259b6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.SpaceshipBuilder/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.SpaceshipBuilder/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.SpaceshipBuilder/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.SpaceshipBuilder/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Docking.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Docking.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Ship/Body.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Ship/Body.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Ship/Spaceship.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Ship/Spaceship.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Ship/Thruster.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Ship/Thruster.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Ship/Weapon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Ship/Weapon.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CreatePart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CreatePart.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DragandDrop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DragandDrop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-    </list>
+    <list default="true" id="8c33b68d-89ff-4160-b1b4-3572fb259b6e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,13 +42,14 @@
       <option name="presentableId" value="Default" />
       <updated>1638007521571</updated>
       <workItem from="1638007549024" duration="16000" />
+      <workItem from="1639126694984" duration="23000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

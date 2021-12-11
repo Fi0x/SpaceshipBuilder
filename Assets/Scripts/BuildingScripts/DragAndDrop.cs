@@ -105,7 +105,8 @@ namespace BuildingScripts
                         transform1.eulerAngles = transform1.eulerAngles + newRotation;
                     }
                 }
-                Preview.RenderShadow(this._snapShadow, this.gameObject.transform.rotation, this.transform, this._possibleDocks);
+                if(this._snapShadow!=null && this._possibleDocks!=null )
+                     Preview.RenderShadow(this._snapShadow, this.gameObject.transform.rotation, this.transform, this._possibleDocks);
             }
 
             public void OnMouseUp()

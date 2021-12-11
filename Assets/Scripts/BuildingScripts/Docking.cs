@@ -41,8 +41,10 @@ namespace BuildingScripts
             
             this.tag = "DockEmpty";
             other.tag = "DockEmpty";
-            this.transform.parent.tag = "Part";
-            other.transform.parent.tag = "Part";
+            if(this.transform.parent.name!="Spaceship(Clone)")
+                this.transform.parent.tag = "Part";
+            if(other.transform.parent.name!="Spaceship(Clone)")
+                other.transform.parent.tag = "Part";
         }
     }
 }

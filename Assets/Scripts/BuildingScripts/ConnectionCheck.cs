@@ -28,8 +28,10 @@ namespace BuildingScripts
                 if (a.GetComponentInChildren<Docking>())
                     Object.Destroy(a);
                 //TODO:Count Parts and Add Them To the Inventory
+                //TODO: Change for FlyingScene 
             }
             GameObject.Find("Spaceship(Clone)").GetComponent<AntiRace>()._building = false;
+           
         }
     }
 }
