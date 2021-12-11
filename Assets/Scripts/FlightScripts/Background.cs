@@ -45,7 +45,7 @@ namespace FlightScripts
         
             this._upperTile.transform.position = this._lowerTile.transform.position + Vector3.up * 81.92f;
 
-            this._spaceshipScript.HorizontalOffset(pos.x);
+            this._spaceshipScript.HorizontalOffset = pos.x;
         }
     }
 }
