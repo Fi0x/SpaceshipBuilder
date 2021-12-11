@@ -27,7 +27,7 @@ namespace Control
 
         private Stopwatch _stopwatch;
         private double _distanceBetweenStations;
-        private int _level = -1;
+        private int _level = 0;
     
         public static event EventHandler<LevelCompletedEventArgs> LevelCompletedEvent;
         
@@ -64,7 +64,9 @@ namespace Control
             Running = false;
 
             if (!won)
-                this._level = -1;
+                this._level = 0;
+            else
+                this._level++;
 
             var eventArgs = new LevelCompletedEventArgs
             {
@@ -116,11 +118,6 @@ namespace Control
         public int GetAsteroidManagerParams()
         {
             return AsteroidsStarting + _level * AsteroidsIncrement;
-        }
-
-        public void IncrementLevel()
-        {
-            this._level++;
         }
         
         public class LevelCompletedEventArgs : EventArgs
