@@ -41,8 +41,6 @@ namespace BuildingScripts
                         locChildPoss.x = 0;
                         locChildPoss = locChildPoss.normalized;
                     }
-                    Debug.Log(locChildPoss);
-
                     var localTransPoss = possibleDock.transform.localPosition.normalized;
 
                     if (possibleDock.name.Contains("."))

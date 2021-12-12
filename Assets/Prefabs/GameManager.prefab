@@ -132,6 +132,7 @@ Transform:
   m_Children:
   - {fileID: 2430054129731175519}
   - {fileID: 292121087518458163}
+  - {fileID: 1949985871696633086}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -148,4 +149,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stationPrefab: {fileID: 7772520674667532181, guid: 208d99e11f68a7d4fbff957a857a6e72, type: 3}
-  secondsBetweenStations: 20
+  distanceBetweenStations: 200
+--- !u!1 &7807618945418728356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1949985871696633086}
+  - component: {fileID: 7988988089420799723}
+  m_Layer: 0
+  m_Name: InventoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1949985871696633086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807618945418728356}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.1376206, y: -0.3025885, z: -0.9352824}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4996668805634956957}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7988988089420799723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807618945418728356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3eba492ee1328441a9b70102ddd5cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

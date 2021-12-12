@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Control;
 using Parts;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -70,7 +72,6 @@ namespace BuildingScripts
 
             {
                 this.transform.parent = null;
-                //this._possibleDocks = SnapHelper.GetPossibleDockingPoints(); moved to OnMouseDrag
                 this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
                 this.tag = "Part";
                 ConnectionCheck.ClearShip();
@@ -120,8 +121,7 @@ namespace BuildingScripts
                 if (this._inInventory)
                 {
                     this._partType.SpawnInInventory();
-                    Destroy(this.gameObject);
-                    Destroy(this);
+                    DestroyPart();
                     ShipPartRemovedEvent?.Invoke(null, null);
                 }
                 else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType, this._possibleDocks))
@@ -132,8 +132,7 @@ namespace BuildingScripts
                 if(this.transform.parent == null)
                 {
                     this._partType.SpawnInInventory();
-                    Destroy(this.gameObject);
-                    Destroy(this);
+                    DestroyPart();
                     ShipPartRemovedEvent?.Invoke(null, null);
                 }
                 
@@ -155,11 +154,20 @@ namespace BuildingScripts
                 mousePos.z = 0;
                 return mousePos;
             }
-
+            
             private void wait()
             {
-              new WaitForSeconds(1);
-              spaceship.GetComponent<AntiRace>()._red = true;
+                new WaitForSeconds(1);
+                spaceship.GetComponent<AntiRace>()._red = true;
+            }
+            
+            private void DestroyPart()
+            {
+                GameObject gm =  GameObject.Find("GameManager(Clone)");
+                Debug.Log(Regex.Replace( Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", ""));
+                gm.GetComponentInChildren<InventoryTracker>()._inventory[Regex.Replace( Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
+                Destroy(this.gameObject);
+                Destroy(this);
             }
     }
 }

@@ -6,12 +6,15 @@ namespace BuildingScripts
     public class CreatePart : MonoBehaviour
     {
         public GameObject partPrefab;
-        private GameObject _inventory;
+        private GameObject _gminventory;
         private GameObject _currentChild;
+        private GameObject _gameManager;
+        
         
         private void Start()
         {
-            this._inventory = this.gameObject;
+            this._gminventory = this.gameObject;
+            this._gameManager=GameObject.Find("GameManager(Clone)");
             this.SpawnPart();
         }
     
@@ -21,10 +24,15 @@ namespace BuildingScripts
             {
                 Destroy(this.transform.GetChild(i).gameObject);
             }
-            var part = Instantiate(this.partPrefab, this._inventory.transform, true);
-            this._currentChild = part;
-            part.transform.position = this.transform.position;
-            part.GetComponent<SpaceshipPart>().OriginalInventory = this.gameObject;
+
+            if (_gameManager.GetComponentInChildren<InventoryTracker>()._inventory[this.transform.name] > 0)
+            {
+                _gameManager.GetComponentInChildren<InventoryTracker>()._inventory[this.transform.name]--;
+                var part = Instantiate(this.partPrefab, this._gminventory.transform, true);
+                this._currentChild = part;
+                part.transform.position = this.transform.position;
+                part.GetComponent<SpaceshipPart>().OriginalInventory = this.gameObject;
+            }
         }
 
         private void OnMouseDown()

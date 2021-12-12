@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace BuildingScripts
@@ -26,7 +27,12 @@ namespace BuildingScripts
                 if(a.name=="Spaceship(Clone)")
                     continue;
                 if (a.GetComponentInChildren<Docking>())
+                {
+                    GameObject.Find("GameManager(Clone)").GetComponentInChildren<InventoryTracker>()
+                        ._inventory[Regex.Replace(Regex.Replace(a.name, @"\s+", ""), @"\(Clone\)", "")]++;
+                    Object.Destroy(a.gameObject);
                     Object.Destroy(a);
+                }
                 //TODO:Count Parts and Add Them To the Inventory
                 //TODO: Change for FlyingScene 
             }
