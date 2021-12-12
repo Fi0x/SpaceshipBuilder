@@ -1,5 +1,6 @@
 using Control;
 using UnityEngine;
+using UnityEditor;
 
 namespace FlightScripts.Enemies
 {
@@ -149,7 +150,10 @@ namespace FlightScripts.Enemies
                     break;
 
                 default:
-                    Debug.Log(collision.gameObject.tag);
+                    var resourcePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Resource.prefab");
+                    GameObject resource = Instantiate(resourcePrefab, this.transform.position, new Quaternion());
+                    resource.GetComponent<Resource>().Valuable = true;
+
                     Destroy(this.gameObject);
                     break;
 

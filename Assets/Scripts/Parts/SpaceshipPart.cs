@@ -34,7 +34,6 @@ namespace Parts
                     this.CollideWithAsteroid(collision.gameObject);
                     break;
                 case "Resource":
-                    CollectResource(collision.gameObject);
                     break;
                 case "Enemy":
                     this.CollideWithAsteroid(null);
@@ -64,10 +63,5 @@ namespace Parts
             Destroy(this.gameObject, 5);
         }
 
-        private static void CollectResource(GameObject resource)
-        {
-            ResourceCollectedEvent?.Invoke(null, null);
-            Destroy(resource);
-        }
     }
 }
