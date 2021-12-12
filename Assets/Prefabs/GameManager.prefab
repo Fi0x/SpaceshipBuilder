@@ -148,8 +148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ce7c60ad1c59b42a07e67796ff189b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stationPrefab: {fileID: 7772520674667532181, guid: 208d99e11f68a7d4fbff957a857a6e72, type: 3}
-  distanceBetweenStations: 200
+  stationPrefab: {fileID: 7772520674667532181, guid: 208d99e11f68a7d4fbff957a857a6e72,
+    type: 3}
+  distanceBetweenStations: 400
+  LengthStarting: 400
+  LenghtIncrement: 200
+  AsteroidsStarting: 15
+  AsteroidsIncrement: 5
+  EnemiesStarting: 4
+  EnemiesIncrement: 2
 --- !u!1 &7807618945418728356
 GameObject:
   m_ObjectHideFlags: 0
