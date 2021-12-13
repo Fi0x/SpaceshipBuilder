@@ -39,6 +39,10 @@ namespace Control
             this._freeFlightSource = this.GetAudioSourceObject(this.freeFlightMusic, this.defaultVolume * 0.7f);
             this._menuSource = this.GetAudioSourceObject(this.menuMusic, this.defaultVolume);
             this._buildSource = this.GetAudioSourceObject(this.buildMusic, this.defaultVolume);
+
+            this._freeFlightSource.loop = true;
+            this._menuSource.loop = true;
+            this._buildSource.loop = true;
         }
 
         private AudioSource GetAudioSourceObject(AudioClip clip, float volume)
