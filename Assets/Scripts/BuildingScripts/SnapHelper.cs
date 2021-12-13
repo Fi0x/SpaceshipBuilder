@@ -13,7 +13,6 @@ namespace BuildingScripts
             (var dockingObject, var dockingTransform) = GetClosestDockingPoint(originalTransform, possibleDocks);
             if (dockingObject == null || dockingTransform == null)
                 return false;
-
             var position = dockingObject.transform.position;
             var localPosition = dockingTransform.localPosition;
             var localPosRot= originalTransform.rotation * localPosition;

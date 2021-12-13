@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using Parts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,18 +49,21 @@ namespace BuildingScripts
         
         public void SpawnPart()
         {
+
             for (var i = 0; i < this.transform.childCount; i++)
             {
-                Destroy(this.transform.GetChild(i).gameObject);
+                if(Regex.Replace(this.transform.GetChild(i).gameObject.name, @"\s+", "")!=this.name+"(Clone)")
+                    Destroy(this.transform.GetChild(i).gameObject);
             }
-
             if (this.transform.childCount==0 && _gameManager.GetComponentInChildren<InventoryTracker>()._inventory[this.transform.name] >= 1)
             {
+
                 _gameManager.GetComponentInChildren<InventoryTracker>()._inventory[this.transform.name]--;
                 var part = Instantiate(this.partPrefab, this._gminventory.transform, true);
                 this._currentChild = part;
                 part.transform.position = this.transform.position;
                 part.GetComponent<SpaceshipPart>().OriginalInventory = this.gameObject;
+                //part.tag = "New";
             }
             
         }

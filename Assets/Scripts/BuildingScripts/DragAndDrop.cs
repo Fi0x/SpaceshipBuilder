@@ -14,7 +14,8 @@ namespace BuildingScripts
         [HideInInspector] public GameObject spaceship;
         
         private bool _inInventory;  
-        private bool newOne = false;  
+        private bool _newOne = false;
+        private bool _clickedOn = false;
         private GameObject _snapShadow;
         private SpaceshipPart _partType;
         private List<GameObject> _possibleDocks;
@@ -81,7 +82,6 @@ namespace BuildingScripts
 
         public void OnMouseDrag()
             {
-                
                 var mouseReturn = GetMousePos();
                 if (!mouseReturn.HasValue)
                     return;
@@ -108,50 +108,59 @@ namespace BuildingScripts
                      Preview.RenderShadow(this._snapShadow, this.gameObject.transform.rotation, this.transform, this._possibleDocks);
             }
 
-            public void OnMouseUp()
+        public void OnMouseUp()
+        {
+            GameObject gm = GameObject.Find("GameManager(Clone)");
+            Destroy(this._snapShadow);
+
+            for (var i = 0; i < this.transform.childCount; i++)
             {
-                
-                GameObject gm =  GameObject.Find("GameManager(Clone)");
-                Destroy(this._snapShadow);
-                
-                for (var i = 0; i < this.transform.childCount; i++)
-                {
-                    if(!this.transform.GetChild(i).gameObject.GetComponent<Docking>())
-                        this.transform.GetChild(i).gameObject.AddComponent<Docking>();
-                }
-            
-                if (this._inInventory)
-                {
-                    DestroyPart(null);
-                    ShipPartRemovedEvent?.Invoke(null, null);
-                }
-                else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType, this._possibleDocks))
-                {
-                    gm.GetComponentInChildren<InventoryTracker>();
-                    _partType.SpawnInInventory();
-                    ShipPartAddedEvent?.Invoke(null, null);
-                }
-            
-                if(this.transform.parent == null)
-                {
-                    
-                    DestroyPart(null);
-                    ShipPartRemovedEvent?.Invoke(null, null);
-                }
-                
-              
-                SnapHelper.MakeDockingPointsInvisible();
-                
-               if(this.transform.position!=_pickupPosition)
-                    ConnectionCheck.DestroynotShip(this.gameObject);
-                
-                   //TODO: Go through all parts and "enable" all connected ones
-                   this._partType.SpawnInInventory();
-                if(!this.transform.parent)
-                    Destroy(this.gameObject);
+                if (!this.transform.GetChild(i).gameObject.GetComponent<Docking>())
+                    this.transform.GetChild(i).gameObject.AddComponent<Docking>();
             }
 
-            private static Vector3? GetMousePos()
+          
+            if (this._inInventory)
+            {
+                if (!_clickedOn)
+                {
+                    gm.GetComponentInChildren<InventoryTracker>()
+                        ._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
+                }
+
+                DestroyPart(null);
+                ShipPartRemovedEvent?.Invoke(null, null);
+                    
+            }
+            else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType, this._possibleDocks))
+            {
+                gm.GetComponentInChildren<InventoryTracker>();
+                _partType.SpawnInInventory();
+                _clickedOn = true;
+                ShipPartAddedEvent?.Invoke(null, null);
+            }
+
+            if (this.transform.parent == null)
+            {
+
+                DestroyPart(null);
+                ShipPartRemovedEvent?.Invoke(null, null);
+            }
+
+
+            SnapHelper.MakeDockingPointsInvisible();
+
+            if (this.transform.position != _pickupPosition)
+                ConnectionCheck.DestroynotShip(this.gameObject);
+
+            //TODO: Go through all parts and "enable" all connected ones
+            this._partType.SpawnInInventory();
+            if (!this.transform.parent)
+                Destroy(this.gameObject);
+            
+        }
+
+        private static Vector3? GetMousePos()
             {
                 if (Camera.main == null)
                     return null;
@@ -171,7 +180,7 @@ namespace BuildingScripts
                 GameObject gm =  GameObject.Find("GameManager(Clone)");
 
                 //if(go!=this.gameObject)
-                this.newOne = true;
+                this._newOne = true;
                 Destroy(this.gameObject);
                 Destroy(this);
                 this._partType.SpawnInInventory();
@@ -180,7 +189,9 @@ namespace BuildingScripts
             private void OnDestroy()
             {
                 GameObject gm =  GameObject.Find("GameManager(Clone)");
-                if (!newOne) return;
+                //if(this.transform.parent.CompareTag("New"))
+                 //  gm.GetComponentInChildren<InventoryTracker>()._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
+                if (!_newOne) return;
                 gm.GetComponentInChildren<InventoryTracker>()
                     ._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
             }
