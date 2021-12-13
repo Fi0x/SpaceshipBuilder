@@ -2,27 +2,25 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
 namespace BuildingScripts
 {
     public class MouseEventSender : MonoBehaviour
     {
+        [SerializeField] private List<CreatePart> childrenToReceiveEvents;
+        
         private void OnMouseDown()
         {
-            var child = this.GetValidChild();
-            child.ToList().ForEach(c => c.OnMouseDown());
+            this.childrenToReceiveEvents.ForEach(c => c.CurrentChild.OnMouseDown());
         }
 
         private void OnMouseDrag()
         {
-            var child = this.GetValidChild();
-            child.ToList().ForEach(c => c.OnMouseDrag());
+            this.childrenToReceiveEvents.ForEach(c => c.CurrentChild.OnMouseDrag());
         }
 
         private void OnMouseUp()
         {
-            var child = this.GetValidChild();
-            child.ToList().ForEach(c => c.OnMouseUp());
+            this.childrenToReceiveEvents.ForEach(c => c.CurrentChild.OnMouseUp());
         }
 
         private IEnumerable<DragAndDrop> GetValidChild()

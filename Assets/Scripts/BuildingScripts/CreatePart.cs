@@ -12,6 +12,7 @@ namespace BuildingScripts
         private GameObject _gmInventory;
         private GameObject _currentChild;
         
+        public DragAndDrop CurrentChild { get; private set; }
         
         private void Start()
         {
@@ -43,7 +44,6 @@ namespace BuildingScripts
         
         public void SpawnPart()
         {
-
             for (var i = 0; i < this.transform.childCount; i++)
             {
                 if(Regex.Replace(this.transform.GetChild(i).gameObject.name, @"\s+", "")!=this.name+"(Clone)")
@@ -58,6 +58,8 @@ namespace BuildingScripts
             part.transform.position = this.transform.position;
             part.transform.localScale *= 0.8f;
             part.GetComponent<SpaceshipPart>().OriginalInventory = this.gameObject;
+
+            this.CurrentChild = part.GetComponent<DragAndDrop>();
         }
 
         private void OnMouseDown()
