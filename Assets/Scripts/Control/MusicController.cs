@@ -21,6 +21,7 @@ namespace Control
             this._menuSource.Play();
             
             SceneChanger.SceneChangedEvent += this.HandleSceneChange;
+            MainMenu.MenuButtonClickedEvent += this.HandleSceneChange;
 
             MainMenu.VolumeChangedEvent += (sender, args) =>
             {
@@ -56,19 +57,26 @@ namespace Control
 
         private void HandleSceneChange(object sender, SceneChanger.SceneChangedEventArgs args)
         {
+            if (args == null) 
+                return;
+            
+            Debug.Log("Handle music change");
             switch (args.NewScene)
             {
                 case SceneChanger.Scene.Menu:
+                    Debug.Log("Playing Menu Music");
                     this.StartCoroutine(FadeOut(this._freeFlightSource, this.fadeTime));
                     this.StartCoroutine(FadeOut(this._buildSource, this.fadeTime));
                     this._menuSource.Play();
                     break;
                 case SceneChanger.Scene.Build:
+                    Debug.Log("Playing Build Music");
                     this.StartCoroutine(FadeOut(this._menuSource, this.fadeTime));
                     this.StartCoroutine(FadeOut(this._freeFlightSource, this.fadeTime));
                     this._buildSource.Play();
                     break;
                 case SceneChanger.Scene.Flight:
+                    Debug.Log("Playing Flight Music");
                     this.StartCoroutine(FadeOut(this._menuSource, this.fadeTime));
                     this.StartCoroutine(FadeOut(this._buildSource, this.fadeTime));
                     this._freeFlightSource.Play();
