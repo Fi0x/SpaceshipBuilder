@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Control;
 using Parts;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace BuildingScripts
 {
@@ -20,23 +17,20 @@ namespace BuildingScripts
         private SpaceshipPart _partType;
         private List<GameObject> _possibleDocks;
         private Vector3 _pickupPosition;
-        public Transform _parent;
         public static event EventHandler ShipPartAddedEvent;
         public static event EventHandler ShipPartRemovedEvent;
         
+        public Vector3 OriginalScale { get; set; }
+        
         private void FixedUpdate()
         {
-            //Debug.Log(this.GetComponent<SpriteRenderer>().color)
-            _parent = this.transform.parent;
             if (this.CompareTag("Part") && this.GetComponentInChildren<Docking>() != null)
             {
-                if (spaceship.GetComponent<AntiRace>()._red)
+                if (this.spaceship.GetComponent<AntiRace>()._red)
                     this.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
             }
             else
-            {
                 this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -64,16 +58,14 @@ namespace BuildingScripts
 
         public void OnMouseDown()
         {
+            this.transform.localScale = this.OriginalScale;
             
-            GameObject gm =  GameObject.Find("GameManager(Clone)");
-            spaceship.GetComponent<AntiRace>()._red = false;
-            Wait();
-            _pickupPosition = this.transform.position;
-            foreach (var a in GetComponentsInChildren<Docking>())
-            {
+            this.spaceship.GetComponent<AntiRace>()._red = false;
+            this.Wait();
+            this._pickupPosition = this.transform.position;
+            foreach (var a in this.GetComponentsInChildren<Docking>())
                 Destroy(a);
-            }
-            //this.transform.parent = null;
+            
             this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
             this.tag = "Part";
             ConnectionCheck.ClearShip();
@@ -110,7 +102,7 @@ namespace BuildingScripts
 
         public void OnMouseUp()
         {
-            GameObject gm = GameObject.Find("GameManager(Clone)");
+            var gm = GameObject.Find("GameManager(Clone)");
             Destroy(this._snapShadow);
 
             for (var i = 0; i < this.transform.childCount; i++)
@@ -128,25 +120,22 @@ namespace BuildingScripts
                         ._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
                 }
 
-                DestroyPart(null);
+                this.DestroyPart(null);
                 ShipPartRemovedEvent?.Invoke(null, null);
-                    
             }
             else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType, this._possibleDocks))
             {
                 gm.GetComponentInChildren<InventoryTracker>();
-                _partType.SpawnInInventory();
-                _clickedOn = true;
+                this._partType.SpawnInInventory();
+                this._clickedOn = true;
                 ShipPartAddedEvent?.Invoke(null, null);
             }
 
             if (this.transform.parent == null)
             {
-
-                DestroyPart(null);
+                this.DestroyPart(null);
                 ShipPartRemovedEvent?.Invoke(null, null);
             }
-
 
             SnapHelper.MakeDockingPointsInvisible();
 
@@ -157,7 +146,6 @@ namespace BuildingScripts
             this._partType.SpawnInInventory();
             if (!this.transform.parent)
                 Destroy(this.gameObject);
-            
         }
 
         private static Vector3? GetMousePos()
@@ -172,14 +160,11 @@ namespace BuildingScripts
             private void Wait()
             {
                 new WaitForSeconds(1);
-                spaceship.GetComponent<AntiRace>()._red = true;
+                this.spaceship.GetComponent<AntiRace>()._red = true;
             }
             
             public void DestroyPart(GameObject go)
             {
-                GameObject gm =  GameObject.Find("GameManager(Clone)");
-
-                //if(go!=this.gameObject)
                 this._newOne = true;
                 Destroy(this.gameObject);
                 Destroy(this);
@@ -188,10 +173,8 @@ namespace BuildingScripts
 
             private void OnDestroy()
             {
-                GameObject gm =  GameObject.Find("GameManager(Clone)");
-                //if(this.transform.parent.CompareTag("New"))
-                 //  gm.GetComponentInChildren<InventoryTracker>()._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
-                if (!_newOne) return;
+                var gm =  GameObject.Find("GameManager(Clone)");
+                if (!this._newOne) return;
                 gm.GetComponentInChildren<InventoryTracker>()
                     ._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
             }
