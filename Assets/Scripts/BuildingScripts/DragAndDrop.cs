@@ -14,27 +14,28 @@ namespace BuildingScripts
         [HideInInspector] public GameObject spaceship;
         
         private bool _inInventory;  
+        private bool newOne = false;  
         private GameObject _snapShadow;
         private SpaceshipPart _partType;
         private List<GameObject> _possibleDocks;
         private Vector3 _pickupPosition;
+        public Transform _parent;
         public static event EventHandler ShipPartAddedEvent;
         public static event EventHandler ShipPartRemovedEvent;
         
         private void FixedUpdate()
         {
             //Debug.Log(this.GetComponent<SpriteRenderer>().color)
-            
-         
-                if (this.CompareTag("Part") && this.GetComponentInChildren<Docking>() != null)
-                {
-                    if (spaceship.GetComponent<AntiRace>()._red)
-                        this.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
-                }
-                else
-                {
-                    this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-                }
+            _parent = this.transform.parent;
+            if (this.CompareTag("Part") && this.GetComponentInChildren<Docking>() != null)
+            {
+                if (spaceship.GetComponent<AntiRace>()._red)
+                    this.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
+            }
+            else
+            {
+                this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -62,29 +63,29 @@ namespace BuildingScripts
 
         public void OnMouseDown()
         {
+            
+            GameObject gm =  GameObject.Find("GameManager(Clone)");
             spaceship.GetComponent<AntiRace>()._red = false;
-            wait();
+            Wait();
             _pickupPosition = this.transform.position;
             foreach (var a in GetComponentsInChildren<Docking>())
             {
                 Destroy(a);
             }
-
-            {
-                this.transform.parent = null;
-                this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
-                this.tag = "Part";
-                ConnectionCheck.ClearShip();
+            //this.transform.parent = null;
+            this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
+            this.tag = "Part";
+            ConnectionCheck.ClearShip();
                 // TODO: Remove part from ship, iterate through all parts and "disable" non connected
-            }
         }
 
         public void OnMouseDrag()
             {
+                
                 var mouseReturn = GetMousePos();
                 if (!mouseReturn.HasValue)
                     return;
-            
+                this.transform.parent = null;
                 this._possibleDocks = SnapHelper.GetPossibleDockingPoints();
                 this.transform.position = mouseReturn.Value;
                 if (this.gameObject.name != "Body(Clone)")
@@ -109,9 +110,10 @@ namespace BuildingScripts
 
             public void OnMouseUp()
             {
+                
+                GameObject gm =  GameObject.Find("GameManager(Clone)");
                 Destroy(this._snapShadow);
-            
-            
+                
                 for (var i = 0; i < this.transform.childCount; i++)
                 {
                     if(!this.transform.GetChild(i).gameObject.GetComponent<Docking>())
@@ -120,19 +122,20 @@ namespace BuildingScripts
             
                 if (this._inInventory)
                 {
-                    this._partType.SpawnInInventory();
-                    DestroyPart();
+                    DestroyPart(null);
                     ShipPartRemovedEvent?.Invoke(null, null);
                 }
                 else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType, this._possibleDocks))
                 {
+                    gm.GetComponentInChildren<InventoryTracker>();
+                    _partType.SpawnInInventory();
                     ShipPartAddedEvent?.Invoke(null, null);
                 }
             
                 if(this.transform.parent == null)
                 {
-                    this._partType.SpawnInInventory();
-                    DestroyPart();
+                    
+                    DestroyPart(null);
                     ShipPartRemovedEvent?.Invoke(null, null);
                 }
                 
@@ -140,10 +143,12 @@ namespace BuildingScripts
                 SnapHelper.MakeDockingPointsInvisible();
                 
                if(this.transform.position!=_pickupPosition)
-                    ConnectionCheck.DestroynotShip();
+                    ConnectionCheck.DestroynotShip(this.gameObject);
                 
                    //TODO: Go through all parts and "enable" all connected ones
-           
+                   this._partType.SpawnInInventory();
+                if(!this.transform.parent)
+                    Destroy(this.gameObject);
             }
 
             private static Vector3? GetMousePos()
@@ -155,19 +160,29 @@ namespace BuildingScripts
                 return mousePos;
             }
             
-            private void wait()
+            private void Wait()
             {
                 new WaitForSeconds(1);
                 spaceship.GetComponent<AntiRace>()._red = true;
             }
             
-            private void DestroyPart()
+            public void DestroyPart(GameObject go)
             {
                 GameObject gm =  GameObject.Find("GameManager(Clone)");
-                Debug.Log(Regex.Replace( Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", ""));
-                gm.GetComponentInChildren<InventoryTracker>()._inventory[Regex.Replace( Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
+
+                //if(go!=this.gameObject)
+                this.newOne = true;
                 Destroy(this.gameObject);
                 Destroy(this);
+                this._partType.SpawnInInventory();
+            }
+
+            private void OnDestroy()
+            {
+                GameObject gm =  GameObject.Find("GameManager(Clone)");
+                if (!newOne) return;
+                gm.GetComponentInChildren<InventoryTracker>()
+                    ._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
             }
     }
 }

@@ -20,8 +20,6 @@ namespace BuildingScripts
             originalTransform.position = position - localPosRot;
             originalTransform.SetParent(spaceship.transform);
             originalTransform.tag = "Ship";
-            
-            partType.SpawnInInventory();
             return true;
         }
 
