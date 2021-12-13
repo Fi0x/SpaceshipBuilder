@@ -17,6 +17,8 @@ namespace BuildingScripts
         private SpaceshipPart _partType;
         private List<GameObject> _possibleDocks;
         private Vector3 _pickupPosition;
+        private bool _movedBefore = false;
+        
         public static event EventHandler ShipPartAddedEvent;
         public static event EventHandler ShipPartRemovedEvent;
         
@@ -56,7 +58,11 @@ namespace BuildingScripts
 
         public void OnMouseDown()
         {
-            this.transform.localScale = Vector3.one;
+            if (!this._movedBefore)
+            {
+                this.transform.localScale *= 1.2f;
+                this._movedBefore = true;
+            }
 
             this.spaceship.GetComponent<AntiRace>()._red = false;
             this.Wait();
@@ -112,7 +118,7 @@ namespace BuildingScripts
           
             if (this._inInventory)
             {
-                if (!_clickedOn)
+                if (!this._clickedOn)
                 {
                     gm.GetComponentInChildren<InventoryTracker>()
                         ._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
@@ -137,7 +143,7 @@ namespace BuildingScripts
 
             SnapHelper.MakeDockingPointsInvisible();
 
-            if (this.transform.position != _pickupPosition)
+            if (this.transform.position != this._pickupPosition)
                 ConnectionCheck.DestroynotShip(this.gameObject);
 
             //TODO: Go through all parts and "enable" all connected ones
