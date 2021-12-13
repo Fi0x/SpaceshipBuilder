@@ -56,10 +56,8 @@ namespace BuildingScripts
             var part = Instantiate(this.partPrefab, this._gmInventory.transform, true);
             this._currentChild = part;
             part.transform.position = this.transform.position;
+            part.transform.localScale *= 0.8f;
             part.GetComponent<SpaceshipPart>().OriginalInventory = this.gameObject;
-            var currentScale = part.transform.localScale;
-            part.GetComponent<DragAndDrop>().OriginalScale = currentScale;
-            part.transform.localScale = currentScale * 0.5f;
         }
 
         private void OnMouseDown()

@@ -20,8 +20,6 @@ namespace BuildingScripts
         public static event EventHandler ShipPartAddedEvent;
         public static event EventHandler ShipPartRemovedEvent;
         
-        public Vector3 OriginalScale { get; set; }
-        
         private void FixedUpdate()
         {
             if (this.CompareTag("Part") && this.GetComponentInChildren<Docking>() != null)
@@ -58,8 +56,8 @@ namespace BuildingScripts
 
         public void OnMouseDown()
         {
-            this.transform.localScale = this.OriginalScale;
-            
+            this.transform.localScale = Vector3.one;
+
             this.spaceship.GetComponent<AntiRace>()._red = false;
             this.Wait();
             this._pickupPosition = this.transform.position;
