@@ -9,7 +9,8 @@ namespace FlightScripts
     {
         [SerializeReference, Range(0.5f, 1f)] private float SuperiorPartProbability = 0.6f;
         [SerializeReference, Range(0.75f, 1f)] private float MaxedPartProbability = 0.9f;
-        public bool Valuable { private get; set; }
+        [SerializeReference] private bool Valuable = false;
+
         public static event EventHandler ResourceCollectedEvent;
         public void FixedUpdate()
         {

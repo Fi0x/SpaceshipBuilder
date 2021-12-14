@@ -153,9 +153,8 @@ namespace FlightScripts.Enemies
                     break;
 
                 default:
-                    var resourcePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Resource.prefab");
+                    var resourcePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/ResourceEnemy.prefab");
                     GameObject resource = Instantiate(resourcePrefab, this.transform.position, new Quaternion());
-                    resource.GetComponent<Resource>().Valuable = true;
                     EnemyDestroyedEvent?.Invoke(null, null);
                     Destroy(this.gameObject);
                     break;
