@@ -12,7 +12,7 @@ namespace Control
         static Startup()
         {
             Instance = new Startup();
-
+            
             SceneManager.sceneLoaded += Instance.FillScene;
         
             var gm = GameObject.Find("GameManager");
@@ -26,6 +26,7 @@ namespace Control
         {
             var gameManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GameManager.prefab");
             var gameManager = Object.Instantiate(gameManagerPrefab).GetComponent<GameManager>();
+            gameManager.GetComponentInChildren<InventoryTracker>().Init();
             Object.DontDestroyOnLoad(gameManager);
             Debug.Log("Game manager loaded");
         

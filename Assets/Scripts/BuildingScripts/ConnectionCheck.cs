@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace BuildingScripts
@@ -18,15 +18,20 @@ namespace BuildingScripts
         }
 
 
-        public static void DestroynotShip()
+        public static void DestroynotShip(GameObject go)
         {
+            GameObject gm =  GameObject.Find("GameManager(Clone)");
             GameObject.Find("Spaceship(Clone)").GetComponent<AntiRace>()._building = true;
             foreach (var a in GameObject.FindGameObjectsWithTag("Part"))
             {
                 if(a.name=="Spaceship(Clone)")
                     continue;
                 if (a.GetComponentInChildren<Docking>())
-                    Object.Destroy(a);
+                {
+                    //var temp = Regex.Replace(Regex.Replace(a.name, @"\s+", ""), @"\(Clone\)", "");
+                    //gm.GetComponentInChildren<InventoryTracker>()._inventory[temp]=gm.GetComponentInChildren<InventoryTracker>()._inventory[temp]+=1;
+                    a.GetComponent<DragAndDrop>().DestroyPart(go);
+                }
                 //TODO:Count Parts and Add Them To the Inventory
                 //TODO: Change for FlyingScene 
             }

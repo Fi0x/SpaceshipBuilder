@@ -13,15 +13,12 @@ namespace BuildingScripts
             (var dockingObject, var dockingTransform) = GetClosestDockingPoint(originalTransform, possibleDocks);
             if (dockingObject == null || dockingTransform == null)
                 return false;
-
             var position = dockingObject.transform.position;
             var localPosition = dockingTransform.localPosition;
             var localPosRot= originalTransform.rotation * localPosition;
             originalTransform.position = position - localPosRot;
             originalTransform.SetParent(spaceship.transform);
             originalTransform.tag = "Ship";
-            
-            partType.SpawnInInventory();
             return true;
         }
 
@@ -41,8 +38,6 @@ namespace BuildingScripts
                         locChildPoss.x = 0;
                         locChildPoss = locChildPoss.normalized;
                     }
-                    Debug.Log(locChildPoss);
-
                     var localTransPoss = possibleDock.transform.localPosition.normalized;
 
                     if (possibleDock.name.Contains("."))
