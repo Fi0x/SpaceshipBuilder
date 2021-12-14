@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{38E24355-6D1D-7254-5CF4-D160E2B43788}</ProjectGuid>
+    <ProjectGuid>{41A5F2E1-B838-6191-8952-979F4D4E9F6E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -77,7 +77,6 @@
     <Compile Include="Assets\Scripts\FlightScripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Control\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Control\Startup.cs" />
-    <Compile Include="Assets\Scripts\Control\PartInventory.cs" />
     <Compile Include="Assets\Scripts\StatTracker.cs" />
     <Compile Include="Assets\Scripts\FlightScripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\Scripts\Control\EnemyManager.cs" />
@@ -86,6 +85,8 @@
     <Compile Include="Assets\Scripts\BuildingScripts\SnapHelper.cs" />
     <Compile Include="Assets\Scripts\BuildingScripts\CreatePart.cs" />
     <Compile Include="Assets\Scripts\FlightScripts\Background.cs" />
+    <Compile Include="Assets\Scripts\BuildingScripts\CollisonCheck.cs" />
+    <Compile Include="Assets\Scripts\InventoryTracker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\2D Space Kit\Backgrounds\Background Tip.txt" />

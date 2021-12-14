@@ -23,6 +23,7 @@ namespace FlightScripts
         }
         private void collected()
         {
+            var inventory = GameManager.Instance.GetComponentInChildren<InventoryTracker>();
             if (Valuable)
             {
                 if(Random.value > 0.5f)
@@ -40,7 +41,7 @@ namespace FlightScripts
                     {
                         gun = 1;
                     }
-                    PartInventory.Instance.AddGun(gun);
+                    inventory.AddGun(gun);
                 }
                 else
                 {
@@ -57,12 +58,12 @@ namespace FlightScripts
                     {
                         thruster = 0;
                     }
-                    PartInventory.Instance.AddThruster(thruster);
+                    inventory.AddThruster(thruster);
                 }
             }
             else
             {
-                PartInventory.Instance.AddBodyPart(Random.Range(0, 6));
+                inventory.AddBodyPart(Random.Range(0, 6));
             }
         }
         private void OnCollisionEnter2D(Collision2D collision)

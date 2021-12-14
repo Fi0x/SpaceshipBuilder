@@ -24,6 +24,25 @@ public class InventoryTracker : MonoBehaviour
         _inventory.Add("Thruster1", 0);
         _inventory.Add("Thruster2", 0);
     }
-    
+
+    public void AddBodyPart(int part)
+    {
+        _inventory["Body"+part]++;
+        Debug.Log("Added Bodypart: " + part);
+        Debug.Log("Now At" + _inventory["Body" + part]);
+    }
+    public void AddGun(int part)
+    {
+        _inventory["Weapon" + part]++;
+        Debug.Log("Added Gun: " + part);
+        Debug.Log("Now At" + _inventory["Weapon" + part]);
+    }
+    public void AddThruster(int part)
+    {
+        _inventory["Thruster" + part]++;
+        Debug.Log("Added Thruster: " + part);
+        Debug.Log("Now At" + _inventory["Thruster" + part]);
+    }
+
 }
 
