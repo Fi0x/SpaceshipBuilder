@@ -28,7 +28,9 @@ namespace FlightScripts
             switch (collision.gameObject.tag)
             {
                 case "Ship":
-                    return;
+                    break;
+                case "Projectile":
+                    break;
                 case "Asteroid":
                     collision.gameObject.GetComponent<AsteroidBehaviour>()?.DestroyByShot();
                     Destroy(this.gameObject);
