@@ -11,10 +11,10 @@ public class InventoryTracker : MonoBehaviour
         Debug.Log("VAR");
         _inventory.Add("Body0", 4);
         _inventory.Add("Body1", 3);
-        _inventory.Add("Body2", 0);
-        _inventory.Add("Body3", 0);
-        _inventory.Add("Body4", 0);
-        _inventory.Add("Body5", 0);
+        _inventory.Add("Body2", 3);
+        _inventory.Add("Body3", 2);
+        _inventory.Add("Body4", 2);
+        _inventory.Add("Body5", 2);
         
         _inventory.Add("Weapon0", 1);
         _inventory.Add("Weapon1", 0);

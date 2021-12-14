@@ -39,6 +39,8 @@ namespace BuildingScripts
                 return;
             if (other.gameObject.tag.Equals("Inventory")) 
                 this._inInventory = true;
+            if (other.gameObject.tag.Equals("Ship")) 
+                this._inInventory = true;
         }
    
         private void OnTriggerExit2D(Collider2D other)
@@ -107,6 +109,16 @@ namespace BuildingScripts
         public void OnMouseUp()
         {
             var gm = GameObject.Find("GameManager(Clone)");
+            if (this._snapShadow.GetComponent<SpriteRenderer>().color == new Color(1, 0.5f, 0.5f, 0.4f))
+            {
+                this.DestroyPart(null);
+                Debug.Log("EXIT1");
+                ShipPartRemovedEvent?.Invoke(null, null);
+                SnapHelper.MakeDockingPointsInvisible();
+                Destroy(this._snapShadow);
+                return;
+            }
+                
             Destroy(this._snapShadow);
 
             for (var i = 0; i < this.transform.childCount; i++)
@@ -123,7 +135,7 @@ namespace BuildingScripts
                     gm.GetComponentInChildren<InventoryTracker>()
                         ._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
                 }
-
+                Debug.Log("EXIT2");
                 this.DestroyPart(null);
                 ShipPartRemovedEvent?.Invoke(null, null);
             }
@@ -138,6 +150,7 @@ namespace BuildingScripts
             if (this.transform.parent == null)
             {
                 this.DestroyPart(null);
+                Debug.Log("EXIT3");
                 ShipPartRemovedEvent?.Invoke(null, null);
             }
 
@@ -149,7 +162,10 @@ namespace BuildingScripts
             //TODO: Go through all parts and "enable" all connected ones
             this._partType.SpawnInInventory();
             if (!this.transform.parent)
+            {
                 Destroy(this.gameObject);
+                Debug.Log("EXIT4");
+            }
         }
 
         private static Vector3? GetMousePos()
