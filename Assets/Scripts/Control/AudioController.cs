@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BuildingScripts;
 using FlightScripts;
+using FlightScripts.Enemies;
 using Parts;
 using UnityEngine;
 
@@ -35,6 +36,7 @@ namespace Control
             AsteroidBehaviour.AsteroidDestroyedEvent += (sender, args) => { this._audioSources[SoundName.AsteroidDestroyed].Play(); };
             SpaceshipPart.ResourceCollectedEvent += (sender, args) => { this._audioSources[SoundName.ResourceCollected].Play(); };
             GameManager.LevelCompletedEvent += (sender, args) => { this._audioSources[args.Won ? SoundName.GameWon : SoundName.GameLost].Play(); };
+            Enemy.EnemyDestroyedEvent += (sender, args) => { this._audioSources[SoundName.EnemyDestroyed].Play(); };
 
             MainMenu.VolumeChangedEvent += (sender, args) =>
             {

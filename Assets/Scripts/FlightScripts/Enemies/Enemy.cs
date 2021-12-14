@@ -1,6 +1,8 @@
 using Control;
 using UnityEngine;
 using UnityEditor;
+using System;
+using Random = UnityEngine.Random;
 
 namespace FlightScripts.Enemies
 {
@@ -12,6 +14,7 @@ namespace FlightScripts.Enemies
         [SerializeField] private int turnSpeed = 100;
         [SerializeField] private float reloadTime = 1.0f;
 
+        public static event EventHandler EnemyDestroyedEvent;
 
         private Vector3 _distanceToPlayer;
         private float _targetRotation;
@@ -153,7 +156,7 @@ namespace FlightScripts.Enemies
                     var resourcePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Resource.prefab");
                     GameObject resource = Instantiate(resourcePrefab, this.transform.position, new Quaternion());
                     resource.GetComponent<Resource>().Valuable = true;
-
+                    EnemyDestroyedEvent?.Invoke(null, null);
                     Destroy(this.gameObject);
                     break;
 
