@@ -5,24 +5,30 @@ using UnityEngine;
 public class PartInventory : MonoBehaviour
 {
     public static PartInventory Instance { get; private set; }
-    public Vector3Int BodyParts { get; private set; }
-    public Vector2Int Guns { get; private set; }
-    public Vector2Int Thrusters { get; private set; }
+    public int[] BodyParts { get; private set; }
+    public int[] Guns { get; private set; }
+    public int[] Thrusters { get; private set; }
 
     private void Awake()
     {
         Instance = this;
+        BodyParts = new int[6];
+        Guns = new int[3];
+        Thrusters = new int[3];
     }
 
-    public void AddBodyPart(Vector3Int part) {
-        BodyParts += part;
+    public void AddBodyPart(int part) {
+        BodyParts[part] ++;
+        Debug.Log("Added Bodypart: " + part);
     }
-    public void AddGun(Vector2Int part)
+    public void AddGun(int part)
     {
-        Guns += part;
+        Guns[part]++;
+        Debug.Log("Added Gun: " + part);
     }
-    public void AddThruster(Vector2Int part)
+    public void AddThruster(int part)
     {
-        Thrusters += part;
+        Thrusters[part]++;
+        Debug.Log("Added Thruster: " + part);
     }
 }

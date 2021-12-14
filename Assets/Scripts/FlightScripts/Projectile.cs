@@ -31,11 +31,13 @@ namespace FlightScripts
                     return;
                 case "Asteroid":
                     collision.gameObject.GetComponent<AsteroidBehaviour>()?.DestroyByShot();
+                    Destroy(this.gameObject);
                     break;
+                case "default":
+                    Destroy(this.gameObject);
+                    break;
+
             }
-        
-            Destroy(this.gameObject);
-            Destroy(this);
         }
     }
 }

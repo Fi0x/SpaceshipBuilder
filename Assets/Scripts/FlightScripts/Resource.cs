@@ -7,7 +7,8 @@ namespace FlightScripts
 {
     public class Resource : MonoBehaviour
     {
-        [SerializeReference, Range(0.5f, 1f)] private float SuperiorPartProbability;
+        [SerializeReference, Range(0.5f, 1f)] private float SuperiorPartProbability = 0.6f;
+        [SerializeReference, Range(0.75f, 1f)] private float MaxedPartProbability = 0.9f;
         public bool Valuable { private get; set; }
         public static event EventHandler ResourceCollectedEvent;
         public void FixedUpdate()
@@ -26,34 +27,42 @@ namespace FlightScripts
             {
                 if(Random.value > 0.5f)
                 {
-                    Vector2Int gun;
-                    if(Random.value > SuperiorPartProbability)
+                    int gun;
+                    float rnd = Random.value;
+                    if(rnd > SuperiorPartProbability)
                     {
-                        gun = Vector2Int.right;
+                        if (rnd > MaxedPartProbability)
+                            gun = 2;
+                        else
+                            gun = 1;
                     }
                     else
                     {
-                        gun = Vector2Int.up;
+                        gun = 1;
                     }
                     PartInventory.Instance.AddGun(gun);
                 }
                 else
                 {
-                    Vector2Int thruster;
-                    if (Random.value > SuperiorPartProbability)
+                    int thruster;
+                    float rnd = Random.value;
+                    if (rnd > SuperiorPartProbability)
                     {
-                        thruster = Vector2Int.right;
+                        if (rnd > MaxedPartProbability)
+                            thruster = 2;
+                        else
+                            thruster = 1;
                     }
                     else
                     {
-                        thruster = Vector2Int.up;
+                        thruster = 0;
                     }
                     PartInventory.Instance.AddThruster(thruster);
                 }
             }
             else
             {
-                //TODO: Body Part Selection
+                PartInventory.Instance.AddBodyPart(Random.Range(0, 6));
             }
         }
         private void OnCollisionEnter2D(Collision2D collision)
@@ -63,6 +72,7 @@ namespace FlightScripts
                 case "Ship":
                     ResourceCollectedEvent?.Invoke(null, null);
                     collected();
+                    Destroy(this.gameObject);
                     break;
             }
         }
