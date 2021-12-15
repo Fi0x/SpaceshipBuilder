@@ -196,7 +196,7 @@ namespace BuildingScripts
             {
                 if (SceneManager.GetActiveScene().name == "FlyingScene")
                 {
-                    CollisonCheck.
+                    //CollisonCheck.
 
                     return;
                 }
