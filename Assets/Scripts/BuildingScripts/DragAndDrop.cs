@@ -29,7 +29,7 @@ namespace BuildingScripts
             {
                     if (this.spaceship.GetComponent<AntiRace>()._red)
                     {
-                        if (SceneManager.GetActiveScene().name == "FlyingScene") return;
+                        //if (SceneManager.GetActiveScene().name == "FlyingScene") return;
                         this.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
                     }
             }
