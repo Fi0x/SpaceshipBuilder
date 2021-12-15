@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Parts;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BuildingScripts
 {
@@ -12,7 +13,6 @@ namespace BuildingScripts
         
         private bool _inInventory;  
         private bool _newOne = false;
-        private bool _clickedOn = false;
         private GameObject _snapShadow;
         private SpaceshipPart _partType;
         private List<GameObject> _possibleDocks;
@@ -22,25 +22,32 @@ namespace BuildingScripts
         public static event EventHandler ShipPartAddedEvent;
         public static event EventHandler ShipPartRemovedEvent;
         
+        
         private void FixedUpdate()
         {
             if (this.CompareTag("Part") && this.GetComponentInChildren<Docking>() != null)
             {
-                if (this.spaceship.GetComponent<AntiRace>()._red)
-                    this.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
+                    if (this.spaceship.GetComponent<AntiRace>()._red)
+                    {
+                        if (SceneManager.GetActiveScene().name == "FlyingScene") return;
+                        this.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
+                    }
             }
             else
+            {
                 this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            }
         }
+        
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if(this._partType == null)
                 return;
-            if (other.gameObject.tag.Equals("Inventory")) 
+            if (other.gameObject.tag.Equals("Inventory"))
+            {
                 this._inInventory = true;
-            if (other.gameObject.tag.Equals("Ship")) 
-                this._inInventory = true;
+            }
         }
    
         private void OnTriggerExit2D(Collider2D other)
@@ -60,6 +67,7 @@ namespace BuildingScripts
 
         public void OnMouseDown()
         {
+            if (SceneManager.GetActiveScene().name == "FlyingScene") return;
             if (!this._movedBefore)
             {
                 this.transform.localScale *= 1.2f;
@@ -75,11 +83,11 @@ namespace BuildingScripts
             this._snapShadow = Preview.InitShadow(this.gameObject, this._partType.OriginalInventory.transform);
             this.tag = "Part";
             ConnectionCheck.ClearShip();
-                // TODO: Remove part from ship, iterate through all parts and "disable" non connected
         }
 
         public void OnMouseDrag()
             {
+                if (SceneManager.GetActiveScene().name == "FlyingScene") return;
                 var mouseReturn = GetMousePos();
                 if (!mouseReturn.HasValue)
                     return;
@@ -108,49 +116,45 @@ namespace BuildingScripts
 
         public void OnMouseUp()
         {
+            if (SceneManager.GetActiveScene().name == "FlyingScene") return;
             var gm = GameObject.Find("GameManager(Clone)");
             if (this._snapShadow.GetComponent<SpriteRenderer>().color == new Color(1, 0.5f, 0.5f, 0.4f))
             {
-                this.DestroyPart(null);
-                Debug.Log("EXIT1");
-                ShipPartRemovedEvent?.Invoke(null, null);
                 SnapHelper.MakeDockingPointsInvisible();
+                this.DestroyPart(null);
                 Destroy(this._snapShadow);
+                ShipPartRemovedEvent?.Invoke(null, null);
                 return;
             }
-                
-            Destroy(this._snapShadow);
 
-            for (var i = 0; i < this.transform.childCount; i++)
-            {
-                if (!this.transform.GetChild(i).gameObject.GetComponent<Docking>())
-                    this.transform.GetChild(i).gameObject.AddComponent<Docking>();
-            }
-
-          
             if (this._inInventory)
             {
-                if (!this._clickedOn)
-                {
-                    gm.GetComponentInChildren<InventoryTracker>()
-                        ._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
-                }
-                Debug.Log("EXIT2");
+                SnapHelper.MakeDockingPointsInvisible();
                 this.DestroyPart(null);
+                Destroy(this._snapShadow);
+                ConnectionCheck.DestroynotShip(this.gameObject);
                 ShipPartRemovedEvent?.Invoke(null, null);
+                return;
             }
-            else if (SnapHelper.Snap(this.transform, this.spaceship, this._partType, this._possibleDocks))
+
+            Destroy(this._snapShadow);
+
+
+            if (SnapHelper.Snap(this.transform, this.spaceship, this._partType, this._possibleDocks))
             {
+                for (var i = 0; i < this.transform.childCount; i++)
+                {
+                    if (!this.transform.GetChild(i).gameObject.GetComponent<Docking>())
+                        this.transform.GetChild(i).gameObject.AddComponent<Docking>();
+                }
                 gm.GetComponentInChildren<InventoryTracker>();
                 this._partType.SpawnInInventory();
-                this._clickedOn = true;
                 ShipPartAddedEvent?.Invoke(null, null);
             }
 
             if (this.transform.parent == null)
             {
                 this.DestroyPart(null);
-                Debug.Log("EXIT3");
                 ShipPartRemovedEvent?.Invoke(null, null);
             }
 
@@ -158,13 +162,11 @@ namespace BuildingScripts
 
             if (this.transform.position != this._pickupPosition)
                 ConnectionCheck.DestroynotShip(this.gameObject);
-
-            //TODO: Go through all parts and "enable" all connected ones
+            
             this._partType.SpawnInInventory();
             if (!this.transform.parent)
             {
                 Destroy(this.gameObject);
-                Debug.Log("EXIT4");
             }
         }
 
@@ -193,6 +195,12 @@ namespace BuildingScripts
 
             private void OnDestroy()
             {
+                if (SceneManager.GetActiveScene().name == "FlyingScene")
+                {
+                    ConnectionCheck.ClearShip();
+                    return;
+                }
+
                 var gm =  GameObject.Find("GameManager(Clone)");
                 if (!this._newOne) return;
                 gm.GetComponentInChildren<InventoryTracker>()

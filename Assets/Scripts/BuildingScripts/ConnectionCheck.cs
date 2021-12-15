@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Parts;
 using UnityEngine;
 
 namespace BuildingScripts
@@ -7,16 +9,19 @@ namespace BuildingScripts
     {
         public static void ClearShip()
         {
-            GameObject.Find("Spaceship(Clone)").GetComponent<AntiRace>()._building = true;
+            if(GameObject.Find("Spaceship(Clone)"))
+                GameObject.Find("Spaceship(Clone)").GetComponent<AntiRace>()._building = true;
             foreach (var a in GameObject.FindGameObjectsWithTag("Ship"))
             {
                 if(a.name==("Spaceship(Clone)"))
                     continue;
                 a.tag = "Part";
             }
-            GameObject.Find("Spaceship(Clone)").GetComponent<AntiRace>()._building = false;
+            if(GameObject.Find("Spaceship(Clone)"))
+                GameObject.Find("Spaceship(Clone)").GetComponent<AntiRace>()._building = false;
         }
-
+        
+        
 
         public static void DestroynotShip(GameObject go)
         {

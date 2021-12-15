@@ -6,7 +6,7 @@ namespace Control
 {
     public class MainMenu : MonoBehaviour
     {
-        public static event EventHandler MenuButtonClickedEvent;
+        public static event EventHandler<SceneChanger.SceneChangedEventArgs> MenuButtonClickedEvent;
         public static event EventHandler<VolumeChangedEventArgs> VolumeChangedEvent;
         
         private void Start()
@@ -17,7 +17,8 @@ namespace Control
 
         public void PlayButtonClicked()
         {
-            MenuButtonClickedEvent?.Invoke(null, null);
+            var args = new SceneChanger.SceneChangedEventArgs() { NewScene = SceneChanger.Scene.Build};
+            MenuButtonClickedEvent?.Invoke(null, args);
             this.gameObject.SetActive(false);
             GameManager.Instance.InGameButtons.SetActive(true);
             GameManager.Instance.ItemInventory.SetActive(true);
