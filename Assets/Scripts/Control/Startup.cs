@@ -12,7 +12,7 @@ namespace Control
         static Startup()
         {
             Instance = new Startup();
-
+            
             SceneManager.sceneLoaded += Instance.FillScene;
         
             var gm = GameObject.Find("GameManager");
@@ -26,6 +26,7 @@ namespace Control
         {
             var gameManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GameManager.prefab");
             var gameManager = Object.Instantiate(gameManagerPrefab).GetComponent<GameManager>();
+            gameManager.GetComponentInChildren<InventoryTracker>().Init();
             Object.DontDestroyOnLoad(gameManager);
             Debug.Log("Game manager loaded");
         
@@ -44,7 +45,7 @@ namespace Control
             Object.DontDestroyOnLoad(buttons);
             Debug.Log("Buttons loaded");
 
-            var itemInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/InventoryReduced.prefab");
+            var itemInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/Inventory.prefab");
             var itemInventory = Object.Instantiate(itemInventoryPrefab);
             Object.DontDestroyOnLoad(itemInventory);
             Debug.Log("Inventory loaded");

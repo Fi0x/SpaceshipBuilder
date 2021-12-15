@@ -10,12 +10,12 @@ namespace BuildingScripts
             var shadow = Object.Instantiate(original, inventoryTransform, true);
             foreach (var comp in shadow.GetComponents<Component>())
             {
-                if (!(comp is Transform || comp is SpriteRenderer))
+                if (!(comp is Transform || comp is SpriteRenderer || comp is BoxCollider2D || comp is PolygonCollider2D))
                     Object.Destroy(comp);
             }
             for (var i = 0; i < shadow.transform.childCount; i++)
                 Object.Destroy(shadow.transform.GetChild(i).gameObject);
-            
+            shadow.gameObject.AddComponent<CollisonCheck>();
             shadow.tag = "Untagged";
             var tmp = shadow.GetComponent<SpriteRenderer>().color;
             tmp.a = 0.4f;
