@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace BuildingScripts
@@ -11,23 +12,23 @@ namespace BuildingScripts
         private void OnMouseDown()
         {
             this._correctPart = this.GetRaycastChild();
-            this._correctPart.OnMouseDown();
+            this._correctPart?.OnMouseDown();
         }
 
         private void OnMouseDrag()
         {
             if(this._correctPart == null)
                 this._correctPart = this.GetRaycastChild();
-            
-            this._correctPart.OnMouseDrag();
+
+            this._correctPart?.OnMouseDrag();
         }
 
         private void OnMouseUp()
         {
-            if(this._correctPart == null)
+            if(this._correctPart == null) 
                 this._correctPart = this.GetRaycastChild();
             
-            this._correctPart.OnMouseUp();
+            this._correctPart?.OnMouseUp();
 
             this._correctPart = null;
         }
@@ -39,9 +40,12 @@ namespace BuildingScripts
                 .ToList()
                 .ForEach(hit => hitTransforms.Add(hit.transform));
 
+            if (hitTransforms.Count == 0)
+                return null;
+
             var childComponents = this.transform.GetComponentsInChildren<DragAndDrop>();
-            var validChild = childComponents.ToList().Where(child => hitTransforms.Contains(child.transform));
-            return validChild.First();
+            var validChild = childComponents.ToList().Where(child => hitTransforms.Contains(child.transform)).ToList();
+            return validChild.Count == 0 ? null : validChild.First();
         }
     }
 }
