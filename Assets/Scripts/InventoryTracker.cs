@@ -8,7 +8,6 @@ public class InventoryTracker : MonoBehaviour
     public IDictionary<String, int> _inventory = new Dictionary<string, int>();
     public  void Init()
     {
-        Debug.Log("VAR");
         _inventory.Add("Body0", 4);
         _inventory.Add("Body1", 3);
         _inventory.Add("Body2", 3);
