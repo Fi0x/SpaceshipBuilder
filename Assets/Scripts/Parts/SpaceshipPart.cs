@@ -28,6 +28,7 @@ namespace Parts
             {
                 case "Ship":
                 case "Projectile":
+                    break;
                 case "Station":
                     break;
                 case "Asteroid":

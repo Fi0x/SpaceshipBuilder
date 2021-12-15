@@ -35,11 +35,6 @@ namespace Control
             Object.DontDestroyOnLoad(spaceShip);
             Debug.Log("Spaceship loaded");
 
-            var partInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/PartInventory.prefab");
-            var partInventory = Object.Instantiate(partInventoryPrefab);
-            Object.DontDestroyOnLoad(partInventory);
-            Debug.Log("Part Inventory loaded");
-
             var menuPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/MainMenu.prefab");
             var menu = Object.Instantiate(menuPrefab);
             Object.DontDestroyOnLoad(menu);
