@@ -22,6 +22,8 @@ namespace Control
         {
             GameManager.Instance.Ship.GetComponent<Spaceship>().ResetShip();
             SceneManager.LoadScene("BuildingScene");
+            var args = new SceneChangedEventArgs { NewScene = Scene.Build};
+            SceneChangedEvent?.Invoke(null, args);
         }
 
         private static void LoadFlyingScene()
