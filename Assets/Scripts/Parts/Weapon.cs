@@ -30,7 +30,9 @@ namespace Parts
             
             if (Input.GetKey(KeyCode.Space))
                 this.Shoot();
-            
+            else 
+                return;
+
             this._timeToNextShot = this.weaponDelay;
         }
 
