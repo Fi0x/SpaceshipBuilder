@@ -16,13 +16,13 @@ public class InventoryTracker : MonoBehaviour
         _inventory.Add("Body4", 2);
         _inventory.Add("Body5", 2);
         
-        _inventory.Add("Weapon0", 1);
-        _inventory.Add("Weapon1", 0);
-        _inventory.Add("Weapon2", 0);
+        _inventory.Add("Weapon0", 3);
+        _inventory.Add("Weapon1", 3);
+        _inventory.Add("Weapon2", 3);
         
         _inventory.Add("Thruster0", 1);
-        _inventory.Add("Thruster1", 0);
-        _inventory.Add("Thruster2", 0);
+        _inventory.Add("Thruster1", 2);
+        _inventory.Add("Thruster2", 3);
     }
     
 }

@@ -10,7 +10,7 @@ namespace BuildingScripts
             var shadow = Object.Instantiate(original, inventoryTransform, true);
             foreach (var comp in shadow.GetComponents<Component>())
             {
-                if (!(comp is Transform || comp is SpriteRenderer || comp is BoxCollider2D))
+                if (!(comp is Transform || comp is SpriteRenderer || comp is BoxCollider2D || comp is PolygonCollider2D))
                     Object.Destroy(comp);
             }
             for (var i = 0; i < shadow.transform.childCount; i++)
