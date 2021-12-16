@@ -17,8 +17,6 @@ namespace FlightScripts
 
         private void Start()
         {
-            var newPos = new Vector3(Random.Range(-120, 120), 50, 0);
-            this.transform.position = newPos;
             this._vel = new Vector3(
                 Random.Range(-this.asteroidMaxSpeed, this.asteroidMaxSpeed),
                 Random.Range(-this.asteroidMaxSpeed, 0),
