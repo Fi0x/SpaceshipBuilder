@@ -118,6 +118,12 @@ namespace BuildingScripts
         {
             if (SceneManager.GetActiveScene().name == "FlyingScene") return;
             var gm = GameObject.Find("GameManager(Clone)");
+            if (this._snapShadow == null)
+            {
+                SnapHelper.MakeDockingPointsInvisible();
+                Destroy(this._snapShadow);
+                return;
+            }
             if (this._snapShadow.GetComponent<SpriteRenderer>().color == new Color(1, 0.5f, 0.5f, 0.4f))
             {
                 SnapHelper.MakeDockingPointsInvisible();
