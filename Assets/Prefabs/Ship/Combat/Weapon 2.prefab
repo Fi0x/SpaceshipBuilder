@@ -359,4 +359,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabProjectile: {fileID: 8558668401400123352, guid: cdaeec9d9c9f56c47ae1bf27c1193e89, type: 3}
-  weaponDelay: 15
+  weaponDelay: 0.25

@@ -67,6 +67,12 @@ namespace Control
                 this._level = 0;
             else
                 this._level++;
+                var inventoryTracker = this.gameObject.GetComponentInChildren<InventoryTracker>();
+                if (inventoryTracker._inventory["Weapon0"] == 0 &&
+                    inventoryTracker._inventory["Weapon1"] == 0 &&
+                    inventoryTracker._inventory["Weapon2"] == 0) {
+                inventoryTracker.AddGun(0);
+                }
 
             var eventArgs = new LevelCompletedEventArgs
             {

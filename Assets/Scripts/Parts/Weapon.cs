@@ -8,9 +8,9 @@ namespace Parts
     public class Weapon : SpaceshipPart
     {
         [SerializeField] private GameObject prefabProjectile;
-        [SerializeField] private int weaponDelay;
+        [SerializeField] private float weaponDelay;
 
-        private int _timeToNextShot;
+        private bool _ready = true;
         
         public static event EventHandler ShotFiredEvent;
 
@@ -22,20 +22,16 @@ namespace Parts
             
             if (!this.Working)
                 return;
-            if (this._timeToNextShot > 0)
-            {
-                this._timeToNextShot--;
-                return;
-            }
             
-            if (Input.GetKey(KeyCode.Space))
+            if ((Input.GetKey(KeyCode.Space) || Input.GetKeyDown(KeyCode.Space)) && _ready)
                 this.Shoot();
-            
-            this._timeToNextShot = this.weaponDelay;
         }
 
         private void Shoot()
         {
+            _ready = false;
+            Invoke(nameof(Reload), weaponDelay);
+
             var tf = this.transform;
             var projectile = Instantiate(this.prefabProjectile, tf.position, tf.rotation);
             projectile.GetComponent<Projectile>().dir = this.GetDirection();
@@ -48,6 +44,11 @@ namespace Parts
             var angle = this.transform.localRotation.z * 2 + (GameManager.Instance.ShipScript.zAngle - 90) * Mathf.Deg2Rad;
             var toReturn = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
             return toReturn;
+        }
+
+        private void Reload()
+        {
+            this._ready = true;
         }
     }
 }
