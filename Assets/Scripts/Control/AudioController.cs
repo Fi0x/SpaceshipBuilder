@@ -34,7 +34,7 @@ namespace Control
             DragAndDrop.ShipPartRemovedEvent += (sender, args) => { this._audioSources[SoundName.BuildPartRemoved].Play(); };
             SpaceshipPart.ShipPartLostEvent += (sender, args) => { this._audioSources[SoundName.PartDestroyed].Play(); };
             AsteroidBehaviour.AsteroidDestroyedEvent += (sender, args) => { this._audioSources[SoundName.AsteroidDestroyed].Play(); };
-            SpaceshipPart.ResourceCollectedEvent += (sender, args) => { this._audioSources[SoundName.ResourceCollected].Play(); };
+            Resource.ResourceCollectedEvent += (sender, args) => { this._audioSources[SoundName.ResourceCollected].Play(); };
             GameManager.LevelCompletedEvent += (sender, args) => { this._audioSources[args.Won ? SoundName.GameWon : SoundName.GameLost].Play(); };
             Enemy.EnemyDestroyedEvent += (sender, args) => { this._audioSources[SoundName.EnemyDestroyed].Play(); };
 

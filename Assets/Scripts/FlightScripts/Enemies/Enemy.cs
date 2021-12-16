@@ -61,7 +61,7 @@ namespace FlightScripts.Enemies
             else
                 this._targetRotation = -this._searchAngle;
 
-            var newPos = new Vector3(Random.Range(-120, 120), 120, 0);
+            var newPos = new Vector3(Random.Range(-10, 10), 120, 0);
             this.transform.position = newPos;
             this._distanceToPlayer = new Vector2(newPos.x, newPos.y + 10);
             this._lostTrack = false;
@@ -98,7 +98,7 @@ namespace FlightScripts.Enemies
                         this._targetRotation = this._searchAngle;
                 }            
             }
-            if(_distanceToPlayer.y > 30 && !_lostTrack)
+            if(_distanceToPlayer.y > 20 && !_lostTrack)
             {
                 Invoke(nameof(Init), 2.0f);
                 _targetRotation = 180;

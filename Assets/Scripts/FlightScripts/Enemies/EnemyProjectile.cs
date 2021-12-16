@@ -18,7 +18,7 @@ namespace FlightScripts.Enemies
 
         private void FixedUpdate()
         {
-            this.transform.position += this._dir * 30 / 60 + GameManager.Instance.GetBackgroundMovement() / 60;
+            this.transform.position += this._dir * 20 / 60 + GameManager.Instance.GetBackgroundMovement() / 60;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

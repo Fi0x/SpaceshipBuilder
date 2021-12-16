@@ -12,7 +12,6 @@ namespace Parts
         private bool _isDrifting;
 
         public static event EventHandler ShipPartLostEvent;
-        public static event EventHandler ResourceCollectedEvent;
         
         public GameObject OriginalInventory { get; set; }
 
