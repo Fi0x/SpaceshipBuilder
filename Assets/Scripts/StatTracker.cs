@@ -46,7 +46,7 @@ public class StatTracker
     {
         AsteroidBehaviour.AsteroidDestroyedEvent += (sender, args) => { this.DestroyedAsteroids++; };
         SpaceshipPart.ShipPartLostEvent += (sender, args) => { this.LostShipParts++; };
-        SpaceshipPart.ResourceCollectedEvent += (sender, args) => { this.CollectedResources++; };
+        Resource.ResourceCollectedEvent += (sender, args) => { this.CollectedResources++; };
         GameManager.LevelCompletedEvent += (sender, args) =>
         {
             this.PlayerWon = args.Won;

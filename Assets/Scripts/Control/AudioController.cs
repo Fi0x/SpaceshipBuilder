@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BuildingScripts;
 using FlightScripts;
+using FlightScripts.Enemies;
 using Parts;
 using UnityEngine;
 
@@ -35,6 +36,7 @@ namespace Control
             AsteroidBehaviour.AsteroidDestroyedEvent += (sender, args) => { this._audioSources[SoundName.AsteroidDestroyed].Play(); };
             SpaceshipPart.ResourceCollectedEvent += (sender, args) => { this._audioSources[SoundName.ResourceCollected].Play(); };
             GameManager.LevelCompletedEvent += (sender, args) => { this._audioSources[args.Won ? SoundName.GameWon : SoundName.GameLost].Play(); };
+            Enemy.EnemyDestroyedEvent += (sender, args) => { this._audioSources[SoundName.EnemyDestroyed].Play(); };
 
             MainMenu.VolumeChangedEvent += (sender, args) =>
             {
@@ -47,6 +49,7 @@ namespace Control
                 this._audioSources[SoundName.Shot].volume = this.defaultVolume * 0.5f * args.NewVolume;
                 this._audioSources[SoundName.BuildPartRemoved].volume = this.defaultVolume * 0.2f * args.NewVolume;
                 this._audioSources[SoundName.PartDestroyed].volume = this.defaultVolume * 0.3f * args.NewVolume;
+                this._audioSources[SoundName.EnemyDestroyed].volume = this.defaultVolume * 0.5f * args.NewVolume;
                 this._audioSources[SoundName.GameWon].volume = this.defaultVolume * 0.5f * args.NewVolume;
             };
         }
@@ -61,7 +64,7 @@ namespace Control
             this.AddAudioObject(SoundName.BuildPartRemoved, this.buildPartRemoved, this.defaultVolume * 0.2f);
             this.AddAudioObject(SoundName.PartDestroyed, this.partDestroyed, this.defaultVolume * 0.3f);
             this.AddAudioObject(SoundName.AsteroidDestroyed, this.asteroidDestroyed, this.defaultVolume);
-            this.AddAudioObject(SoundName.EnemyDestroyed, this.enemyDestroyed, this.defaultVolume);
+            this.AddAudioObject(SoundName.EnemyDestroyed, this.enemyDestroyed, this.defaultVolume * 0.5f);
             this.AddAudioObject(SoundName.ResourceCollected, this.resourceCollected, this.defaultVolume);
             this.AddAudioObject(SoundName.GameLost, this.gameLost, this.defaultVolume);
             this.AddAudioObject(SoundName.GameWon, this.gameWon, this.defaultVolume * 0.5f);

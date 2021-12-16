@@ -40,7 +40,7 @@ namespace FlightScripts
 
             if (Random.value < this.resourceChance)
             {
-                var resourcePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Resource.prefab");
+                var resourcePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/ResourceAsteroid.prefab");
                 Instantiate(resourcePrefab, this.transform.position, new Quaternion());
             }
             

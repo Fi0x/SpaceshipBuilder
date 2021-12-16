@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 268651774914269230}
   - component: {fileID: 4657987096162305949}
   m_Layer: 0
-  m_Name: Resource
+  m_Name: ResourceAsteroid
   m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 829439185
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d52ba15f5fe182f48be4522e7acf12b0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f550b24b39e02f4abb54d724a34d859, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdea4d3c2a8b10b4b9b29409750f9e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SuperiorPartProbability: 0.6
+  MaxedPartProbability: 0.9
 --- !u!60 &4657987096162305949
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -113,7 +115,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1, y: 1.1076924}
+    oldSize: {x: 2.35, y: 2.36}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
