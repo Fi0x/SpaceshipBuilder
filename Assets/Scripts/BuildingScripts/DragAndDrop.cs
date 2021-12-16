@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Control;
 using Parts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -63,7 +62,6 @@ namespace BuildingScripts
         private void Start()
         {
             this.spaceship = GameObject.Find("Spaceship(Clone)");
-            GameManager.SpaceShipReloadedEvent += (sender, args) => { this.spaceship = GameManager.Instance.Ship; };
             this._partType = this.gameObject.GetComponent<SpaceshipPart>();
         }
 
@@ -212,7 +210,7 @@ namespace BuildingScripts
                 var gm =  GameObject.Find("GameManager(Clone)");
                 if (!this._newOne) return;
                 gm.GetComponentInChildren<InventoryTracker>()
-                    .Inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
+                    ._inventory[Regex.Replace(Regex.Replace(this.name, @"\s+", ""), @"\(Clone\)", "")]++;
             }
     }
 }

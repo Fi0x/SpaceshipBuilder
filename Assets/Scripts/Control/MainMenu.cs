@@ -22,8 +22,6 @@ namespace Control
             this.gameObject.SetActive(false);
             GameManager.Instance.InGameButtons.SetActive(true);
             GameManager.Instance.ItemInventory.SetActive(true);
-            GameManager.Instance.ResetShip();
-            InventoryTracker.Instance.Init();
             StatTracker.ResetTracker();
         }
 

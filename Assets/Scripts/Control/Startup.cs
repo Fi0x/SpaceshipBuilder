@@ -7,17 +7,14 @@ namespace Control
     public class Startup : MonoBehaviour
     {
         [SerializeField] GameObject gameManagerPrefab;
-        [SerializeField] public GameObject spaceshipPrefab;
+        [SerializeField] GameObject spaceshipPrefab;
         [SerializeField] GameObject menuPrefab;
         [SerializeField] GameObject buttonsPrefab;
         [SerializeField] GameObject itemInventoryPrefab;
-        
-        public static Startup Instance { get; private set; }
 
         private void Start()
         {
-            Instance = this;
-            this.FillScene();
+            FillScene();
             SceneManager.LoadScene("BuildingScene");
         }
 

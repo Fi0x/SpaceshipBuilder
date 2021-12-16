@@ -27,14 +27,14 @@ namespace BuildingScripts
 
         private void UpdateCount()
         {
-            if (this.transform.childCount==0 && GameManager.Instance.GetComponentInChildren<InventoryTracker>().Inventory[this.transform.name] >= 1)
+            if (this.transform.childCount==0 && GameManager.Instance.GetComponentInChildren<InventoryTracker>()._inventory[this.transform.name] >= 1)
                 this.SpawnPart();
             if (!GameObject.Find(this.name + "(Value)"))
                 return;
             
-            if (!(this.transform.childCount == 0 || GameManager.Instance.GetComponentInChildren<InventoryTracker>().Inventory[this.transform.name] == 0))
+            if (!(this.transform.childCount == 0 || GameManager.Instance.GetComponentInChildren<InventoryTracker>()._inventory[this.transform.name] == 0))
             {
-                var temp = GameManager.Instance.GetComponentInChildren<InventoryTracker>().Inventory[this.transform.name];
+                var temp = GameManager.Instance.GetComponentInChildren<InventoryTracker>()._inventory[this.transform.name];
                 temp += 1;
                 GameObject.Find(this.name + "(Value)").GetComponent<Text>().text = temp.ToString();
             }
@@ -49,10 +49,10 @@ namespace BuildingScripts
                 if(Regex.Replace(this.transform.GetChild(i).gameObject.name, @"\s+", "")!=this.name+"(Clone)")
                     Destroy(this.transform.GetChild(i).gameObject);
             }
-            if (this.transform.childCount != 0 || GameManager.Instance.GetComponentInChildren<InventoryTracker>().Inventory[this.transform.name] < 1)
+            if (this.transform.childCount != 0 || GameManager.Instance.GetComponentInChildren<InventoryTracker>()._inventory[this.transform.name] < 1)
                 return;
             
-            GameManager.Instance.GetComponentInChildren<InventoryTracker>().Inventory[this.transform.name]--;
+            GameManager.Instance.GetComponentInChildren<InventoryTracker>()._inventory[this.transform.name]--;
             var part = Instantiate(this.partPrefab, this._gmInventory.transform, true);
             this._currentChild = part;
             part.transform.position = this.transform.position;
