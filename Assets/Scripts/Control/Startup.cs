@@ -4,50 +4,41 @@ using UnityEngine.SceneManagement;
 
 namespace Control
 {
-    [InitializeOnLoad]
-    public class Startup
+    public class Startup : MonoBehaviour
     {
-        private static Startup Instance { get; }
-    
-        static Startup()
+        [SerializeField] GameObject gameManagerPrefab;
+        [SerializeField] GameObject spaceshipPrefab;
+        [SerializeField] GameObject menuPrefab;
+        [SerializeField] GameObject buttonsPrefab;
+        [SerializeField] GameObject itemInventoryPrefab;
+
+        private void Start()
         {
-            Instance = new Startup();
-            
-            SceneManager.sceneLoaded += Instance.FillScene;
-        
-            var gm = GameObject.Find("GameManager");
-            if (gm == null)
-            {
-                SceneManager.GetActiveScene();
-            }
+            FillScene();
+            SceneManager.LoadScene("BuildingScene");
         }
 
-        private void FillScene(Scene scene, LoadSceneMode sceneMode)
+        private void FillScene()
         {
-            var gameManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GameManager.prefab");
-            var gameManager = Object.Instantiate(gameManagerPrefab).GetComponent<GameManager>();
+            var gameManager = Instantiate(gameManagerPrefab).GetComponent<GameManager>();
             gameManager.GetComponentInChildren<InventoryTracker>().Init();
-            Object.DontDestroyOnLoad(gameManager);
+            DontDestroyOnLoad(gameManager);
             Debug.Log("Game manager loaded");
         
-            var spaceshipPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Ship/Spaceship.prefab");
-            var spaceShip = Object.Instantiate(spaceshipPrefab);
-            Object.DontDestroyOnLoad(spaceShip);
+            var spaceShip = Instantiate(spaceshipPrefab);
+            DontDestroyOnLoad(spaceShip);
             Debug.Log("Spaceship loaded");
 
-            var menuPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/MainMenu.prefab");
-            var menu = Object.Instantiate(menuPrefab);
-            Object.DontDestroyOnLoad(menu);
+            var menu = Instantiate(menuPrefab);
+            DontDestroyOnLoad(menu);
             Debug.Log("Menu loaded");
 
-            var buttonsPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/InGameButtons.prefab");
-            var buttons = Object.Instantiate(buttonsPrefab);
-            Object.DontDestroyOnLoad(buttons);
+            var buttons = Instantiate(buttonsPrefab);
+            DontDestroyOnLoad(buttons);
             Debug.Log("Buttons loaded");
 
-            var itemInventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/Inventory.prefab");
-            var itemInventory = Object.Instantiate(itemInventoryPrefab);
-            Object.DontDestroyOnLoad(itemInventory);
+            var itemInventory = Instantiate(itemInventoryPrefab);
+            DontDestroyOnLoad(itemInventory);
             Debug.Log("Inventory loaded");
 
             gameManager.InitShip(spaceShip);
@@ -56,8 +47,6 @@ namespace Control
             gameManager.ItemInventory = itemInventory;
 
             StatTracker.InstantiateTracker();
-
-            SceneManager.sceneLoaded -= this.FillScene;
         }
     }
 }

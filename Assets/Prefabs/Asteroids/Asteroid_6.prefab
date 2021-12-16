@@ -141,4 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2622e367822d02a488baf2581e129756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: {x: 0, y: 0, z: 0}
+  resourcePrefab: {fileID: 268651774914269231, guid: ffa4291a1f550ec4a806928411bf3e01, type: 3}
+  asteroidMaxSpeed: 10
+  resourceChance: 0.5

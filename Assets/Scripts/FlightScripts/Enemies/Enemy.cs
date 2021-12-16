@@ -9,6 +9,7 @@ namespace FlightScripts.Enemies
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private GameObject projectilePrefab;
+        [SerializeField] private GameObject resourcePrefab;
         [SerializeField] private int speed = 5;
         [SerializeField] private int noticingRange = 50;
         [SerializeField] private int turnSpeed = 100;
@@ -153,7 +154,6 @@ namespace FlightScripts.Enemies
                     break;
 
                 default:
-                    var resourcePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/ResourceEnemy.prefab");
                     GameObject resource = Instantiate(resourcePrefab, this.transform.position, new Quaternion());
                     EnemyDestroyedEvent?.Invoke(null, null);
                     Destroy(this.gameObject);

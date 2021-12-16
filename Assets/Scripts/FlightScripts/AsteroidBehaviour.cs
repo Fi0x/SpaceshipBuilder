@@ -8,6 +8,7 @@ namespace FlightScripts
 {
     public class AsteroidBehaviour : MonoBehaviour
     {
+        [SerializeField] private GameObject resourcePrefab;
         [SerializeField] private float asteroidMaxSpeed = 10;
         [SerializeField, Range(0, 1)] private float resourceChance = 0.5f;
         
@@ -17,8 +18,6 @@ namespace FlightScripts
 
         private void Start()
         {
-            var newPos = new Vector3(Random.Range(-120, 120), 50, 0);
-            this.transform.position = newPos;
             this._vel = new Vector3(
                 Random.Range(-this.asteroidMaxSpeed, this.asteroidMaxSpeed),
                 Random.Range(-this.asteroidMaxSpeed, 0),
@@ -40,7 +39,6 @@ namespace FlightScripts
 
             if (Random.value < this.resourceChance)
             {
-                var resourcePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/ResourceAsteroid.prefab");
                 Instantiate(resourcePrefab, this.transform.position, new Quaternion());
             }
             

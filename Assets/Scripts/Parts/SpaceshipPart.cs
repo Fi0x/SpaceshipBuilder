@@ -20,7 +20,7 @@ namespace Parts
             if (this._isDrifting)
                 this.transform.position += GameManager.Instance.GetBackgroundMovement() * Time.deltaTime;
             if ( SceneManager.GetActiveScene().name == "FlyingScene"&&this.CompareTag("Part"))//this.GetComponent<SpriteRenderer>().color == new Color(1, 0.5f, 0.5f, 1))
-                Invoke(nameof(DestroyByConnection), 0.1f);
+                Invoke(nameof(DestroyByConnection), 0.3f);
         }
         
         protected virtual void OnCollisionEnter2D(Collision2D collision)
