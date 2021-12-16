@@ -82,7 +82,7 @@ namespace FlightScripts
         public void ResetShip()
         {
             var tf = this.transform;
-            tf.position = Vector3.zero;
+            tf.position = new Vector3(2.4f,0,0);
             tf.localScale = new Vector3(1, 1, 1);
             tf.rotation = new Quaternion();
             this.zAngle = 0;

@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using BuildingScripts;
 using Control;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Parts
 {
@@ -17,8 +19,10 @@ namespace Parts
         {
             if (this._isDrifting)
                 this.transform.position += GameManager.Instance.GetBackgroundMovement() * Time.deltaTime;
+            if ( SceneManager.GetActiveScene().name == "FlyingScene"&&this.CompareTag("Part"))//this.GetComponent<SpriteRenderer>().color == new Color(1, 0.5f, 0.5f, 1))
+                Invoke(nameof(DestroyByConnection), 0.1f);
         }
-
+        
         protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
             if(!GameManager.Running)
@@ -50,16 +54,30 @@ namespace Parts
             partInventory.SpawnPart();
         }
 
-        private void CollideWithAsteroid(GameObject asteroid)
+        private void DestroyByConnection()
         {
+            {
+                if (!this.CompareTag("Part")) return;
+                this._isDrifting = true;
+                foreach (var script in this.gameObject.GetComponentsInChildren<Weapon>())
+                    script.Working = false;
+                this.transform.parent = null;
+                Destroy(this.gameObject, 5);
+            }
+        }
+        
+        private void CollideWithAsteroid(GameObject asteroid)
+        {   
+            ConnectionCheck.ClearShip();
             this._isDrifting = true;
             foreach (var script in this.gameObject.GetComponentsInChildren<Weapon>())
                 script.Working = false;
-            
-            ShipPartLostEvent?.Invoke(null, null);
+            if(asteroid!=null)
+                ShipPartLostEvent?.Invoke(null, null);
         
             this.transform.parent = null;
-            Destroy(asteroid);
+            if(asteroid!=null)
+                Destroy(asteroid);
             Destroy(this.gameObject, 5);
         }
 
