@@ -56,7 +56,8 @@ namespace Control
         private void AddRandomAsteroid()
         {
             var type = Random.Range(0, this.presets.Length);
-            var asteroid = Instantiate(this.presets[type]);
+            var newPos = new Vector3(Random.Range(-120, 120), 50, 0);
+            var asteroid = Instantiate(this.presets[type], newPos, new Quaternion());
             this.asteroids.Add(asteroid);
         }
     }
