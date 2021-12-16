@@ -9,13 +9,18 @@ namespace Control
 {
     public class SceneChanger : MonoBehaviour
     {
+        
+        [SerializeField] private GameObject statScreenPrefabNonStatic;
         public static event EventHandler<SceneChangedEventArgs> SceneChangedEvent;
         public static event EventHandler InGameButtonClickedEvent;
 
+        private static GameObject statScreenPrefab;
         public void Start()
         {
             var args = new SceneChangedEventArgs { NewScene = Scene.Build};
             SceneChangedEvent?.Invoke(null, args);
+
+            statScreenPrefab = statScreenPrefabNonStatic;
         }
 
         public static void LoadBuildingScene()
@@ -56,7 +61,6 @@ namespace Control
         public static void LoadStatScreen()
         {
             Time.timeScale = 0;
-            var statScreenPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menus/StatScreen.prefab");
             Instantiate(statScreenPrefab);
             
             var args = new SceneChangedEventArgs { NewScene = Scene.Menu};
