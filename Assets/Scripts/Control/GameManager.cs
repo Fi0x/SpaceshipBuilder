@@ -30,6 +30,7 @@ namespace Control
         private int _level = 0;
     
         public static event EventHandler<LevelCompletedEventArgs> LevelCompletedEvent;
+        public static event EventHandler SpaceShipReloadedEvent;
         
         public static GameManager Instance { get; private set; }
         public GameObject Menu { get; set; }
@@ -64,15 +65,17 @@ namespace Control
             Running = false;
 
             if (!won)
+            {
                 this._level = 0;
+                InventoryTracker.Instance.Init();
+            }
             else
+            {
                 this._level++;
-                var inventoryTracker = this.gameObject.GetComponentInChildren<InventoryTracker>();
-                if (inventoryTracker._inventory["Weapon0"] == 0 &&
-                    inventoryTracker._inventory["Weapon1"] == 0 &&
-                    inventoryTracker._inventory["Weapon2"] == 0) {
-                inventoryTracker.AddGun(0);
-                }
+                var tracker = InventoryTracker.Instance;
+                if (tracker.Inventory["Weapon0"] == 0 && tracker.Inventory["Weapon1"] == 0 && tracker.Inventory["Weapon2"] == 0) 
+                    tracker.AddGun(0);
+            }
 
             var eventArgs = new LevelCompletedEventArgs
             {
@@ -87,6 +90,18 @@ namespace Control
         {
             this.Ship = ship;
             this.ShipScript = ship.GetComponent<Spaceship>();
+        }
+
+        public void ResetShip()
+        {
+            Destroy(this.Ship);
+            
+            var spaceShip = Instantiate(Startup.Instance.spaceshipPrefab);
+            DontDestroyOnLoad(spaceShip);
+            this.Ship = spaceShip;
+
+            SpaceShipReloadedEvent?.Invoke(null, null);
+            Debug.Log("Spaceship reloaded");
         }
 
         public Vector3 GetBackgroundMovement()
