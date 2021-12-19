@@ -22,7 +22,6 @@ namespace Control
 
         private void Start()
         {
-            this.title.text = StatTracker.Instance.PlayerWon ? "You won!" : "Game Over";
             this.destroyedAsteroidsValue.text = StatTracker.Instance.DestroyedAsteroids.ToString();
             this.lostShipPartsValue.text = StatTracker.Instance.LostShipParts.ToString();
             this.destroyedEnemiesValue.text = StatTracker.Instance.DestroyedEnemies.ToString();

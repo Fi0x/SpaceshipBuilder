@@ -170,4 +170,4 @@ MonoBehaviour:
   spaceshipPrefab: {fileID: 7087007523427068330, guid: 9c68055da6d7f884f91e670d09df59c3, type: 3}
   menuPrefab: {fileID: 6396655558379594295, guid: c91756cfe99101f4eb49e93c3d9f4792, type: 3}
   buttonsPrefab: {fileID: 5695507141949081350, guid: 7170886ced46dd44f9f50d7260eae5f7, type: 3}
-  itemInventoryPrefab: {fileID: 3604404376979540267, guid: 484d03fe908e4ed469cc4a5684604113, type: 3}
+  itemInventoryPrefab: {fileID: 3604404376979540267, guid: 3e9f7c48c6ca55c49b1fa0a990aabd1a, type: 3}

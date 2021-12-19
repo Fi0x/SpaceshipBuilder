@@ -81,7 +81,7 @@ namespace Control
             };
             LevelCompletedEvent?.Invoke(null, eventArgs);
             
-            SceneChanger.LoadStatScreen();
+            SceneChanger.LoadStatScreen(won);
         }
         public void InitShip(GameObject ship)
         {

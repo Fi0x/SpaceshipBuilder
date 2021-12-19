@@ -10,17 +10,20 @@ namespace Control
     public class SceneChanger : MonoBehaviour
     {
         
-        [SerializeField] private GameObject statScreenPrefabNonStatic;
+        [SerializeField] private GameObject VictoryScreenPrefabNonStatic;
+        [SerializeField] private GameObject GameOverScreenPrefabNonStatic;
         public static event EventHandler<SceneChangedEventArgs> SceneChangedEvent;
         public static event EventHandler InGameButtonClickedEvent;
 
-        private static GameObject statScreenPrefab;
+        private static GameObject victoryScreenPrefab;
+        private static GameObject gameOverScreenPrefab;
         public void Start()
         {
             var args = new SceneChangedEventArgs { NewScene = Scene.Build};
             SceneChangedEvent?.Invoke(null, args);
 
-            statScreenPrefab = statScreenPrefabNonStatic;
+            victoryScreenPrefab = VictoryScreenPrefabNonStatic;
+            gameOverScreenPrefab = GameOverScreenPrefabNonStatic;
         }
 
         public static void LoadBuildingScene()
@@ -57,11 +60,16 @@ namespace Control
             var args = new SceneChangedEventArgs { NewScene = Scene.Flight};
             SceneChangedEvent?.Invoke(null, args);
         }
-        
-        public static void LoadStatScreen()
+
+        public static void LoadStatScreen(bool won)
         {
             Time.timeScale = 0;
-            Instantiate(statScreenPrefab);
+            if(won)
+                Instantiate(victoryScreenPrefab);
+            else
+            {
+                Instantiate(gameOverScreenPrefab);
+            }
             
             var args = new SceneChangedEventArgs { NewScene = Scene.Menu};
             SceneChangedEvent?.Invoke(null, args);
