@@ -56,7 +56,7 @@ namespace BuildingScripts
             var part = Instantiate(this.partPrefab, this._gmInventory.transform, true);
             this._currentChild = part;
             part.transform.position = this.transform.position;
-            part.transform.localScale *= 0.8f;
+            part.transform.localScale *= 0.7f;
             part.GetComponent<SpaceshipPart>().OriginalInventory = this.gameObject;
 
             this.CurrentChild = part.GetComponent<DragAndDrop>();

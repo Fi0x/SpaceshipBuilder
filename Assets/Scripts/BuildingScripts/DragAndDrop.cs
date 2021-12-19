@@ -70,7 +70,7 @@ namespace BuildingScripts
             if (SceneManager.GetActiveScene().name == "FlyingScene") return;
             if (!this._movedBefore)
             {
-                this.transform.localScale *= 1.2f;
+                this.transform.localScale *= 1.37f;
                 this._movedBefore = true;
             }
 

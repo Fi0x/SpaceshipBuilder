@@ -12,7 +12,7 @@ public class InventoryTracker : MonoBehaviour
         _inventory.Add("Body1", 4);
         _inventory.Add("Body2", 2);
         _inventory.Add("Body3", 0);
-        _inventory.Add("Body4", 0);
+        _inventory.Add("Body4", 1);
         _inventory.Add("Body5", 0);
         
         _inventory.Add("Weapon0", 2);
